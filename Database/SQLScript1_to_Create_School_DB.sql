@@ -15,6 +15,7 @@ CREATE TABLE Parents(
 	PhoneNumber NVARCHAR(15),
 	Email NVARCHAR(100),
 	ChildrenInSchool INT
+<<<<<<< Updated upstream
 );-- we need to alter this table with address ( adding addres as a forgin key) 
 =======
   ParentsID INT PRIMARY KEY IDENTITY(1,1),
@@ -92,11 +93,10 @@ CREATE TABLE Students(
   CONSTRAINT FK_Student_Parent FOREIGN KEY (ParentId)
   REFERENCES Parents(ParentsID)
 >>>>>>> 23820c2429b2110b073fdd596eb903e842167357
+=======
+>>>>>>> Stashed changes
 );
-
-ALTER TABLE Students
-ADD CONSTRAINT FK_Students_Location FOREIGN KEY (LocationId) 
-REFERENCES Locations(LocationId);
+GO
 
 <<<<<<< HEAD
 
@@ -116,8 +116,8 @@ GO
 
 CREATE TABLE Locations(
 	LocationId INT PRIMARY KEY IDENTITY(9,4),
-	CountryId NOT NULL,
-	CityId NOT NULL,
+	CountryId INT NOT NULL,
+	CityId INT NOT NULL,
 	Street VARCHAR(50) NOT NULL, 
 	BuildingNo VARCHAR(30) NOT NULL,
 
@@ -127,15 +127,33 @@ CREATE TABLE Locations(
 	CONSTRAINT FK_Location_City FOREIGN KEY (CityId)
 	REFERENCES Cities(CityId)
 );
+<<<<<<< Updated upstream
 =======
 >>>>>>> 23820c2429b2110b073fdd596eb903e842167357
+=======
+GO
+>>>>>>> Stashed changes
 
+ALTER TABLE Parents
+ADD CONSTRAINT FK_Parents_Location FOREIGN KEY (LocationId)
+REFERENCES Locations(LocationId);
+GO
 
---this alter statement for who created the table previously 
-ALTER TABLE Locations ADD culumn CountryCode FOREIGN KEY (CountryCode) REFERENCES Countries(CountryCode);
-ALTER TABLE Locations ADD culumn CityCode FOREIGN KEY (CityCode) REFERENCES Cities(CityCode);
-ALTER TABLE Locations ADD culumn PersonId FOREIGN KEY (PersonId) REFERENCES Person(PersonId);
+CREATE TABLE Students(
+	StudentsId INT PRIMARY KEY IDENTITY(1,1),
+	FirstName VARCHAR(50) NOT NULL,
+	LastName VARCHAR(50) NOT NULL,
+	DateOfBirth DATE,
+	LocationId INT NOT NULL,
+	ParentId INT NOT NULL,
 
+	CONSTRAINT FK_Student_Parent FOREIGN KEY (ParentId)
+	REFERENCES Parents(ParentsID)
+);
+
+ALTER TABLE Students
+ADD CONSTRAINT FK_Students_Location FOREIGN KEY (LocationId) 
+REFERENCES Locations(LocationId);
 
 
 CREATE TABLE Courses (
@@ -147,9 +165,6 @@ CREATE TABLE Courses (
     TeacherID INT NULL
 );
 
-ALTER TABLE Courses
-ADD CONSTRAINT FK_Course_Teacher FOREIGN KEY(TeacherId)
-REFERENCES Teachers(TeacherId);
 
 CREATE TABLE Teachers (
     TeacherId INT PRIMARY KEY IDENTITY(1,1),
@@ -179,9 +194,14 @@ ADD CONSTRAINT FK_Teachers_Location FOREIGN KEY (LocationId)
 REFERENCES Locations(LocationId);
 
 ALTER TABLE Courses
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 ADD CONSTRAINT FK_Course_Teacher FOREIGN KEY (TeacherID)
 REFERENCES Teachers(ID);
+=======
+ADD CONSTRAINT FK_Course_Teacher FOREIGN KEY(TeacherId)
+REFERENCES Teachers(TeacherId);
+>>>>>>> Stashed changes
 
 
 CREATE TABLE StudentGrades(
@@ -248,7 +268,6 @@ CREATE TABLE Employees (
 	Department NVARCHAR(50),
 	HireDate DATE,
 	Salary DECIMAL(10,2),
-	--Status NVARCHAR(20),
 	SocialStatus NVARCHAR(50) CHECK (SocialStatus IN ('Single', 'Married'))
 =======
   EmployeeId INT PRIMARY KEY IDENTITY(1,1),
@@ -333,6 +352,7 @@ CREATE TABLE  StudentCouseEnrollment(
 
 
 ALTER TABLE Courses
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 ADD CurriculumID INT NULL;
 
@@ -346,6 +366,13 @@ ALTER TABLE Courses
 ADD CONSTRAINT FK_Courses_Curriculum
 FOREIGN KEY (CurriculumId)
 >>>>>>> 23820c2429b2110b073fdd596eb903e842167357
+=======
+ADD CurriculumId INT NULL;
+
+ALTER TABLE Courses
+ADD CONSTRAINT FK_Courses_Curriculum
+FOREIGN KEY (CurriculumId)
+>>>>>>> Stashed changes
 REFERENCES Curriculum(Id);
 
 ALTER TABLE Activities 
@@ -353,6 +380,7 @@ ADD SupervisorId INT NULL;
 
 ALTER TABLE Activities
 ADD CONSTRAINT FK_Activities_Supervisor
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 FOREIGN KEY (SupervisorID)
 REFERENCES Employees(EmployeeId);
@@ -361,3 +389,7 @@ FOREIGN KEY (SupervisorId)
 REFERENCES Employees(EmployeeId);
 
 >>>>>>> 23820c2429b2110b073fdd596eb903e842167357
+=======
+FOREIGN KEY (SupervisorId)
+REFERENCES Employees(EmployeeId);
+>>>>>>> Stashed changes
