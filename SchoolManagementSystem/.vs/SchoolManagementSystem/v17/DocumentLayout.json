@@ -3,8 +3,36 @@
   "WorkspaceRootPath": "A:\\source\\Electronic-School\\SchoolManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\gradesentryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\gradesentryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\coursemanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\coursemanagementform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\employeeform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\employeeform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\parentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\parentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\teacherform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\teacherform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\teacherform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\teacherform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\studentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\studentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\forms\\studentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|solutionrelative:forms\\studentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C7AC5700-AE0B-48F2-824F-9A55C83F5055}|SchoolManagementSystem.csproj|a:\\source\\electronic-school\\schoolmanagementsystem\\schoolmanagementsystem.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
@@ -18,28 +46,113 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GradesEntryForm.cs [Design]",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\GradesEntryForm.cs",
+              "RelativeDocumentMoniker": "Forms\\GradesEntryForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\GradesEntryForm.cs [Design]",
+              "RelativeToolTip": "Forms\\GradesEntryForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:26:44.468Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "CourseManagementForm.cs [Design]",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\CourseManagementForm.cs",
+              "RelativeDocumentMoniker": "Forms\\CourseManagementForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\CourseManagementForm.cs [Design]",
+              "RelativeToolTip": "Forms\\CourseManagementForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:26:20.193Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmployeeForm.cs [Design]",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\EmployeeForm.cs",
+              "RelativeDocumentMoniker": "Forms\\EmployeeForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\EmployeeForm.cs [Design]",
+              "RelativeToolTip": "Forms\\EmployeeForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:25:38.157Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ParentForm.cs [Design]",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\ParentForm.cs",
+              "RelativeDocumentMoniker": "Forms\\ParentForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\ParentForm.cs [Design]",
+              "RelativeToolTip": "Forms\\ParentForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:25:18.826Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TeacherForm.cs",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\TeacherForm.cs",
+              "RelativeDocumentMoniker": "Forms\\TeacherForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\TeacherForm.cs",
+              "RelativeToolTip": "Forms\\TeacherForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:24:34.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TeacherForm.cs [Design]",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\TeacherForm.cs",
+              "RelativeDocumentMoniker": "Forms\\TeacherForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\TeacherForm.cs [Design]",
+              "RelativeToolTip": "Forms\\TeacherForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:24:31.97Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StudentForm.cs",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\StudentForm.cs",
+              "RelativeDocumentMoniker": "Forms\\StudentForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\StudentForm.cs",
+              "RelativeToolTip": "Forms\\StudentForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:06:08.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "SchoolManagementSystem",
               "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
               "RelativeDocumentMoniker": "SchoolManagementSystem.csproj",
               "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
               "RelativeToolTip": "SchoolManagementSystem.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-25T19:47:36.432Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T19:47:36.432Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Form1.cs [Design]",
-              "RelativeToolTip": "Form1.cs [Design]",
+              "DocumentIndex": 7,
+              "Title": "StudentForm.cs [Design]",
+              "DocumentMoniker": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\StudentForm.cs",
+              "RelativeDocumentMoniker": "Forms\\StudentForm.cs",
+              "ToolTip": "A:\\source\\Electronic-School\\SchoolManagementSystem\\Forms\\StudentForm.cs [Design]",
+              "RelativeToolTip": "Forms\\StudentForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-25T19:46:31.727Z",
               "EditorCaption": " [Design]"
