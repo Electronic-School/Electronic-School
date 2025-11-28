@@ -4005,19 +4005,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\my computer\\.nuget\\packages\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\my computer\\Desktop\\Electronic-School\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
+      "projectUniqueName": "A:\\source\\Electronic-School\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
       "projectName": "SchoolManagementSystem",
-      "projectPath": "C:\\Users\\my computer\\Desktop\\Electronic-School\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\my computer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\my computer\\Desktop\\Electronic-School\\SchoolManagementSystem\\obj\\",
+      "projectPath": "A:\\source\\Electronic-School\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "A:\\source\\Electronic-School\\SchoolManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\my computer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4079,7 +4079,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
