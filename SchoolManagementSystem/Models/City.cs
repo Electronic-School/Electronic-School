@@ -11,10 +11,6 @@ namespace SchoolManagementSystem.Models
 {
     public class City
     {
-        public int CITYID { get; set; } // khalid
-        public string CITYCODE { get; set; } = string.Empty;// khalid
-        public string CITYNAME { get; set; } = string.Empty;// khalid
-      
         [Key]
         public int CityId { get; set; }
 
