@@ -7,9 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagementSystem.Models
-{
+
     public class Country
-    {
+    {        
+        public int COUNTRYID { get; set; } // khalid
+        public string CountryCODE { get; set; } = string.Empty;// khalid
+
+        public string CountryName { get; set; } = string.Empty;// khalid
+
         [Key]
         public int CountryID { get; set; }
 
