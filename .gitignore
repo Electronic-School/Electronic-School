@@ -1,0 +1,57 @@
+# Visual Studio cache
+.vs/
+.vscode/
+
+# Build folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.cache
+*.db
+*.db-shm
+*.db-wal
+
+# VS Design generated
+*.vsidx
+*.v9.bin
+
+# Backup files
+*.bak
+*.tmp
+
+# NuGet packages
+packages/
+
+# Auto-generated files
+*.Designer.cs
+.Generated.
+*.AssemblyInfo.cs
+
+# Publish files
+*.publish.xml
+
+# Logs
+*.log
+
+# Database local files
+*.mdf
+*.ldf
+
+# Ignore Test Results
+TestResults/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Debug folder
+Debug/
+Release/
+
+# Misc
+*.ncrunchsolution
+*.ncrunchproject
+*.orig
