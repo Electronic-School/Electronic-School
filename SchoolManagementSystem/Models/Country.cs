@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagementSystem.Models
-{
+
     public class Country
-    {
+    {        
         [Key]
         public int CountryID { get; set; }
 

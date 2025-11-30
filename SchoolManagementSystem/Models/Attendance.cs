@@ -14,8 +14,6 @@ namespace SchoolManagementSystem.Models
 
         public required int PersonId { get; set; }
         
-        public required DateTime Date { get; set; }
-
         [StringLength(20)]
         public required string PersonType { get; set; } // CHECK ('Student','Teacher','Emp')
 

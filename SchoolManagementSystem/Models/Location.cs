@@ -1,3 +1,4 @@
+﻿using SchoolManagementSystem.Models;
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ namespace SchoolManagementSystem.Models
 {
     public class Location
     {
+        
         [Key]
         public int LocationId { get; set; }
 
