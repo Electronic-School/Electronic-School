@@ -24,12 +24,12 @@ namespace SchoolManagementSystem.Models
 
         public DateTime? EndDate { get; set; }
 
-        public int? TeacherID { get; set; }
+        public required int TeacherId { get; set; }
 
-        [ForeignKey("TeacherID")]
+        [ForeignKey("TeacherId")]
         public required Teacher Teacher { get; set; }
 
-        public int? CurriculumId { get; set; }
+        public required int CurriculumId { get; set; }
 
         [ForeignKey("CurriculumId")]
         public required Curriculum Curriculum { get; set; }

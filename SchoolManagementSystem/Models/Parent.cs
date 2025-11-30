@@ -11,6 +11,7 @@ namespace SchoolManagementSystem.Models
 {
     public class Parent
     {
+       
         [Key]
         public int ParentsID { get; set; }
 

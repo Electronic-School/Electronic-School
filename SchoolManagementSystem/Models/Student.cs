@@ -1,3 +1,5 @@
+
+
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +12,7 @@ namespace SchoolManagementSystem.Models
 {
     public class Student
     {
+      
         [Key]
         public int StudentsId { get; set; }
 
@@ -35,7 +38,7 @@ namespace SchoolManagementSystem.Models
 
         public ICollection<StudentGrade> Grades { get; set; } = new List<StudentGrade>();
         
-        public ICollection<StudentCouseEnrollment> CourseEnrollments { get; set; } = new List<StudentCouseEnrollment>();
+        public ICollection<StudentCouseEnrollment> StudentEnrollments { get; set; } = new List<StudentCouseEnrollment>();
 
     }
 }

@@ -10,7 +10,7 @@ using SchoolManagementSystem.Models;
 namespace SchoolManagementSystem.Models
 {
     public class City
-    {
+    {      
         [Key]
         public int CityId { get; set; }
 
