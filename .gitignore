@@ -1,0 +1,27 @@
+# Visual Studio cache
+.vs/
+.vscode/
+
+# Build folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.cache
+*.db
+*.db-shm
+*.db-wal
+
+# VS Design generated
+*.vsidx
+*.v9.bin# Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+*.db
+*.db-shm
+*.db-wal
+bin/
+obj/
