@@ -1,89 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace SchoolManagementSystem.Controls
 {
-    public partial class DashboardControl : UserControl
+    partial class DashboardControl : UserControl
     {
-        public DashboardControl()
+        private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel pnlMetrics;
+        // تم إزالة تعريفات pnlStudents, pnlTeachers, pnlCourses, pnlLocations
+        // لأنها الآن يتم إنشاؤها ديناميكياً في ملف DashboardControl.cs
+
+        protected override void Dispose(bool disposing)
         {
-            InitializeComponent();
-            LoadDashboardData();
-            InitializeComponent(EventArgs.Empty);   
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
-        private void InitializeComponent(EventArgs e)
+        #region Component Designer generated code
+
+        private void InitializeComponent()
         {
-            this.SuspendLayout();
-            this.BackColor = Color.FromArgb(245, 245, 245);
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.pnlMetrics = new System.Windows.Forms.Panel();
+
+            // تم إزالة تهيئة pnlStudents, pnlTeachers, pnlCourses, pnlLocations
+
+            // Dashboard Control Setup
+            this.Name = "DashboardControl";
+            this.Size = new System.Drawing.Size(1200, 700);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.Padding = new Padding(20);
+            this.Load += new System.EventHandler(this.DashboardControl_Load); // ربط حدث التحميل
 
-            // Title Label
-            Label lblTitle = new Label();
-            lblTitle.Text = "Welcome to the School Management Dashboard";
-            lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(40, 40, 40);
-            lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(20, 20);
-            this.Controls.Add(lblTitle);
+            // lblTitle
+            this.lblTitle.Text = "Dashboard - About The System";
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(20, 20);
+            this.Controls.Add(this.lblTitle);
 
-            // Subtitle
-            Label lblSubtitle = new Label();
-            lblSubtitle.Text = "Quick overview of the system metrics.";
-            lblSubtitle.Font = new Font("Segoe UI", 12F);
-            lblSubtitle.ForeColor = Color.Gray;
-            lblSubtitle.AutoSize = true;
-            lblSubtitle.Location = new Point(20, 70);
-            this.Controls.Add(lblSubtitle);
+            // pnlMetrics (Container for Stat Cards)
+            // هذا هو العنصر الوحيد الذي سيتم تهيئته هنا لاحتواء البطاقات ديناميكياً
+            this.pnlMetrics.Location = new System.Drawing.Point(20, 80);
+            this.pnlMetrics.Size = new System.Drawing.Size(1160, 150);
+            this.pnlMetrics.BackColor = System.Drawing.Color.Transparent;
+            this.pnlMetrics.Padding = new Padding(0);
+            this.Controls.Add(this.pnlMetrics);
 
-            // Info Panel (Placeholder for Metrics)
-            Panel infoPanel = new Panel();
-            infoPanel.Size = new Size(800, 200);
-            infoPanel.Location = new Point(20, 120);
-            infoPanel.BackColor = Color.White;
-            infoPanel.BorderStyle = BorderStyle.FixedSingle;
-            infoPanel.Padding = new Padding(15);
-
-            Label lblInfo = new Label();
-            lblInfo.Name = "metricsLabel"; // Important for LoadDashboardData to find it
-            lblInfo.Text = "System Status: Online\nData Last Updated: [Fetching...]";
-            lblInfo.Font = new Font("Segoe UI", 14F);
-            lblInfo.Dock = DockStyle.Fill;
-            lblInfo.TextAlign = ContentAlignment.TopLeft;
-            infoPanel.Controls.Add(lblInfo);
-
-            this.Controls.Add(infoPanel);
+            // تم إزالة جميع منطق FlowLayoutPanel و createCard و Instantiate Cards
 
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.pnlMetrics.ResumeLayout(false);
+
         }
 
-        private void LoadDashboardData()
-        {
-            // Find the Label inside the Info Panel to display metrics
-            var metricLabelControl = this.Controls.Find("metricsLabel", true);
-            if (metricLabelControl.Length > 0 && metricLabelControl[0] is Label infoLabel)
-            {
-                // Placeholder values for demonstration. 
-                // In a complete system, these would be retrieved using the DbContext.
-                int studentCount = 1250;
-                int teacherCount = 65;
-                int courseCount = 48;
-
-                infoLabel.Text = $"System Status: Online\n" +
-                                 $"Data Last Updated: {DateTime.Now:yyyy-MM-dd HH:mm:ss}\n\n" +
-                                 $"Total Students: {studentCount}\n" +
-                                 $"Total Teachers: {teacherCount}\n" +
-                                 $"Active Courses: {courseCount}";
-            }
-        }
-
+        #endregion
     }
 }

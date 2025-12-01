@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using SchoolManagementSystem.Models;
+using SchoolManagementSystem.Data;
 
 namespace SchoolManagementSystem.Controls
 {
@@ -52,7 +53,7 @@ namespace SchoolManagementSystem.Controls
             try
             {
                 using var db = new SchoolDbContext();
-                var student = db.Students.FirstOrDefault(s => s.STUDENTID == _currentStudentId);
+                var student = db.Students.FirstOrDefault(s => s.StudentsId == _currentStudentId);
 
                 if (student == null)
                 {
@@ -146,7 +147,7 @@ namespace SchoolManagementSystem.Controls
             try
             {
                 using var db = new SchoolDbContext();
-                var student = db.Students.FirstOrDefault(s => s.STUDENTID == _currentStudentId);
+                var student = db.Students.FirstOrDefault(s => s.StudentsId == _currentStudentId);
 
                 if (student == null)
                 {
@@ -157,9 +158,9 @@ namespace SchoolManagementSystem.Controls
                 }
 
                 // تحديث البيانات
-                student.FIRSTNAME = txtFirstName.Text.Trim();
-                student.LASTNAME = txtLastName.Text.Trim();
-                student.LOCATIONID = int.Parse(txtLocationId.Text);
+                student.FirstName = txtFirstName.Text.Trim();
+                student.LastName = txtLastName.Text.Trim();
+                student.LocationId = int.Parse(txtLocationId.Text);
                 student.ParentId = int.Parse(txtParentId.Text);
 
                 db.SaveChanges();

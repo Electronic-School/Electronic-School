@@ -31,6 +31,9 @@
     <Compile Update="Controls\ListTeachersControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\LocationsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\StudentListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -49,7 +52,7 @@
     <Compile Update="Forms\ParentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\SchoolManagement.cs">
+    <Compile Update="Forms\SchoolManagementForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\StudentForm.cs">

@@ -11,6 +11,8 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using SchoolManagementSystem.Models;
+using SchoolManagementSystem.Data;
+using SchoolManagementSystem.Forms;
 
 
 namespace SchoolManagementSystem.Controls
@@ -39,7 +41,7 @@ namespace SchoolManagementSystem.Controls
             try
             {
                 using var db = new SchoolDbContext();
-                var teacher = new Teacher
+                Teacher teacher = new ()
                 {
                     FirstName = txtFirstName.Text.Trim(),
                     LastName = txtLastName.Text.Trim(),
@@ -51,7 +53,8 @@ namespace SchoolManagementSystem.Controls
                     NumberOfVacations = int.Parse(txtNumberOfVacations.Text),
                     PhoneNumber = txtPhoneNumber.Text.Trim(),
                     Email = txtEmail.Text.Trim(),
-                    SocialStatus = cmbSocialStatus.SelectedItem?.ToString()
+                    SocialStatus = cmbSocialStatus.SelectedItem?.ToString(),
+                    //LocationId = int.Parse(txtLocationId.Text)
                 };
 
                 db.Teachers.Add(teacher);
@@ -166,7 +169,7 @@ namespace SchoolManagementSystem.Controls
             }
 
             // السماح بنقطة واحدة فقط
-            if (e.KeyChar == '.' && (sender as TextBox).Text.IndexOf('.') > -1)
+            if (e.KeyChar == '.' && ((TextBox)sender).Text.IndexOf('.') > -1)
             {
                 e.Handled = true;
             }
