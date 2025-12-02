@@ -2,7 +2,6 @@ using SchoolSystem.Data;
 using SchoolSystem.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Tools;
 using System.Threading.Tasks;
 namespace SchoolSystem
 {
@@ -11,22 +10,40 @@ namespace SchoolSystem
         public Form1()
         {
             InitializeComponent();
+            TestDatabaseConnection();
         }
-
-        private async Task Form1_Load(object sender, EventArgs e)
+        private void TestDatabaseConnection()
         {
-            using (var context = new SchoolDbContext())
-            {
-                //var n = db.Countries.Count();
-                await db.Database.EnsureCreatedAsync();
-                var country  = await context.Countries.Count<>();
-                //foreach(var country in Countries)
-                //{
-                //    //System.Console.WriteLine
-                //}
-                MessageBox.Show("Connection Successfull, number of countries: "+n, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
 
+            string connectionString = "Server=.;Database=SchoolManagementDB;Integrated Security=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<SchoolDbContext>();
+                optionsBuilder.UseSqlServer(connectionString);
+
+                using (var context = new SchoolDbContext(optionsBuilder.Options))
+                {
+
+                    context.Database.EnsureCreated();
+
+                    int countryCount = context.Countries.Count();
+
+                    MessageBox.Show(
+                        $" Connected successfully to DB!\n Number of countries: {countryCount}",
+                        "Connection Successeded",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(
+                    $"Fialed connecting to DB:\n{ex.Message}",
+                    "Fatal Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
     }
 }
