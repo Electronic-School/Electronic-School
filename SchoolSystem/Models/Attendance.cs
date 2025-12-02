@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SchoolSystem.Models
+{
+    public class Attendance
+    {
+        [Key]
+        public int AttendanceId { get; set; }
+
+        public required int PersonId { get; set; }
+
+        [StringLength(20)]
+        public required string PersonType { get; set; } // CHECK ('Student','Teacher','Emp')
+
+        [Required]
+        public required DateTime AttendanceDate { get; set; }
+
+        [StringLength(20)]
+        public required string AttendanceStatus { get; set; } // CHECK ('Present', 'Absent', 'Late', 'Excused')
+    }
+}
