@@ -65,14 +65,14 @@ namespace SchoolManagementSystem.Data
                 .HasKey(sg => new { sg.StudentId, sg.CourseId , sg.ExamType });
 
 
-            // تحديد العلاقة بين StudentGrade و Course
+            // relation between StudentGrade and Course
             modelBuilder.Entity<StudentGrade>()
                 .HasOne(sg => sg.Course)
                 .WithMany(c => c.Grades)
                 .HasForeignKey(sg => sg.CourseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // تحديد العلاقة بين StudentGrade و Student
+            //  relation between StudentGrade and Student
             modelBuilder.Entity<StudentGrade>()
                 .HasOne(sg => sg.Student)
                 .WithMany(s => s.Grades)

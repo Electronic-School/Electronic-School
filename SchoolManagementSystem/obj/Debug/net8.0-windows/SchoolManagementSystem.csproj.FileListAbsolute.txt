@@ -161,3 +161,4 @@ A:\source\Electronic-School\SchoolManagementSystem\obj\Debug\net8.0-windows\Scho
 A:\source\Electronic-School\SchoolManagementSystem\obj\Debug\net8.0-windows\SchoolManagementSystem.Forms.AddEditCourseForm.resources
 A:\source\Electronic-School\SchoolManagementSystem\obj\Debug\net8.0-windows\SchoolManagementSystem.Forms.SchoolManagement.resources
 A:\source\Electronic-School\SchoolManagementSystem\obj\Debug\net8.0-windows\SchoolManagementSystem.Controls.BaseUserControl.resources
+A:\source\Electronic-School\SchoolManagementSystem\obj\Debug\net8.0-windows\SchoolManagementSystem.Controls.LocationsControl.resources

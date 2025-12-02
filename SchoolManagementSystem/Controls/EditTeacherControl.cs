@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SchoolManagementSystem.Models;
+using SchoolManagementSystem.Data;
 
 namespace SchoolManagementSystem.Controls
 {
@@ -57,7 +58,7 @@ namespace SchoolManagementSystem.Controls
             try
             {
                 using var db = new SchoolDbContext();
-                var teacher = db.Teachers.FirstOrDefault(t => t.ID == _currentTeacherId);
+                var teacher = db.Teachers.FirstOrDefault(t => t.TeacherId == _currentTeacherId);
 
                 if (teacher == null)
                 {
@@ -202,7 +203,7 @@ namespace SchoolManagementSystem.Controls
             try
             {
                 using var db = new SchoolDbContext();
-                var teacher = db.Teachers.FirstOrDefault(t => t.ID == _currentTeacherId);
+                var teacher = db.Teachers.FirstOrDefault(t => t.TeacherId == _currentTeacherId);
 
                 if (teacher == null)
                 {
