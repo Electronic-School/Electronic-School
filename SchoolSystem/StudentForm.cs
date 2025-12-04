@@ -44,7 +44,12 @@ namespace SchoolSystem
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            ShowControl(new  UpdateStudentControl());
+            ShowControl(new UpdateStudentControl());
+        }
+
+        private void InitializeComponent()
+        {
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
