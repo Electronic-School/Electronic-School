@@ -11,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SchoolSystem.Controls
 {
-    public partial class AddLocationControl : UserControl
+    public partial class AddLocationControl1 : UserControl
     {
         // ألوان التصميم
         private readonly Color PrimaryColor = Color.FromArgb(41, 128, 185); // أزرق داكن

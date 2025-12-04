@@ -9,6 +9,10 @@ namespace SchoolSystem
 {
     public partial class Form1 : Form
     {
+        //private Panel panelTopNav;
+        //private Panel panelSidebar;
+        //private Panel panelContent;
+
         public Form1()
         {
             InitializeComponent();
@@ -20,8 +24,6 @@ namespace SchoolSystem
             parentControl.ParentCreated += (parentId) =>
             {
                 MessageBox.Show($"Parent ID received: {parentId}", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Â‰« Ì„ﬂ‰ﬂ  Œ“Ì‰ parentId ›Ì «·›Ê—„ «·—∆Ì”Ì √Ê ›Ì ‰„Ê–Ã «·ÿ«·»
                 selectedParentId = parentId;
             };
 
@@ -96,10 +98,6 @@ namespace SchoolSystem
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
-
-                
-
-
             }
             catch (Exception ex)
             {
@@ -111,10 +109,9 @@ namespace SchoolSystem
             }
         }
 
-
-        private void InitializeComponent()
-        {
-
-        }
+        //private void InitializeComponent()
+        //{
+        //    // ...
+        //}
     }
 }

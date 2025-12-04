@@ -1,6 +1,7 @@
 //using Microsoft.Data.SqlClient;
 using SchoolSystem.Controls;
 using SchoolSystem.Data;
+using System.Security.Policy;
 
 namespace SchoolSystem
 {
@@ -19,6 +20,8 @@ namespace SchoolSystem
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new StudentForm());
+            //Application.Run(new Form1());
+            //Application.Run(new MDIMainFormAdministrationForm());
         }
     }
 }
