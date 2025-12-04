@@ -18,6 +18,8 @@ namespace SchoolSystem
         public StudentForm()
         {
             InitializeComponent();
+            ShowControl(new ShowAllStudentsControl());
+
         }
 
         private void ShowControl(UserControl control)

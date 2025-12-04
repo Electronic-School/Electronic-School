@@ -8,16 +8,26 @@ using System.Threading.Tasks;
 
 namespace SchoolSystem.Data
 {
-    public class SchoolDbContext: DbContext
+    public class SchoolDbContext : DbContext
     {
         private const string ConnectionString = "Server=.; Database=SchoolManagementDB; Trusted_Connection=True; Integrated Security=True; TrustServerCertificate=True; MultipleActiveResultSets=true;";
+
         public SchoolDbContext()
         {
         }
 
         public SchoolDbContext(DbContextOptions<SchoolDbContext> options)
-            :base(options ) 
+            : base(options)
         {
+        }
+
+        // إضافة هذه الدالة لحل مشكلتك
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
         }
 
         public DbSet<Student> Students { get; set; }
@@ -28,28 +38,24 @@ namespace SchoolSystem.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Curriculum> Curriculum { get; set; } // the best practice is the plural name (curriculums)
+        public DbSet<Curriculum> Curriculum { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<StudentCouseEnrollment> StudentCouseEnrollment { get; set; }
         public DbSet<StudentGrade> StudentGrades { get; set; }
         public DbSet<Attendance> Attendance { get; set; }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             // Add a student in a course (composite key)
             modelBuilder.Entity<StudentCouseEnrollment>()
                 .HasKey(sce => new { sce.StudentId, sce.CourseId });
 
-            //  Relation between StudentCouseEnrollment and Course
+            // Relation between StudentCouseEnrollment and Course
             modelBuilder.Entity<StudentCouseEnrollment>()
                .HasOne(sce => sce.Course)
                .WithMany(c => c.StudentEnrollments)
                .HasForeignKey(sce => sce.CourseId)
                .OnDelete(DeleteBehavior.Restrict);
-
 
             modelBuilder.Entity<StudentCouseEnrollment>()
                 .HasOne(sce => sce.Student)
@@ -57,12 +63,9 @@ namespace SchoolSystem.Data
                 .HasForeignKey(sce => sce.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
-
-            //Student's grades
+            // Student's grades
             modelBuilder.Entity<StudentGrade>()
                 .HasKey(sg => new { sg.StudentId, sg.CourseId, sg.ExamType });
-
 
             // relation between StudentGrade and Course
             modelBuilder.Entity<StudentGrade>()
@@ -71,48 +74,39 @@ namespace SchoolSystem.Data
                 .HasForeignKey(sg => sg.CourseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //  relation between StudentGrade and Student
+            // relation between StudentGrade and Student
             modelBuilder.Entity<StudentGrade>()
                 .HasOne(sg => sg.Student)
                 .WithMany(s => s.Grades)
                 .HasForeignKey(sg => sg.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
-            //Attendance
+            // Attendance
             modelBuilder.Entity<Attendance>()
                 .HasKey(a => new { a.PersonId, a.PersonType, a.AttendanceDate });
 
-
-            //Deleting 
-
+            // Location - Country
             modelBuilder.Entity<Location>()
                 .HasOne(l => l.Country)
                 .WithMany(c => c.Locations)
                 .HasForeignKey(l => l.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //Location - City
+            // Location - City
             modelBuilder.Entity<Location>()
                 .HasOne(l => l.City)
                 .WithMany(c => c.Locations)
                 .HasForeignKey(l => l.CityId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //Student - Location
+            // Student - Location
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Location)
                 .WithMany(l => l.Students)
                 .HasForeignKey(s => s.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
-            //Student - Parent
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.Parent)
-                .WithMany(p => p.Children)
-                .HasForeignKey(s => s.ParentId)
-                .OnDelete(DeleteBehavior.Restrict);
 
-            // Student - Parent
+            // Student - Parent (مكرر مرتين في الكود الأصلي - احذف أحدها)
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Parent)
                 .WithMany(p => p.Children)
@@ -136,10 +130,11 @@ namespace SchoolSystem.Data
             // Activity - Employee (Supervisor)
             modelBuilder.Entity<Activity>()
                 .HasOne(a => a.Supervisor)
-                .WithMany() // 
+                .WithMany()
                 .HasForeignKey(a => a.SupervisorId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
+
             // Course - Teacher
             modelBuilder.Entity<Course>()
                 .HasOne(c => c.Teacher)
@@ -154,10 +149,7 @@ namespace SchoolSystem.Data
                 .HasForeignKey(c => c.CurriculumId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
             base.OnModelCreating(modelBuilder);
-
         }
-
     }
 }
