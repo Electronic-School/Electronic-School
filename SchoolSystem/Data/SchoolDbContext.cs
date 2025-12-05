@@ -63,7 +63,22 @@ namespace SchoolSystem.Data
                 .HasForeignKey(sce => sce.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Student's grades
+
+            //  Student - StudentLevel
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.StudentLevel)
+                .WithMany(sl => sl.Students)
+                .HasForeignKey(s => s.LevelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //  Curriculum - StudentLevel
+            modelBuilder.Entity<Curriculum>()
+                .HasOne(c => c.StudentLevel)
+                .WithMany(sl => sl.Curriculums)
+                .HasForeignKey(c => c.LevelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //Student's grades
             modelBuilder.Entity<StudentGrade>()
                 .HasKey(sg => new { sg.StudentId, sg.CourseId, sg.ExamType });
 

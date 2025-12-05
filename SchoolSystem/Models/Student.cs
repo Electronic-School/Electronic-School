@@ -33,6 +33,12 @@ namespace SchoolSystem.Models
         [ForeignKey("ParentId")]
         public required Parent Parent { get; set; }
 
+        [Required]
+        public int LevelId { get; set; }
+
+        [ForeignKey("LevelId")]
+        public required StudentLevel StudentLevel { get; set; }
+
         public ICollection<StudentGrade> Grades { get; set; } = new List<StudentGrade>();
 
         public ICollection<StudentCouseEnrollment> StudentEnrollments { get; set; } = new List<StudentCouseEnrollment>();
