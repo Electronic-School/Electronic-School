@@ -1,20 +1,12 @@
 ﻿namespace SchoolSystem.Controls
 {
-    partial class TeacherGridUC
+    partial class ShowAllStudentsControl
     {
         private System.ComponentModel.IContainer components = null;
         private Panel pnlHeader;
         private Label lblTitle;
-        private DataGridView dgvTeachers;
+        private DataGridView dgvStudents;
 
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
-
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -24,32 +16,20 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
-
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-
-
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-
             pnlHeader = new Panel();
             lblTitle = new Label();
-            dgvTeachers = new DataGridView(); 
-
+            dgvStudents = new DataGridView();
             pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvTeachers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
             SuspendLayout();
-
             // 
             // pnlHeader
             // 
-            // استخدام الألوان والأبعاد الخاصة بـ ShowAllStudentsControl
             pnlHeader.BackColor = Color.FromArgb(41, 128, 185);
             pnlHeader.Controls.Add(lblTitle);
             pnlHeader.Dock = DockStyle.Top;
@@ -57,7 +37,6 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new Size(900, 70);
             pnlHeader.TabIndex = 0;
-
             // 
             // lblTitle
             // 
@@ -67,20 +46,19 @@
             lblTitle.Location = new Point(20, 20);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(268, 37);
-            // ✅ تغيير العنوان إلى المدرسين
-            lblTitle.Text = "👨‍🏫 All Teachers List";
-
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "👥 All Students List";
             // 
-            // dgvTeachers (كان اسمه dgvStudents)
+            // dgvStudents
             // 
-            dgvTeachers.AllowUserToAddRows = false;
-            dgvTeachers.AllowUserToDeleteRows = false;
+            dgvStudents.AllowUserToAddRows = false;
+            dgvStudents.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(236, 240, 241);
-            dgvTeachers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvTeachers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTeachers.BackgroundColor = Color.White;
-            dgvTeachers.BorderStyle = BorderStyle.None;
-            dgvTeachers.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvStudents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvStudents.BackgroundColor = Color.White;
+            dgvStudents.BorderStyle = BorderStyle.None;
+            dgvStudents.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(41, 128, 185);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -88,40 +66,44 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(41, 128, 185);
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvTeachers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvTeachers.ColumnHeadersHeight = 45;
+            dgvStudents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvStudents.ColumnHeadersHeight = 45;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dgvTeachers.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvTeachers.Dock = DockStyle.Fill;
-            dgvTeachers.EnableHeadersVisualStyles = false;
-            dgvTeachers.GridColor = Color.Black;
-            dgvTeachers.Location = new Point(0, 70);
-            dgvTeachers.Name = "dgvTeachers"; // ✅ تغيير الاسم البرمجي
-            dgvTeachers.ReadOnly = true;
-            dgvTeachers.RowHeadersVisible = false;
-            dgvTeachers.RowHeadersWidth = 51;
-            dgvTeachers.RowTemplate.Height = 40;
-            dgvTeachers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTeachers.Size = new Size(900, 610);
-            dgvTeachers.TabIndex = 1;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(230, 247, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvStudents.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvStudents.Dock = DockStyle.Fill;
+            dgvStudents.EnableHeadersVisualStyles = false;
+            dgvStudents.GridColor = Color.Black;
+            dgvStudents.Location = new Point(0, 70);
+            dgvStudents.Name = "dgvStudents";
+            dgvStudents.ReadOnly = true;
+            dgvStudents.RowHeadersVisible = false;
+            dgvStudents.RowHeadersWidth = 51;
+            dgvStudents.RowTemplate.Height = 40;
+            dgvStudents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvStudents.Size = new Size(900, 610);
+            dgvStudents.TabIndex = 1;
+            dgvStudents.CellContentClick += dgvStudents_CellContentClick;
             // 
-            // TeacherGridUC 
+            // ShowAllStudentsControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            Controls.Add(dgvTeachers);
+            Controls.Add(dgvStudents);
             Controls.Add(pnlHeader);
-            Name = "TeacherGridUC"; 
+            Name = "ShowAllStudentsControl";
             Size = new Size(900, 680);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvTeachers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).EndInit();
             ResumeLayout(false);
+
         }
-
-        #endregion
-
     }
 }

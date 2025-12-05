@@ -138,7 +138,7 @@
             this.btnAddLocation.Size = new System.Drawing.Size(120, 40);
             this.btnAddLocation.TabIndex = 5;
             this.btnAddLocation.Text = "إضافة الموقع";
-            this.btnAddLocation.UseVisualStyleBackColor = false;
+            this.btnAddLocation.UseVisualStyleBackColor = false;         
             this.btnAddLocation.Click += new System.EventHandler(this.btnAddLocation_Click);
             // 
             // btnClear
