@@ -14,7 +14,7 @@
         private Button btnDelete;
         private Label label1;
 
-        private void InitializeComponent()
+         private void InitializeComponent()
         {
             pnlHeader = new Panel();
             label1 = new Label();

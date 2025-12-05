@@ -22,6 +22,10 @@ namespace SchoolSystem.Models
         [StringLength(50)]
         public required string CityName { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public required string CountryCode { get; set; }
+
         public ICollection<Location> Locations { get; set; } = new List<Location>();
 
     }
