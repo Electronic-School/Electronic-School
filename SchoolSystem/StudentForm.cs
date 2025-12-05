@@ -49,11 +49,6 @@ namespace SchoolSystem
             ShowControl(new UpdateStudentControl());
         }
 
-        private void InitializeComponent()
-        {
-
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             ShowControl(new DeleteStudentControl());

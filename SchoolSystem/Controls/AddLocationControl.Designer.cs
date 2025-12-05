@@ -6,31 +6,32 @@
         private Panel pnlHeader;
         private Label lblTitle;
         private Panel pnlForm;
-        private TextBox txtCountry;
-        private TextBox txtCity;
-        private TextBox txtStreet;
-        private TextBox txtBuildingNo;
-        private Button btnAddLocation;
-        private Button btnClear;
-        private Label lblCountry;
-        private Label lblCity;
-        private Label lblStreet;
-        private Label lblBuildingNo;
-        private ToolTip toolTip;
-        private Label lblCountryError;
-        private Label lblCityError;
-        private Label lblStreetError;
-        private Label lblBuildingNoError;
         private Label lblStatus;
+        private Label lblBuildingNoError;
+        private Label lblStreetError;
+        private Label lblCityError;
+        private Label lblCountryError;
+        private Button btnClear;
+        private Button btnAddLocation;
+        private TextBox txtBuildingNo;
+        private TextBox txtStreet;
+        private TextBox txtCountry;
+        private Label lblBuildingNo;
+        private Label lblStreet;
+        private Label lblCity;
+        private Label lblCountry;
+        private ToolTip toolTip;
+        private ComboBox cmbCountry;
+        private ComboBox cmbCity;
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing && (components != null))
+        //    {
+        //        components.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         private void InitializeComponent()
         {
@@ -38,6 +39,8 @@
             pnlHeader = new Panel();
             lblTitle = new Label();
             pnlForm = new Panel();
+            cmbCity = new ComboBox();
+            cmbCountry = new ComboBox();
             lblStatus = new Label();
             lblBuildingNoError = new Label();
             lblStreetError = new Label();
@@ -47,8 +50,6 @@
             btnAddLocation = new Button();
             txtBuildingNo = new TextBox();
             txtStreet = new TextBox();
-            txtCity = new TextBox();
-            txtCountry = new TextBox();
             lblBuildingNo = new Label();
             lblStreet = new Label();
             lblCity = new Label();
@@ -66,7 +67,7 @@
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Margin = new Padding(3, 4, 3, 4);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(500, 58);
+            pnlHeader.Size = new Size(550, 58);
             pnlHeader.TabIndex = 0;
             // 
             // lblTitle
@@ -82,6 +83,8 @@
             // 
             // pnlForm
             // 
+            pnlForm.Controls.Add(cmbCity);
+            pnlForm.Controls.Add(cmbCountry);
             pnlForm.Controls.Add(lblStatus);
             pnlForm.Controls.Add(lblBuildingNoError);
             pnlForm.Controls.Add(lblStreetError);
@@ -91,8 +94,6 @@
             pnlForm.Controls.Add(btnAddLocation);
             pnlForm.Controls.Add(txtBuildingNo);
             pnlForm.Controls.Add(txtStreet);
-            pnlForm.Controls.Add(txtCity);
-            pnlForm.Controls.Add(txtCountry);
             pnlForm.Controls.Add(lblBuildingNo);
             pnlForm.Controls.Add(lblStreet);
             pnlForm.Controls.Add(lblCity);
@@ -102,9 +103,30 @@
             pnlForm.Margin = new Padding(3, 4, 3, 4);
             pnlForm.Name = "pnlForm";
             pnlForm.Padding = new Padding(30, 25, 30, 25);
-            pnlForm.Size = new Size(500, 567);
+            pnlForm.Size = new Size(550, 567);
             pnlForm.TabIndex = 1;
             pnlForm.Paint += pnlForm_Paint;
+            // 
+            // cmbCity
+            // 
+            cmbCity.Font = new Font("Segoe UI", 10F);
+            cmbCity.FormattingEnabled = true;
+            cmbCity.Location = new Point(180, 76);
+            cmbCity.Margin = new Padding(3, 4, 3, 4);
+            cmbCity.Name = "cmbCity";
+            cmbCity.Size = new Size(270, 31);
+            cmbCity.TabIndex = 2;
+            // 
+            // cmbCountry
+            // 
+            cmbCountry.Font = new Font("Segoe UI", 10F);
+            cmbCountry.FormattingEnabled = true;
+            cmbCountry.Location = new Point(180, 29);
+            cmbCountry.Margin = new Padding(3, 4, 3, 4);
+            cmbCountry.Name = "cmbCountry";
+            cmbCountry.Size = new Size(270, 31);
+            cmbCountry.TabIndex = 1;
+            cmbCountry.SelectedIndexChanged += cmbCountry_SelectedIndexChanged;
             // 
             // lblStatus
             // 
@@ -141,7 +163,7 @@
             lblCityError.AutoSize = true;
             lblCityError.Font = new Font("Segoe UI", 8F);
             lblCityError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblCityError.Location = new Point(180, 100);
+            lblCityError.Location = new Point(180, 120);
             lblCityError.Name = "lblCityError";
             lblCityError.Size = new Size(0, 19);
             lblCityError.TabIndex = 12;
@@ -151,7 +173,7 @@
             lblCountryError.AutoSize = true;
             lblCountryError.Font = new Font("Segoe UI", 8F);
             lblCountryError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblCountryError.Location = new Point(180, 25);
+            lblCountryError.Location = new Point(180, 55);
             lblCountryError.Name = "lblCountryError";
             lblCountryError.Size = new Size(0, 19);
             lblCountryError.TabIndex = 11;
@@ -163,7 +185,7 @@
             btnClear.Margin = new Padding(3, 4, 3, 4);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(132, 39);
-            btnClear.TabIndex = 10;
+            btnClear.TabIndex = 6;
             btnClear.Text = "🗑️ Clear All";
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
@@ -175,7 +197,7 @@
             btnAddLocation.Margin = new Padding(3, 4, 3, 4);
             btnAddLocation.Name = "btnAddLocation";
             btnAddLocation.Size = new Size(140, 40);
-            btnAddLocation.TabIndex = 9;
+            btnAddLocation.TabIndex = 5;
             btnAddLocation.Text = "➕ Add Location";
             btnAddLocation.UseVisualStyleBackColor = true;
             btnAddLocation.Click += btnAddLocation_Click;
@@ -187,7 +209,7 @@
             txtBuildingNo.Margin = new Padding(3, 4, 3, 4);
             txtBuildingNo.Name = "txtBuildingNo";
             txtBuildingNo.Size = new Size(270, 30);
-            txtBuildingNo.TabIndex = 8;
+            txtBuildingNo.TabIndex = 4;
             // 
             // txtStreet
             // 
@@ -196,26 +218,8 @@
             txtStreet.Margin = new Padding(3, 4, 3, 4);
             txtStreet.Name = "txtStreet";
             txtStreet.Size = new Size(270, 30);
-            txtStreet.TabIndex = 7;
-            // 
-            // txtCity
-            // 
-            txtCity.Font = new Font("Segoe UI", 10F);
-            txtCity.Location = new Point(180, 76);
-            txtCity.Margin = new Padding(3, 4, 3, 4);
-            txtCity.Name = "txtCity";
-            txtCity.Size = new Size(270, 30);
-            txtCity.TabIndex = 6;
-            // 
-            // txtCountry
-            // 
-            txtCountry.Font = new Font("Segoe UI", 10F);
-            txtCountry.Location = new Point(180, 21);
-            txtCountry.Margin = new Padding(3, 4, 3, 4);
-            txtCountry.Name = "txtCountry";
-            txtCountry.Size = new Size(270, 30);
-            txtCountry.TabIndex = 5;
-            txtCountry.TextChanged += txtCountry_TextChanged;
+            txtStreet.TabIndex = 3;
+            txtStreet.TextChanged += txtStreet_TextChanged;
             // 
             // lblBuildingNo
             // 
@@ -267,7 +271,7 @@
             Controls.Add(pnlHeader);
             Margin = new Padding(3, 4, 3, 4);
             Name = "AddLocationControl";
-            Size = new Size(500, 625);
+            Size = new Size(550, 625);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlForm.ResumeLayout(false);

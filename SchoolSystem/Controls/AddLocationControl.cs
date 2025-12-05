@@ -4,14 +4,12 @@ using SchoolSystem.Models;
 using System;
 using System.Drawing;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SchoolSystem.Controls
 {
-    public partial class AddLocationControl1 : UserControl
+    public partial class AddLocationControl : UserControl
     {
         // ألوان التصميم
         private readonly Color PrimaryColor = Color.FromArgb(41, 128, 185); // أزرق داكن
@@ -21,6 +19,7 @@ namespace SchoolSystem.Controls
 
         private int _locationId = 0;
         private Location _loadedLocation;
+        private SchoolDbContext _context;
 
         public event Action<int> LocationCreated;
 
@@ -28,7 +27,9 @@ namespace SchoolSystem.Controls
         {
             _locationId = locationId;
             InitializeComponent();
+            _context = new SchoolDbContext();
             ApplyModernDesign();
+            LoadCountries();
             LoadLocationIfExists();
         }
 
@@ -36,23 +37,27 @@ namespace SchoolSystem.Controls
         {
             this.BackColor = Color.White;
 
-            // تصميم حقول الإدخال
-            StyleTextBox(txtCountry);
-            StyleTextBox(txtCity);
+            // تصميم الكومبو بوكس
+            StyleComboBox(cmbCountry);
+            StyleComboBox(cmbCity);
+
+            // تصميم حقول الإدخال الأخرى
             StyleTextBox(txtStreet);
             StyleTextBox(txtBuildingNo);
 
             // تصميم الأزرار
             StyleButton(btnAddLocation, _locationId == 0 ? PrimaryColor : Color.FromArgb(155, 89, 182), true);
             StyleButton(btnClear, Color.FromArgb(149, 165, 166));
+            
 
             // إضافة ToolTips
-            toolTip.SetToolTip(txtCountry, "Enter country name (e.g., Saudi Arabia)");
-            toolTip.SetToolTip(txtCity, "Enter city name (e.g., Riyadh)");
+            toolTip.SetToolTip(cmbCountry, "Select a country");
+            toolTip.SetToolTip(cmbCity, "Select a city (depends on selected country)");
             toolTip.SetToolTip(txtStreet, "Enter street name");
             toolTip.SetToolTip(txtBuildingNo, "Enter building number");
             toolTip.SetToolTip(btnAddLocation, _locationId == 0 ? "Add new location" : "Update location");
             toolTip.SetToolTip(btnClear, "Clear all fields");
+            
 
             // تعيين النص المناسب للزر
             btnAddLocation.Text = _locationId == 0 ? "➕ Add Location" : "✏️ Update Location";
@@ -62,6 +67,17 @@ namespace SchoolSystem.Controls
             lblCityError.Visible = false;
             lblStreetError.Visible = false;
             lblBuildingNoError.Visible = false;
+
+            // تعطيل اختيار المدن في البداية
+            cmbCity.Enabled = false;
+        }
+
+        private void StyleComboBox(ComboBox comboBox)
+        {
+            comboBox.BackColor = Color.White;
+            comboBox.Font = new Font("Segoe UI", 10);
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox.FlatStyle = FlatStyle.Flat;
         }
 
         private void StyleTextBox(System.Windows.Forms.TextBox textBox)
@@ -86,6 +102,107 @@ namespace SchoolSystem.Controls
             button.MouseLeave += (s, e) => button.BackColor = backColor;
         }
 
+        private void LoadCountries()
+        {
+            try
+            {
+                cmbCountry.Items.Clear();
+                cmbCity.Items.Clear();
+                cmbCity.Enabled = false;
+
+                var countries = _context.Countries
+                    .OrderBy(c => c.CountryName)
+                    .ToList();
+
+                if (countries.Any())
+                {
+                    cmbCountry.Items.Add(new ComboBoxItem { Text = "-- Select Country --", Value = 0 });
+
+                    foreach (var country in countries)
+                    {
+                        // عرض اسم الدولة فقط بدون الكود
+                        cmbCountry.Items.Add(new ComboBoxItem
+                        {
+                            Text = country.CountryName, // فقط اسم الدولة
+                            Value = country.CountryID,
+                            Tag = country.CountryCode // تخزين الكود في الـ Tag
+                        });
+                    }
+
+                    cmbCountry.SelectedIndex = 0;
+                    lblCountryError.Visible = false;
+                }
+                else
+                {
+                    cmbCountry.Items.Add("No countries available");
+                    cmbCountry.SelectedIndex = 0;
+                    cmbCountry.Enabled = false;
+                    lblCountryError.Text = "Please add countries first";
+                    lblCountryError.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading countries: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadCitiesByCountryCode(string countryCode)
+        {
+            try
+            {
+                cmbCity.Items.Clear();
+                cmbCity.Text = "";
+                cmbCity.Enabled = false;
+
+                if (string.IsNullOrEmpty(countryCode))
+                    return;
+
+                var cities = _context.Cities
+                    .Where(c => c.CountryCode == countryCode)
+                    .OrderBy(c => c.CityName)
+                    .ToList();
+
+                if (cities.Any())
+                {
+                    cmbCity.Items.Add(new ComboBoxItem { Text = "-- Select City --", Value = 0 });
+
+                    foreach (var city in cities)
+                    {
+                        // عرض اسم المدينة فقط بدون الكود
+                        cmbCity.Items.Add(new ComboBoxItem
+                        {
+                            Text = city.CityName, // فقط اسم المدينة
+                            Value = city.CityId,
+                            Tag = city.CityCode // تخزين الكود في الـ Tag للاستخدام لاحقاً إذا احتجنا
+                        });
+                    }
+
+                    cmbCity.SelectedIndex = 0;
+                    cmbCity.Enabled = true;
+                    lblCityError.Visible = false;
+                }
+                else
+                {
+                    cmbCity.Items.Add("No cities available for this country");
+                    cmbCity.SelectedIndex = 0;
+                    cmbCity.Enabled = false;
+                    lblCityError.Text = "No cities found for selected country";
+                    lblCityError.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading cities: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
         private void LoadLocationIfExists()
         {
             if (_locationId == 0)
@@ -93,9 +210,7 @@ namespace SchoolSystem.Controls
 
             try
             {
-                using var context = new SchoolDbContext();
-
-                _loadedLocation = context.Locations
+                _loadedLocation = _context.Locations
                     .Include(l => l.Country)
                     .Include(l => l.City)
                     .AsNoTracking()
@@ -110,8 +225,53 @@ namespace SchoolSystem.Controls
                     return;
                 }
 
-                txtCountry.Text = _loadedLocation.Country?.CountryName ?? "";
-                txtCity.Text = _loadedLocation.City?.CityName ?? "";
+                // البحث عن الدولة في القائمة
+                bool countryFound = false;
+                for (int i = 0; i < cmbCountry.Items.Count; i++)
+                {
+                    if (cmbCountry.Items[i] is ComboBoxItem item && item.Value == _loadedLocation.Country?.CountryID)
+                    {
+                        cmbCountry.SelectedIndex = i;
+                        countryFound = true;
+                        break;
+                    }
+                }
+
+                if (!countryFound)
+                {
+                    MessageBox.Show($"Country '{_loadedLocation.Country?.CountryName}' not found in list.",
+                        "Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // بعد اختيار الدولة، تحميل المدن
+                if (_loadedLocation.Country != null)
+                {
+                    LoadCitiesByCountryCode(_loadedLocation.Country.CountryCode);
+
+                    // البحث عن المدينة في القائمة
+                    bool cityFound = false;
+                    for (int i = 0; i < cmbCity.Items.Count; i++)
+                    {
+                        if (cmbCity.Items[i] is ComboBoxItem item && item.Value == _loadedLocation.City?.CityId)
+                        {
+                            cmbCity.SelectedIndex = i;
+                            cityFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!cityFound)
+                    {
+                        MessageBox.Show($"City '{_loadedLocation.City?.CityName}' not found in list.",
+                            "Warning",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+                }
+
                 txtStreet.Text = _loadedLocation.Street ?? "";
                 txtBuildingNo.Text = _loadedLocation.BuildingNo ?? "";
 
@@ -136,82 +296,100 @@ namespace SchoolSystem.Controls
                 Cursor = Cursors.WaitCursor;
                 btnAddLocation.Enabled = false;
 
-                using var context = new SchoolDbContext();
+                using var transaction = _context.Database.BeginTransaction();
 
-                string countryName = CapitalizeFirstLetter(txtCountry.Text.Trim());
-                string cityName = CapitalizeFirstLetter(txtCity.Text.Trim());
-                string street = txtStreet.Text.Trim();
-                string buildingNo = txtBuildingNo.Text.Trim();
-
-                var country = context.Countries.FirstOrDefault(c => c.CountryName == countryName);
-                if (country == null)
+                try
                 {
-                    country = new Country
-                    {
-                        CountryName = countryName,
-                        CountryCode = GenerateCode(countryName)
-                    };
-                    context.Countries.Add(country);
-                    context.SaveChanges();
-                }
+                    var selectedCountryItem = cmbCountry.SelectedItem as ComboBoxItem;
+                    var selectedCityItem = cmbCity.SelectedItem as ComboBoxItem;
 
-                var city = context.Cities.FirstOrDefault(c => c.CityName == cityName);
-                if (city == null)
-                {
-                    city = new City
+                    if (selectedCountryItem == null || selectedCountryItem.Value == 0)
                     {
-                        CityName = cityName,
-                        CityCode = GenerateCode(cityName)
-                    };
-                    context.Cities.Add(city);
-                    context.SaveChanges();
-                }
+                        MessageBox.Show("Please select a country",
+                            "Validation Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
 
-                if (_locationId == 0)
-                {
-                    var newLocation = new Location
+                    if (selectedCityItem == null || selectedCityItem.Value == 0)
                     {
-                        Country = country,
-                        City = city,
-                        Street = street,
-                        BuildingNo = buildingNo
-                    };
+                        MessageBox.Show("Please select a city",
+                            "Validation Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
 
-                    context.Locations.Add(newLocation);
-                    context.SaveChanges();
+                    string street = txtStreet.Text.Trim();
+                    string buildingNo = txtBuildingNo.Text.Trim();
 
-                    ShowSuccessMessage(newLocation.LocationId, "created");
-                    LocationCreated?.Invoke(newLocation.LocationId);
-                }
-                else
-                {
-                    // إعادة تحميل الموقع للتأكد من أن لدينا أحدث نسخة
-                    var locationToUpdate = context.Locations.Find(_locationId);
-                    if (locationToUpdate == null)
+                    // الحصول على الدولة والمدينة المحددة
+                    var country = _context.Countries.Find(selectedCountryItem.Value);
+                    var city = _context.Cities.Find(selectedCityItem.Value);
+
+                    if (country == null || city == null)
                     {
-                        MessageBox.Show("Location no longer exists.",
+                        MessageBox.Show("Selected country or city not found",
                             "Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                         return;
                     }
 
-                    locationToUpdate.Country = country;
-                    locationToUpdate.City = city;
-                    locationToUpdate.Street = street;
-                    locationToUpdate.BuildingNo = buildingNo;
+                    if (_locationId == 0)
+                    {
+                        var newLocation = new Location
+                        {
+                            Country = country,
+                            City = city,
+                            Street = street,
+                            BuildingNo = buildingNo
+                        };
 
-                    context.SaveChanges();
+                        _context.Locations.Add(newLocation);
+                        _context.SaveChanges();
 
-                    ShowSuccessMessage(_locationId, "updated");
-                    LocationCreated?.Invoke(_locationId);
+                        ShowSuccessMessage(newLocation.LocationId, "created");
+                        LocationCreated?.Invoke(newLocation.LocationId);
+                    }
+                    else
+                    {
+                        // إعادة تحميل الموقع للتأكد من أن لدينا أحدث نسخة
+                        var locationToUpdate = _context.Locations.Find(_locationId);
+                        if (locationToUpdate == null)
+                        {
+                            MessageBox.Show("Location no longer exists.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        locationToUpdate.Country = country;
+                        locationToUpdate.City = city;
+                        locationToUpdate.Street = street;
+                        locationToUpdate.BuildingNo = buildingNo;
+
+                        _context.SaveChanges();
+
+                        ShowSuccessMessage(_locationId, "updated");
+                        LocationCreated?.Invoke(_locationId);
+                    }
+
+                    transaction.Commit();
+
+                    // إغلاق النافذة إذا كانت تابعة لفورم
+                    if (Parent is Form parentForm)
+                    {
+                        parentForm.DialogResult = DialogResult.OK;
+                        parentForm.Close();
+                    }
                 }
-
-                // إغلاق النافذة إذا كانت تابعة لفورم
-                if (Parent is Form parentForm)
+                catch
                 {
-                    parentForm.DialogResult = DialogResult.OK;
-                    parentForm.Close();
+                    transaction.Rollback();
+                    throw;
                 }
             }
             catch (DbUpdateException dbEx)
@@ -240,14 +418,10 @@ namespace SchoolSystem.Controls
             bool isValid = true;
 
             // التحقق من البلد
-            if (string.IsNullOrWhiteSpace(txtCountry.Text))
+            var selectedCountry = cmbCountry.SelectedItem as ComboBoxItem;
+            if (selectedCountry == null || selectedCountry.Value == 0)
             {
-                ShowFieldError(lblCountryError, "Country name is required");
-                isValid = false;
-            }
-            else if (txtCountry.Text.Trim().Length < 2)
-            {
-                ShowFieldError(lblCountryError, "Country name is too short");
+                ShowFieldError(lblCountryError, "Please select a country");
                 isValid = false;
             }
             else
@@ -256,14 +430,10 @@ namespace SchoolSystem.Controls
             }
 
             // التحقق من المدينة
-            if (string.IsNullOrWhiteSpace(txtCity.Text))
+            var selectedCity = cmbCity.SelectedItem as ComboBoxItem;
+            if (selectedCity == null || selectedCity.Value == 0)
             {
-                ShowFieldError(lblCityError, "City name is required");
-                isValid = false;
-            }
-            else if (txtCity.Text.Trim().Length < 2)
-            {
-                ShowFieldError(lblCityError, "City name is too short");
+                ShowFieldError(lblCityError, "Please select a city");
                 isValid = false;
             }
             else
@@ -319,31 +489,17 @@ namespace SchoolSystem.Controls
             errorLabel.Visible = false;
         }
 
-        private string GenerateCode(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                return "XXX";
-
-            // أخذ أول 3 أحرف وتحويلها لحروف كبيرة
-            string code = name.Substring(0, Math.Min(3, name.Length)).ToUpper();
-
-            // إضافة أرقام إذا كان الاسم أقل من 3 أحرف
-            return code.PadRight(3, 'X');
-        }
-
-        private string CapitalizeFirstLetter(string text)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-                return text;
-
-            return char.ToUpper(text[0]) + text.Substring(1).ToLower();
-        }
-
         private void ShowSuccessMessage(int locationId, string action)
         {
+            var selectedCountry = cmbCountry.SelectedItem as ComboBoxItem;
+            var selectedCity = cmbCity.SelectedItem as ComboBoxItem;
+
+            string countryName = selectedCountry?.Text ?? "Unknown";
+            string cityName = selectedCity?.Text ?? "Unknown";
+
             string message = $"✅ Location {action} successfully!\n\n" +
                            $"Location ID: {locationId}\n" +
-                           $"Address: {txtStreet.Text} {txtBuildingNo.Text}, {txtCity.Text}, {txtCountry.Text}";
+                           $"Address: {txtStreet.Text} {txtBuildingNo.Text}, {cityName}, {countryName}";
 
             MessageBox.Show(message,
                 "Success",
@@ -368,8 +524,9 @@ namespace SchoolSystem.Controls
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                txtCountry.Clear();
-                txtCity.Clear();
+                cmbCountry.SelectedIndex = 0;
+                cmbCity.Items.Clear();
+                cmbCity.Enabled = false;
                 txtStreet.Clear();
                 txtBuildingNo.Clear();
 
@@ -378,32 +535,68 @@ namespace SchoolSystem.Controls
                 ClearFieldError(lblStreetError);
                 ClearFieldError(lblBuildingNoError);
 
-                txtCountry.Focus();
+                cmbCountry.Focus();
                 ShowStatusMessage("All fields cleared", Color.FromArgb(149, 165, 166));
             }
         }
 
-        private void LogLocationAction(int locationId, string action)
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
-            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Location {action} - " +
-                               $"ID: {locationId}, Address: {txtStreet.Text} {txtBuildingNo.Text}, {txtCity.Text}, {txtCountry.Text}";
-
-            System.Diagnostics.Debug.WriteLine(logMessage);
+            LoadCountries();
+            ShowStatusMessage("Countries list refreshed", SuccessColor);
         }
 
-        private void txtCountry_TextChanged(object sender, EventArgs e)
+        private void cmbCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var selectedItem = cmbCountry.SelectedItem as ComboBoxItem;
+            if (selectedItem != null && selectedItem.Tag != null)
+            {
+                string countryCode = selectedItem.Tag.ToString();
+                LoadCitiesByCountryCode(countryCode);
+            }
+            else
+            {
+                cmbCity.Items.Clear();
+                cmbCity.Text = "";
+                cmbCity.Enabled = false;
+            }
+        }
 
+        // فئة مساعدة للكومبو بوكس
+        private class ComboBoxItem
+        {
+            public string Text { get; set; }
+            public int Value { get; set; }
+            public object Tag { get; set; }
+
+            public override string ToString()
+            {
+                return Text;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context?.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         private void lblStreet_Click(object sender, EventArgs e)
         {
-
+            // Empty handler
         }
 
         private void pnlForm_Paint(object sender, PaintEventArgs e)
         {
+            // Empty handler
+        }
 
+        private void txtStreet_TextChanged(object sender, EventArgs e)
+        {
+            // Empty handler
         }
     }
 }
