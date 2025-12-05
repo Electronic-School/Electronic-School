@@ -69,8 +69,8 @@ namespace SchoolSystem
 
         private void btnSidebarStudentManage_Click(object sender, EventArgs e)
         {
-            panelContent.Controls.Clear();
-            LoadUserControl(new AddStudentControl());
+            StudentForm frm = new StudentForm();
+            frm.ShowDialog();
         }
 
         private void btnSidebarTeacherManage_Click(object sender, EventArgs e)

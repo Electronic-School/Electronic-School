@@ -23,7 +23,7 @@ namespace SchoolSystem.Controls
         private int _parentId = 0;
         private int selectedLocationId = 0;
         private Regex emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-        private Regex phoneRegex = new Regex(@"^[\+]?[0-9\s\-\(\)]{10,15}$");
+        private Regex phoneRegex = new Regex(@"^[\+]?[0-9\s\-\(\)]{7,10}$");
 
         public ParentAddControl(int parentId = 0)
         {

@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="A:\source\AddTeacherControl.cs" Link="AddTeacherControl.cs" />
-    <Compile Include="A:\source\AddTeacherControl.Designer.cs" Link="AddTeacherControl.Designer.cs" />
+    <Compile Include="Controls/AddTeacherControl.cs" Link="AddTeacherControl.cs" />
+    <Compile Include="Controls/AddTeacherControl.Designer.cs" Link="AddTeacherControl.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

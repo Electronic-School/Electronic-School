@@ -1,22 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SchoolSystem.Data;
 using SchoolSystem.Models;
 using System;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SchoolSystem.Controls
 {
     public partial class UpdateStudentControl : UserControl
     {
         // ألوان التصميم
-        private readonly Color PrimaryColor = Color.FromArgb(52, 152, 219); // أزرق فاتح
-        private readonly Color SecondaryColor = Color.FromArgb(236, 240, 241); // رمادي فاتح
-        private readonly Color SuccessColor = Color.FromArgb(46, 204, 113); // أخضر
-        private readonly Color WarningColor = Color.FromArgb(230, 126, 34); // برتقالي
+        private readonly Color PrimaryColor = Color.FromArgb(44, 62, 80);
+        private readonly Color SuccessColor = Color.FromArgb(39, 174, 96);
 
         // متغيرات
         private Student currentStudent;
@@ -27,11 +24,13 @@ namespace SchoolSystem.Controls
             InitializeComponent();
             ApplyModernDesign();
             InitializeDatePicker();
+            InitializeStudentLevelComboBox();
         }
 
         private void ApplyModernDesign()
         {
             this.BackColor = Color.White;
+            pnlHeader.BackColor = PrimaryColor;
 
             // تصميم حقول الإدخال
             StyleTextBox(txtStudentId);
@@ -40,54 +39,38 @@ namespace SchoolSystem.Controls
             StyleTextBox(txtLocationId);
             StyleTextBox(txtParentId);
 
+            // تصميم ComboBox
+            cmbStudentLevel.Font = new Font("Segoe UI", 10);
+            cmbStudentLevel.BackColor = Color.White;
+
             // تصميم DatePicker
             dtpDob.Font = new Font("Segoe UI", 10);
-            dtpDob.CalendarFont = new Font("Segoe UI", 9);
 
             // تصميم الأزرار
             StyleButton(btnSearch, PrimaryColor);
-            StyleButton(btnSave, SuccessColor, true);
-            StyleButton(btnEditLocation, Color.FromArgb(155, 89, 182)); // بنفسجي
-            StyleButton(btnEditParent, Color.FromArgb(155, 89, 182)); // بنفسجي
-            StyleButton(btnClear, Color.FromArgb(149, 165, 166)); // رمادي
+            StyleButton(btnSave, SuccessColor);
+            StyleButton(btnEditLocation, PrimaryColor);
+            StyleButton(btnEditParent, PrimaryColor);
+            StyleButton(btnClear, Color.FromArgb(149, 165, 166));
 
-            // إضافة ToolTips
-            toolTip.SetToolTip(txtStudentId, "Enter student ID to search");
-            toolTip.SetToolTip(btnSearch, "Search for student by ID");
-            toolTip.SetToolTip(txtFirstName, "Edit student's first name");
-            toolTip.SetToolTip(txtLastName, "Edit student's last name");
-            toolTip.SetToolTip(dtpDob, "Edit student's date of birth");
-            toolTip.SetToolTip(txtLocationId, "Location ID (read-only)");
-            toolTip.SetToolTip(txtParentId, "Parent ID (read-only)");
-            toolTip.SetToolTip(btnEditLocation, "Edit location details");
-            toolTip.SetToolTip(btnEditParent, "Edit parent details");
-            toolTip.SetToolTip(btnSave, "Save changes to database");
-            toolTip.SetToolTip(btnClear, "Clear all fields");
-
-            // تعطيل الحقول في البداية
             SetFormEnabled(false);
         }
 
-        private void StyleTextBox(System.Windows.Forms.TextBox textBox)
+        private void StyleTextBox(TextBox textBox)
         {
             textBox.BackColor = Color.White;
             textBox.BorderStyle = BorderStyle.FixedSingle;
             textBox.Font = new Font("Segoe UI", 10);
         }
 
-        private void StyleButton(System.Windows.Forms.Button button, Color backColor, bool isPrimary = false)
+        private void StyleButton(Button button, Color backColor)
         {
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
             button.BackColor = backColor;
             button.ForeColor = Color.White;
-            button.Font = new Font("Segoe UI", isPrimary ? 10 : 9, isPrimary ? FontStyle.Bold : FontStyle.Regular);
+            button.Font = new Font("Segoe UI", 10);
             button.Cursor = Cursors.Hand;
-            button.Padding = new Padding(10, 5, 10, 5);
-
-            // تأثير hover
-            button.MouseEnter += (s, e) => button.BackColor = ControlPaint.Light(backColor, 0.1f);
-            button.MouseLeave += (s, e) => button.BackColor = backColor;
         }
 
         private void InitializeDatePicker()
@@ -97,13 +80,43 @@ namespace SchoolSystem.Controls
             dtpDob.MaxDate = DateTime.Today;
         }
 
+        private void InitializeStudentLevelComboBox()
+        {
+            cmbStudentLevel.Items.Clear();
+            cmbStudentLevel.Items.Add("Select Student Level");
+
+            try
+            {
+                using (var context = new SchoolDbContext())
+                {
+                    // جلب جميع المستويات الدراسية من قاعدة البيانات
+                    var levels = context.StudentLevels
+                        .OrderBy(l => l.LevelNumber)
+                        .ToList();
+
+                    foreach (var level in levels)
+                    {
+                        cmbStudentLevel.Items.Add($"{level.LevelName} ({level.Stage})");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading student levels: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            cmbStudentLevel.SelectedIndex = 0;
+        }
+
         private void SetFormEnabled(bool enabled)
         {
             txtFirstName.Enabled = enabled;
             txtLastName.Enabled = enabled;
+            cmbStudentLevel.Enabled = enabled;
             dtpDob.Enabled = enabled;
-            txtLocationId.Enabled = false; // دائمًا read-only
-            txtParentId.Enabled = false; // دائمًا read-only
+            txtLocationId.Enabled = false;
+            txtParentId.Enabled = false;
             btnEditLocation.Enabled = enabled;
             btnEditParent.Enabled = enabled;
             btnSave.Enabled = enabled;
@@ -115,22 +128,8 @@ namespace SchoolSystem.Controls
             if (!int.TryParse(txtStudentId.Text.Trim(), out int studentId))
             {
                 MessageBox.Show("Please enter a valid numeric Student ID.",
-                    "Invalid Input",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                    "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtStudentId.Focus();
-                txtStudentId.SelectAll();
-                return;
-            }
-
-            if (studentId <= 0)
-            {
-                MessageBox.Show("Student ID must be a positive number.",
-                    "Invalid Input",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                txtStudentId.Focus();
-                txtStudentId.SelectAll();
                 return;
             }
 
@@ -144,44 +143,48 @@ namespace SchoolSystem.Controls
                     currentStudent = context.Students
                         .Include(s => s.Location)
                         .Include(s => s.Parent)
+                        .Include(s => s.StudentLevel)
                         .FirstOrDefault(s => s.StudentsId == studentId);
 
                     if (currentStudent == null)
                     {
                         MessageBox.Show($"Student with ID {studentId} not found.",
-                            "Not Found",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-
+                            "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ClearForm();
                         SetFormEnabled(false);
                         isStudentLoaded = false;
                         return;
                     }
 
-                    // تعبئة البيانات في الحقول
+                    // تعبئة البيانات
                     txtFirstName.Text = currentStudent.FirstName ?? "";
                     txtLastName.Text = currentStudent.LastName ?? "";
                     dtpDob.Value = currentStudent.DateOfBirth ?? DateTime.Today.AddYears(-10);
                     txtLocationId.Text = currentStudent.LocationId.ToString();
                     txtParentId.Text = currentStudent.ParentId.ToString();
 
-                    // تمكين الحقول
+                    // تعبئة Student Level
+                    if (currentStudent.StudentLevel != null)
+                    {
+                        // البحث في ComboBox بناءً على LevelName
+                        string levelDisplay = $"{currentStudent.StudentLevel.LevelName} ({currentStudent.StudentLevel.Stage})";
+                        int index = cmbStudentLevel.FindString(levelDisplay);
+                        cmbStudentLevel.SelectedIndex = index >= 0 ? index : 0;
+                    }
+                    else
+                    {
+                        cmbStudentLevel.SelectedIndex = 0;
+                    }
+
                     SetFormEnabled(true);
                     isStudentLoaded = true;
-
-                    // عرض رسالة نجاح
-                    ShowStatusMessage($"Student found: {currentStudent.FirstName} {currentStudent.LastName}", SuccessColor);
-
                     txtFirstName.Focus();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading student:\n{ex.Message}",
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -190,23 +193,200 @@ namespace SchoolSystem.Controls
             }
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!isStudentLoaded || currentStudent == null)
+            {
+                MessageBox.Show("Please search for a student first.",
+                    "No Student Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!ValidateInputs())
+                return;
+
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                btnSave.Enabled = false;
+
+                using (var context = new SchoolDbContext())
+                {
+                    var studentToUpdate = context.Students.Find(currentStudent.StudentsId);
+
+                    if (studentToUpdate == null)
+                    {
+                        MessageBox.Show("Student no longer exists in database.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // تحديث البيانات
+                    studentToUpdate.FirstName = txtFirstName.Text.Trim();
+                    studentToUpdate.LastName = txtLastName.Text.Trim();
+                    studentToUpdate.DateOfBirth = dtpDob.Value.Date;
+
+                    // تحديث Student Level
+                    if (cmbStudentLevel.SelectedIndex > 0)
+                    {
+                        try
+                        {
+                            string selectedLevel = cmbStudentLevel.SelectedItem.ToString();
+
+                            // استخراج LevelName من النص
+                            string levelName = selectedLevel.Split('(')[0].Trim();
+
+                            // البحث عن المستوى في قاعدة البيانات
+                            var level = context.StudentLevels
+                                .FirstOrDefault(l => l.LevelName == levelName);
+
+                            if (level != null)
+                            {
+                                
+                                studentToUpdate.LevelId = level.LevelId;
+                                
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // يمكن تجاهل الخطأ أو تسجيله
+                        }
+                    }
+
+                    // تحديث Location و Parent IDs
+                    if (int.TryParse(txtLocationId.Text, out int locationId))
+                        studentToUpdate.LocationId = locationId;
+
+                    if (int.TryParse(txtParentId.Text, out int parentId))
+                        studentToUpdate.ParentId = parentId;
+
+                    // حفظ التغييرات
+                    context.SaveChanges();
+                    currentStudent = studentToUpdate;
+
+                    MessageBox.Show("Student updated successfully!",
+                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
+            {
+                MessageBox.Show($"Database error: {dbEx.InnerException?.Message ?? dbEx.Message}",
+                    "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving changes:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+                btnSave.Enabled = true;
+            }
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
+            {
+                MessageBox.Show("First name is required.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtFirstName.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtLastName.Text))
+            {
+                MessageBox.Show("Last name is required.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtLastName.Focus();
+                return false;
+            }
+
+            if (cmbStudentLevel.SelectedIndex == 0)
+            {
+                MessageBox.Show("Please select a student level.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbStudentLevel.Focus();
+                return false;
+            }
+
+            if (dtpDob.Value > DateTime.Today)
+            {
+                MessageBox.Show("Date of birth cannot be in the future.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpDob.Focus();
+                return false;
+            }
+
+            if (!int.TryParse(txtLocationId.Text, out int locationId) || locationId <= 0)
+            {
+                MessageBox.Show("Invalid Location ID.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (!int.TryParse(txtParentId.Text, out int parentId) || parentId <= 0)
+            {
+                MessageBox.Show("Invalid Parent ID.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Clear all fields?", "Confirm",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ClearForm();
+                SetFormEnabled(false);
+                isStudentLoaded = false;
+                currentStudent = null;
+            }
+        }
+
+        private void ClearForm()
+        {
+            txtStudentId.Clear();
+            txtFirstName.Clear();
+            txtLastName.Clear();
+            txtLocationId.Clear();
+            txtParentId.Clear();
+            cmbStudentLevel.SelectedIndex = 0;
+            dtpDob.Value = DateTime.Today.AddYears(-10);
+            txtStudentId.Focus();
+        }
+
+        private void txtStudentId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnSearch.PerformClick();
+                e.Handled = true;
+            }
+        }
+
         private void btnEditLocation_Click(object sender, EventArgs e)
         {
             if (!isStudentLoaded)
             {
                 MessageBox.Show("Please search for a student first.",
-                    "No Student Selected",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                    "No Student Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (!int.TryParse(txtLocationId.Text, out int locationId))
             {
-                MessageBox.Show("Invalid Location ID",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Invalid Location ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -214,13 +394,7 @@ namespace SchoolSystem.Controls
             locationControl.LocationCreated += (newLocationId) =>
             {
                 txtLocationId.Text = newLocationId.ToString();
-                ShowStatusMessage("Location updated successfully", SuccessColor);
-
-                // تحديث بيانات الطالب إذا تم تحميله
-                if (currentStudent != null)
-                {
-                    currentStudent.LocationId = newLocationId;
-                }
+                if (currentStudent != null) currentStudent.LocationId = newLocationId;
             };
 
             Form locationForm = new Form
@@ -242,18 +416,13 @@ namespace SchoolSystem.Controls
             if (!isStudentLoaded)
             {
                 MessageBox.Show("Please search for a student first.",
-                    "No Student Selected",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                    "No Student Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (!int.TryParse(txtParentId.Text, out int parentId))
             {
-                MessageBox.Show("Invalid Parent ID",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Invalid Parent ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -261,13 +430,7 @@ namespace SchoolSystem.Controls
             parentControl.ParentCreated += (newParentId) =>
             {
                 txtParentId.Text = newParentId.ToString();
-                ShowStatusMessage("Parent updated successfully", SuccessColor);
-
-                // تحديث بيانات الطالب إذا تم تحميله
-                if (currentStudent != null)
-                {
-                    currentStudent.ParentId = newParentId;
-                }
+                if (currentStudent != null) currentStudent.ParentId = newParentId;
             };
 
             Form parentForm = new Form
@@ -282,220 +445,6 @@ namespace SchoolSystem.Controls
             parentControl.Dock = DockStyle.Fill;
             parentForm.Controls.Add(parentControl);
             parentForm.ShowDialog();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (!isStudentLoaded || currentStudent == null)
-            {
-                MessageBox.Show("Please search for a student first.",
-                    "No Student Selected",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!ValidateInputs())
-                return;
-
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                btnSave.Enabled = false;
-
-                using (var context = new SchoolDbContext())
-                {
-                    // إعادة تحميل الطالب لضمان أن لدينا أحدث نسخة
-                    var studentToUpdate = context.Students.Find(currentStudent.StudentsId);
-
-                    if (studentToUpdate == null)
-                    {
-                        MessageBox.Show("Student no longer exists in database.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    // تحديث البيانات
-                    studentToUpdate.FirstName = txtFirstName.Text.Trim();
-                    studentToUpdate.LastName = txtLastName.Text.Trim();
-                    studentToUpdate.DateOfBirth = dtpDob.Value.Date;
-
-                    // تحديث IDs إذا تم التعديل
-                    if (int.TryParse(txtLocationId.Text, out int locationId))
-                        studentToUpdate.LocationId = locationId;
-
-                    if (int.TryParse(txtParentId.Text, out int parentId))
-                        studentToUpdate.ParentId = parentId;
-
-                    
-
-                    // حفظ التغييرات
-                    context.SaveChanges();
-
-                    // تحديث الكائن الحالي
-                    currentStudent = studentToUpdate;
-
-                    // عرض رسالة النجاح
-                    ShowSuccessMessage(currentStudent.StudentsId);
-
-                    // تسجيل التعديل
-                    LogUpdate(currentStudent.StudentsId);
-                }
-            }
-            catch (DbUpdateException dbEx)
-            {
-                MessageBox.Show($"Database error: {dbEx.InnerException?.Message ?? dbEx.Message}",
-                    "Save Failed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error saving changes:\n{ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-            finally
-            {
-                Cursor = Cursors.Default;
-                btnSave.Enabled = true;
-            }
-        }
-
-        private bool ValidateInputs()
-        {
-            // التحقق من الاسم الأول
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
-            {
-                MessageBox.Show("First name is required.",
-                    "Validation Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                txtFirstName.Focus();
-                return false;
-            }
-
-            // التحقق من الاسم الأخير
-            if (string.IsNullOrWhiteSpace(txtLastName.Text))
-            {
-                MessageBox.Show("Last name is required.",
-                    "Validation Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                txtLastName.Focus();
-                return false;
-            }
-
-            // التحقق من تاريخ الميلاد
-            if (dtpDob.Value > DateTime.Today)
-            {
-                MessageBox.Show("Date of birth cannot be in the future.",
-                    "Validation Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                dtpDob.Focus();
-                return false;
-            }
-
-            // التحقق من Location ID
-            if (!int.TryParse(txtLocationId.Text, out int locationId) || locationId <= 0)
-            {
-                MessageBox.Show("Invalid Location ID.",
-                    "Validation Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return false;
-            }
-
-            // التحقق من Parent ID
-            if (!int.TryParse(txtParentId.Text, out int parentId) || parentId <= 0)
-            {
-                MessageBox.Show("Invalid Parent ID.",
-                    "Validation Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to clear all fields?",
-                "Confirm Clear",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                ClearForm();
-                SetFormEnabled(false);
-                isStudentLoaded = false;
-                currentStudent = null;
-                ShowStatusMessage("All fields cleared", Color.FromArgb(149, 165, 166));
-            }
-        }
-
-        private void ClearForm()
-        {
-            txtStudentId.Clear();
-            txtFirstName.Clear();
-            txtLastName.Clear();
-            txtLocationId.Clear();
-            txtParentId.Clear();
-            dtpDob.Value = DateTime.Today.AddYears(-10);
-
-            txtStudentId.Focus();
-        }
-
-        private void ShowSuccessMessage(int studentId)
-        {
-            string message = $"✅ Student updated successfully!\n\n" +
-                           $"Student ID: {studentId}\n" +
-                           $"Name: {txtFirstName.Text} {txtLastName.Text}\n" +
-                           $"Date of Birth: {dtpDob.Value:dd/MM/yyyy}";
-
-            MessageBox.Show(message,
-                "Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-        }
-
-        private async void ShowStatusMessage(string message, Color color)
-        {
-            lblStatus.Text = message;
-            lblStatus.ForeColor = color;
-            lblStatus.Visible = true;
-
-            // انتظار 3 ثوان بدون تجميد الواجهة
-            await Task.Delay(3000);
-            lblStatus.Visible = false;
-        }
-
-        private void LogUpdate(int studentId)
-        {
-            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Student updated - " +
-                               $"ID: {studentId}, Name: {txtFirstName.Text} {txtLastName.Text}";
-
-            System.Diagnostics.Debug.WriteLine(logMessage);
-        }
-
-        private void txtStudentId_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // السماح بالأرقام فقط ومفاتيح التحكم
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-                return;
-            }
-
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                btnSearch.PerformClick();
-                e.Handled = true;
-            }
         }
     }
 }

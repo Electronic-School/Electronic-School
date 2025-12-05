@@ -11,77 +11,223 @@ namespace SchoolSystem.Controls
 {
     public partial class AddStudentControl : UserControl
     {
-        // ألوان التصميم
-        private readonly Color PrimaryColor = Color.FromArgb(52, 152, 219); // أزرق فاتح
+        // ألوان التصميم البيضاء والنظيفة
+        private readonly Color PrimaryColor = Color.FromArgb(41, 128, 185);    // أزرق فاتح
         private readonly Color SecondaryColor = Color.FromArgb(236, 240, 241); // رمادي فاتح
-        private readonly Color SuccessColor = Color.FromArgb(46, 204, 113); // أخضر
+        private readonly Color SuccessColor = Color.FromArgb(39, 174, 96);     // أخضر
+        private readonly Color WarningColor = Color.FromArgb(243, 156, 18);    // برتقالي
+        private readonly Color ErrorColor = Color.FromArgb(231, 76, 60);       // أحمر
+        private readonly Color TextColor = Color.FromArgb(44, 62, 80);         // نص داكن
 
         // متغيرات للبيانات المحددة
         private int selectedLocationId = 0;
         private int selectedParentId = 0;
+        private int selectedLevelId = 0;
+        private SchoolDbContext _context;
+
+        public event Action<int> StudentCreated;
 
         public AddStudentControl()
         {
             InitializeComponent();
-            ApplyModernDesign();
+            _context = new SchoolDbContext();
+            ApplyCleanDesign();
             InitializeDatePicker();
+            LoadStudentLevels();
         }
 
-        private void ApplyModernDesign()
+        private void ApplyCleanDesign()
         {
+            // خلفية بيضاء نظيفة
             this.BackColor = Color.White;
+            this.ForeColor = TextColor;
+
+            // تلوين البانل العلوي
+            pnlHeader.BackColor = PrimaryColor;
+            lblTitle.ForeColor = Color.White;
+
+            // تلوين البانل الرئيسي
+            pnlForm.BackColor = Color.White;
+            pnlForm.ForeColor = TextColor;
 
             // تصميم حقول الإدخال
-            txtFirstName.BackColor = Color.White;
-            txtFirstName.BorderStyle = BorderStyle.FixedSingle;
-            txtFirstName.Font = new Font("Segoe UI", 10);
-
-            txtLastName.BackColor = Color.White;
-            txtLastName.BorderStyle = BorderStyle.FixedSingle;
-            txtLastName.Font = new Font("Segoe UI", 10);
-
-            // تصميم DatePicker
-            dtpDateOfBirth.Font = new Font("Segoe UI", 10);
-            dtpDateOfBirth.CalendarFont = new Font("Segoe UI", 9);
+            StyleCleanControl(txtFirstName);
+            StyleCleanControl(txtLastName);
+            StyleCleanComboBox(cmbLevel);
+            StyleCleanDateTimePicker(dtpDateOfBirth);
 
             // تصميم الأزرار
-            StyleButton(btnAddLocation, PrimaryColor);
-            StyleButton(btnAddParent, PrimaryColor);
-            StyleButton(btnClear, Color.FromArgb(149, 165, 166)); // رمادي
-            StyleButton(btnAddStudent, SuccessColor, true);
+            StyleCleanButton(btnAddLocation, PrimaryColor);
+            StyleCleanButton(btnAddParent, PrimaryColor);
+            StyleCleanButton(btnClear, WarningColor);
+            StyleCleanButton(btnAddStudent, SuccessColor, true);
 
-            // إضافة ToolTips
+            // تصميم الـ Labels
+            StyleCleanLabels();
+
+            // إعداد ToolTips
+            ConfigureToolTips();
+        }
+
+        private void StyleCleanControl(Control control)
+        {
+            if (control is TextBox textBox)
+            {
+                textBox.BackColor = Color.White;
+                textBox.ForeColor = TextColor;
+                textBox.BorderStyle = BorderStyle.FixedSingle;
+                textBox.Font = new Font("Segoe UI", 10);
+            }
+        }
+
+        private void StyleCleanComboBox(ComboBox comboBox)
+        {
+            comboBox.BackColor = Color.White;
+            comboBox.ForeColor = Color.FromArgb(44, 62, 80);
+            comboBox.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox.FlatStyle = FlatStyle.Flat;
+            comboBox.DropDownHeight = 200;
+            comboBox.Width = 350;
+        }
+
+        private void StyleCleanDateTimePicker(DateTimePicker dtp)
+        {
+            dtp.BackColor = Color.White;
+            dtp.ForeColor = TextColor;
+            dtp.Font = new Font("Segoe UI", 10);
+            dtp.CalendarTitleBackColor = PrimaryColor;
+            dtp.CalendarTitleForeColor = Color.White;
+        }
+
+        private void StyleCleanButton(Button button, Color backColor, bool isPrimary = false)
+        {
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 1;
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.Font = new Font("Segoe UI Semibold", isPrimary ? 11 : 10);
+            button.Cursor = Cursors.Hand;
+            button.Padding = new Padding(12, 7, 12, 7);
+
+            button.MouseEnter += (s, e) =>
+                button.BackColor = Color.FromArgb(
+                    Math.Min(backColor.R + 15, 255),
+                    Math.Min(backColor.G + 15, 255),
+                    Math.Min(backColor.B + 15, 255));
+            button.MouseLeave += (s, e) => button.BackColor = backColor;
+        }
+
+        private void StyleCleanLabels()
+        {
+            foreach (Control control in pnlForm.Controls)
+            {
+                if (control is Label label && !label.Name.StartsWith("lblStatus"))
+                {
+                    label.ForeColor = TextColor;
+                    label.Font = new Font("Segoe UI Semibold", 10);
+                }
+            }
+
+            lblStatus.ForeColor = SuccessColor;
+            lblAgeHint.ForeColor = Color.Gray;
+            lblLocationStatus.ForeColor = SuccessColor;
+            lblParentStatus.ForeColor = SuccessColor;
+        }
+
+        private void ConfigureToolTips()
+        {
+            toolTip.BackColor = Color.White;
+            toolTip.ForeColor = TextColor;
+            toolTip.ToolTipTitle = "Student Information";
+
             toolTip.SetToolTip(txtFirstName, "Enter student's first name");
             toolTip.SetToolTip(txtLastName, "Enter student's last name");
-            toolTip.SetToolTip(dtpDateOfBirth, "Select student's date of birth");
-            toolTip.SetToolTip(btnAddLocation, "Add location details");
-            toolTip.SetToolTip(btnAddParent, "Add parent details");
+            toolTip.SetToolTip(dtpDateOfBirth, "Select date of birth");
+            toolTip.SetToolTip(cmbLevel, "Select academic level (required)");
+            toolTip.SetToolTip(btnAddLocation, "Add location details (required)");
+            toolTip.SetToolTip(btnAddParent, "Add parent details (required)");
             toolTip.SetToolTip(btnAddStudent, "Save new student");
             toolTip.SetToolTip(btnClear, "Clear all fields");
         }
 
-        private void StyleButton(Button button, Color backColor, bool isPrimary = false)
-        {
-            button.FlatStyle = FlatStyle.Flat;
-            button.FlatAppearance.BorderSize = 0;
-            button.BackColor = backColor;
-            button.ForeColor = Color.White;
-            button.Font = new Font("Segoe UI", isPrimary ? 10 : 9, isPrimary ? FontStyle.Bold : FontStyle.Regular);
-            button.Cursor = Cursors.Hand;
-            button.Padding = new Padding(10, 5, 10, 5);
-
-            // تأثير hover
-            button.MouseEnter += (s, e) => button.BackColor = ControlPaint.Light(backColor, 0.1f);
-            button.MouseLeave += (s, e) => button.BackColor = backColor;
-        }
-
         private void InitializeDatePicker()
         {
-            // تعيين الحد الأدنى للتاريخ (مثال: من 1990)
             dtpDateOfBirth.MinDate = new DateTime(1990, 1, 1);
             dtpDateOfBirth.MaxDate = DateTime.Today;
-            dtpDateOfBirth.Value = DateTime.Today.AddYears(-10); // قيمة افتراضية: عمر 10 سنوات
+            dtpDateOfBirth.Value = DateTime.Today.AddYears(-10);
             dtpDateOfBirth.Format = DateTimePickerFormat.Short;
+        }
+
+        private void LoadStudentLevels()
+        {
+            try
+            {
+                cmbLevel.Items.Clear();
+                cmbLevel.Items.Add(new ComboBoxItem { Text = "-- اختر المستوى الدراسي --", Value = 0 });
+
+                var levels = _context.StudentLevels
+                    .OrderBy(l => l.LevelNumber)
+                    .ToList();
+
+                if (levels.Any())
+                {
+                    foreach (var level in levels)
+                    {
+                        cmbLevel.Items.Add(new ComboBoxItem
+                        {
+                            Text = $"{level.LevelName}",
+                            Value = level.LevelId,
+                            Tag = level
+                        });
+                    }
+
+                    cmbLevel.SelectedIndex = 0;
+                    cmbLevel.Enabled = true;
+                }
+                else
+                {
+                    cmbLevel.Items.Add("⚠️ لم يتم العثور على مستويات دراسية");
+                    cmbLevel.SelectedIndex = 0;
+                    cmbLevel.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                cmbLevel.Items.Clear();
+                cmbLevel.Items.Add("❌ خطأ في تحميل المستويات");
+                cmbLevel.SelectedIndex = 0;
+                cmbLevel.Enabled = false;
+
+                MessageBox.Show($"خطأ في تحميل المستويات الدراسية:\n{ex.Message}",
+                    "خطأ في قاعدة البيانات",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedItem = cmbLevel.SelectedItem as ComboBoxItem;
+            if (selectedItem != null && selectedItem.Value > 0)
+            {
+                selectedLevelId = selectedItem.Value;
+
+                if (selectedItem.Tag is StudentLevel level)
+                {
+                    toolTip.SetToolTip(cmbLevel,
+                        $"Level: {level.LevelName}\n" +
+                        $"Grade: {level.LevelNumber}\n" +
+                        $"Stage: {level.Stage}\n" +
+                        $"Students in this level: {level.Students?.Count ?? 0}");
+                }
+
+                lblLevelError.Visible = false;
+            }
+            else
+            {
+                selectedLevelId = 0;
+            }
         }
 
         private void btnAddLocation_Click(object sender, EventArgs e)
@@ -95,16 +241,21 @@ namespace SchoolSystem.Controls
             locationControl.LocationCreated += (locationId) =>
             {
                 selectedLocationId = locationId;
-                ShowStatusMessage($"Location added successfully! ID: {locationId}", SuccessColor);
+                lblLocationStatus.Text = $"✓ Location Selected (ID: {locationId})";
+                lblLocationStatus.Visible = true;
+                ShowStatusMessage($"Location added successfully!", SuccessColor);
+                lblLocationError.Visible = false;
             };
 
             Form locationForm = new Form
             {
-                Text = "Add Location Details",
+                Text = "📍 Add Location",
                 Size = new Size(500, 400),
                 StartPosition = FormStartPosition.CenterParent,
                 MinimizeBox = false,
-                MaximizeBox = false
+                MaximizeBox = false,
+                BackColor = Color.White,
+                ForeColor = TextColor
             };
 
             locationControl.Dock = DockStyle.Fill;
@@ -123,16 +274,21 @@ namespace SchoolSystem.Controls
             parentControl.ParentCreated += (parentId) =>
             {
                 selectedParentId = parentId;
-                ShowStatusMessage($"Parent added successfully! ID: {parentId}", SuccessColor);
+                lblParentStatus.Text = $"✓ Parent Selected (ID: {parentId})";
+                lblParentStatus.Visible = true;
+                ShowStatusMessage($"Parent added successfully!", SuccessColor);
+                lblParentError.Visible = false;
             };
 
             Form parentForm = new Form
             {
-                Text = "Add Parent Details",
+                Text = "👤 Add Parent",
                 Size = new Size(500, 450),
                 StartPosition = FormStartPosition.CenterParent,
                 MinimizeBox = false,
-                MaximizeBox = false
+                MaximizeBox = false,
+                BackColor = Color.White,
+                ForeColor = TextColor
             };
 
             parentControl.Dock = DockStyle.Fill;
@@ -140,7 +296,7 @@ namespace SchoolSystem.Controls
             parentForm.ShowDialog();
         }
 
-        private void btnAddStudent_Click(object sender, EventArgs e)
+        private async void btnAddStudent_Click(object sender, EventArgs e)
         {
             if (!ValidateInputs())
                 return;
@@ -149,144 +305,184 @@ namespace SchoolSystem.Controls
             {
                 Cursor = Cursors.WaitCursor;
                 btnAddStudent.Enabled = false;
+                btnAddStudent.Text = "⏳ Saving...";
 
-                using (var context = new SchoolDbContext())
+                using (var transaction = await _context.Database.BeginTransactionAsync())
                 {
-                    
-
-                    // جلب الموقع والاب من قاعدة البيانات
-                    var location = context.Locations.Find(selectedLocationId);
-                    var parent = context.Parents.Find(selectedParentId);
-
-                    if (location == null || parent == null)
+                    try
                     {
-                        MessageBox.Show("Please select a valid location and parent.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        // جلب البيانات من قاعدة البيانات للتحقق
+                        var location = await _context.Locations.FindAsync(selectedLocationId);
+                        var parent = await _context.Parents.FindAsync(selectedParentId);
+                        var level = await _context.StudentLevels.FindAsync(selectedLevelId);
+
+                        if (location == null || parent == null || level == null)
+                        {
+                            MessageBox.Show("Please select valid location, parent, and level.",
+                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // ⭐⭐ إنشاء الطالب الجديد - الطريقة الصحيحة ⭐⭐
+                        var newStudent = new Student
+                        {
+                            FirstName = txtFirstName.Text.Trim(),
+                            LastName = txtLastName.Text.Trim(),
+                            DateOfBirth = dtpDateOfBirth.Value.Date,
+
+                            
+                            LocationId = selectedLocationId,
+                            ParentId = selectedParentId,
+                            LevelId = selectedLevelId,
+
+                            Location = location,
+                            Parent = parent,
+                            StudentLevel = level
+                        };
+
+                        await _context.Students.AddAsync(newStudent);
+                        await _context.SaveChangesAsync();
+                        await transaction.CommitAsync();
+
+                        // عرض رسالة النجاح
+                        ShowSuccessMessage(newStudent.StudentsId);
+
+                        // إطلاق الحدث
+                        StudentCreated?.Invoke(newStudent.StudentsId);
+
+                        // تسجيل في Log
+                        LogStudentCreation(newStudent);
+
+                        // إعادة تعيين النموذج
+                        ResetForm();
+                        ShowStatusMessage("Student saved successfully!", SuccessColor);
                     }
-
-                    var newStudent = new Student
+                    catch (DbUpdateException dbEx)
                     {
-                        FirstName = txtFirstName.Text.Trim(),
-                        LastName = txtLastName.Text.Trim(),
-                        DateOfBirth = dtpDateOfBirth.Value.Date,
-                        Location = location,  // مهم: تعيين object وليس Id فقط
-                        Parent = parent       // مهم: تعيين object وليس Id فقط
-                    };
+                        await transaction.RollbackAsync();
 
-                    context.Students.Add(newStudent);
-                    context.SaveChanges();
-
-                    MessageBox.Show($"Student created successfully! ID: {newStudent.StudentsId}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // حفظ في قاعدة البيانات
-                    context.Students.Add(newStudent);
-                    context.SaveChanges();
-
-                    // عرض رسالة النجاح
-                    ShowSuccessMessage(newStudent.StudentsId);
-
-                    // تسجيل في Log
-                    LogStudentCreation(newStudent.StudentsId, newStudent.FirstName, newStudent.LastName);
-
-                    // إعادة تعيين النموذج
-                    ResetForm();
+                        string errorMsg = dbEx.InnerException?.Message ?? dbEx.Message;
+                        if (errorMsg.Contains("FK_"))
+                        {
+                            MessageBox.Show("Foreign key constraint error. Please check if all related records exist.",
+                                "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Database error: {errorMsg}",
+                                "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        MessageBox.Show($"Error saving student: {ex.Message}",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-            }
-            catch (DbUpdateException dbEx)
-            {
-                MessageBox.Show($"Database error: {dbEx.InnerException?.Message ?? dbEx.Message}",
-                    "Save Failed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to add student:\n{ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show($"Failed to save student:\n{ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 Cursor = Cursors.Default;
                 btnAddStudent.Enabled = true;
+                btnAddStudent.Text = "💾 Save Student";
             }
         }
 
         private bool ValidateInputs()
         {
-            // التحقق من الاسم الأول
+            ClearAllErrors();
+            bool isValid = true;
+
+            // الاسم الأول
             if (string.IsNullOrWhiteSpace(txtFirstName.Text))
             {
-                ShowValidationError(txtFirstName, "First name is required");
-                return false;
+                ShowFieldError(lblFirstNameError, "Required");
+                isValid = false;
             }
-
-            if (txtFirstName.Text.Length < 2)
+            else if (txtFirstName.Text.Trim().Length < 2)
             {
-                ShowValidationError(txtFirstName, "First name must be at least 2 characters");
-                return false;
+                ShowFieldError(lblFirstNameError, "Min 2 characters");
+                isValid = false;
             }
 
-            // التحقق من الاسم الأخير
+            // الاسم الأخير
             if (string.IsNullOrWhiteSpace(txtLastName.Text))
             {
-                ShowValidationError(txtLastName, "Last name is required");
-                return false;
+                ShowFieldError(lblLastNameError, "Required");
+                isValid = false;
             }
-
-            if (txtLastName.Text.Length < 2)
+            else if (txtLastName.Text.Trim().Length < 2)
             {
-                ShowValidationError(txtLastName, "Last name must be at least 2 characters");
-                return false;
+                ShowFieldError(lblLastNameError, "Min 2 characters");
+                isValid = false;
             }
 
-            // التحقق من التاريخ
+            // المستوى الدراسي
+            if (selectedLevelId == 0)
+            {
+                ShowFieldError(lblLevelError, "Required");
+                isValid = false;
+            }
+
+            // تاريخ الميلاد
             if (dtpDateOfBirth.Value > DateTime.Today)
             {
-                ShowValidationError(dtpDateOfBirth, "Date of birth cannot be in the future");
-                return false;
+                ShowFieldError(lblDateOfBirthError, "Cannot be in future");
+                isValid = false;
             }
 
-            // التحقق من الموقع
+            // الموقع
             if (selectedLocationId == 0)
             {
-                MessageBox.Show("Please add location details for the student.",
-                    "Location Required",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                btnAddLocation.Focus();
-                return false;
+                ShowFieldError(lblLocationError, "Required");
+                isValid = false;
             }
 
-            // التحقق من ولي الأمر
+            // ولي الأمر
             if (selectedParentId == 0)
             {
-                MessageBox.Show("Please add parent details for the student.",
-                    "Parent Required",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                btnAddParent.Focus();
-                return false;
+                ShowFieldError(lblParentError, "Required");
+                isValid = false;
             }
 
-            return true;
+            if (!isValid)
+            {
+                ShowStatusMessage("Please correct the errors above", ErrorColor);
+            }
+
+            return isValid;
         }
 
-        private void ShowValidationError(Control control, string message)
+        private void ClearAllErrors()
         {
-            MessageBox.Show(message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            control.Focus();
-            if (control is TextBox textBox)
-                textBox.SelectAll();
+            lblFirstNameError.Visible = false;
+            lblLastNameError.Visible = false;
+            lblLevelError.Visible = false;
+            lblDateOfBirthError.Visible = false;
+            lblLocationError.Visible = false;
+            lblParentError.Visible = false;
+        }
+
+        private void ShowFieldError(Label errorLabel, string message)
+        {
+            errorLabel.Text = message;
+            errorLabel.ForeColor = ErrorColor;
+            errorLabel.Visible = true;
         }
 
         private void ShowSuccessMessage(int studentId)
         {
-            string message = $"✅ Student added successfully!\n\n" +
-                           $"Student ID: {studentId}\n" +
+            string message = $"✅ Student saved successfully!\n\n" +
+                           $"ID: {studentId}\n" +
                            $"Name: {txtFirstName.Text} {txtLastName.Text}\n" +
-                           $"Date of Birth: {dtpDateOfBirth.Value:dd/MM/yyyy}";
+                           $"Date of Birth: {dtpDateOfBirth.Value:dd/MM/yyyy}\n" +
+                           $"Level: {cmbLevel.Text}";
 
             MessageBox.Show(message,
                 "Success",
@@ -300,8 +496,7 @@ namespace SchoolSystem.Controls
             lblStatus.ForeColor = color;
             lblStatus.Visible = true;
 
-            // انتظار 3 ثوان بدون تجميد الواجهة
-            await Task.Delay(3000);
+            await Task.Delay(4000);
             lblStatus.Visible = false;
         }
 
@@ -310,9 +505,15 @@ namespace SchoolSystem.Controls
             txtFirstName.Clear();
             txtLastName.Clear();
             dtpDateOfBirth.Value = DateTime.Today.AddYears(-10);
+            cmbLevel.SelectedIndex = 0;
 
             selectedLocationId = 0;
             selectedParentId = 0;
+            selectedLevelId = 0;
+
+            lblLocationStatus.Visible = false;
+            lblParentStatus.Visible = false;
+            ClearAllErrors();
 
             txtFirstName.Focus();
         }
@@ -325,21 +526,32 @@ namespace SchoolSystem.Controls
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ResetForm();
-                ShowStatusMessage("All fields cleared", Color.FromArgb(149, 165, 166));
+                ShowStatusMessage("All fields cleared", WarningColor);
             }
         }
 
-        private void LogStudentCreation(int studentId, string firstName, string lastName)
+        private void LogStudentCreation(Student student)
         {
-            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] New student created - " +
-                               $"ID: {studentId}, Name: {firstName} {lastName}, " +
-                               $"Location: {selectedLocationId}, Parent: {selectedParentId}";
+            string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Student created - " +
+                               $"ID: {student.StudentsId}, " +
+                               $"Name: {student.FirstName} {student.LastName}, " +
+                               $"LevelId: {student.LevelId}, " +
+                               $"LocationId: {student.LocationId}, " +
+                               $"ParentId: {student.ParentId}";
 
-            // يمكنك حفظ هذا في ملف Log أو قاعدة بيانات
             System.Diagnostics.Debug.WriteLine(logMessage);
         }
 
-        // دالة مساعدة لحساب العمر من تاريخ الميلاد
+        private void dtpDateOfBirth_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpDateOfBirth.Value <= DateTime.Today)
+            {
+                int age = CalculateAge(dtpDateOfBirth.Value);
+                lblAgeHint.Text = $"Age: {age} years";
+                lblAgeHint.Visible = true;
+            }
+        }
+
         private int CalculateAge(DateTime birthDate)
         {
             DateTime today = DateTime.Today;
@@ -348,11 +560,22 @@ namespace SchoolSystem.Controls
             return age;
         }
 
-        private void dtpDateOfBirth_ValueChanged(object sender, EventArgs e)
+        // فئة مساعدة للكومبو بوكس
+        private class ComboBoxItem
         {
-            int age = CalculateAge(dtpDateOfBirth.Value);
-            lblAgeHint.Text = $"Age: {age} years";
-            lblAgeHint.Visible = true;
+            public string Text { get; set; }
+            public int Value { get; set; }
+            public object Tag { get; set; }
+
+            public override string ToString()
+            {
+                return Text;
+            }
+        }
+
+        private void lblLastName_Click(object sender, EventArgs e)
+        {
+            // Empty handler
         }
     }
 }
