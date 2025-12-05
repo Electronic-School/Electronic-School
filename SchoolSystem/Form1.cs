@@ -16,7 +16,8 @@ namespace SchoolSystem
         public Form1()
         {
             InitializeComponent();
-            TestDatabaseConnection();
+            //TestDatabaseConnection();
+            TestDatabaseConnection2();
             var parentControl = new ParentAddControl();
             var selectedParentId = 0;
 
@@ -109,9 +110,26 @@ namespace SchoolSystem
             }
         }
 
-        //private void InitializeComponent()
-        //{
-        //    // ...
-        //}
+        // „Õ«Ê·… «·« ’«· Ê«Œ »«— «· Ê’Ì·
+        private bool TestDatabaseConnection2()
+        {
+            try
+            {
+                using (var context = new SchoolDbContext())
+                {
+                    // „Õ«Ê·… Ã·» ”Ã· Ê«Õœ ›ﬁÿ ·«Œ »«— «·« ’«·
+                    var test = context.StudentLevels.FirstOrDefault();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Database error: {ex.Message}\n\nFull error: {ex.ToString()}",
+                    "Database Connection Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return false;
+            }
+        }
     }
 }

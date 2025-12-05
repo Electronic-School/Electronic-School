@@ -21,11 +21,9 @@
         private Label lblDOB;
         private Label lblLocation;
         private Label lblParent;
-        private ToolTip toolTip;
-        private Label lblStatus;
         private Label lblWarning;
-        private Panel pnlWarning;
-        private Label lblWarningIcon;
+        private TextBox txtStudentLevel;
+        private Label lblStudentLevel;
 
         protected override void Dispose(bool disposing)
         {
@@ -38,286 +36,287 @@
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.pnlHeader = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.pnlForm = new System.Windows.Forms.Panel();
-            this.lblWarning = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.dtpDob = new System.Windows.Forms.DateTimePicker();
-            this.txtParent = new System.Windows.Forms.TextBox();
-            this.txtLocation = new System.Windows.Forms.TextBox();
-            this.txtLastName = new System.Windows.Forms.TextBox();
-            this.txtFirstName = new System.Windows.Forms.TextBox();
-            this.txtStudentId = new System.Windows.Forms.TextBox();
-            this.lblParent = new System.Windows.Forms.Label();
-            this.lblLocation = new System.Windows.Forms.Label();
-            this.lblDOB = new System.Windows.Forms.Label();
-            this.lblLastName = new System.Windows.Forms.Label();
-            this.lblFirstName = new System.Windows.Forms.Label();
-            this.lblStudentId = new System.Windows.Forms.Label();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pnlHeader.SuspendLayout();
-            this.pnlForm.SuspendLayout();
-            this.SuspendLayout();
-
+            pnlHeader = new Panel();
+            lblTitle = new Label();
+            pnlForm = new Panel();
+            lblWarning = new Label();
+            btnClear = new Button();
+            btnDelete = new Button();
+            btnSearch = new Button();
+            txtStudentLevel = new TextBox();
+            dtpDob = new DateTimePicker();
+            txtParent = new TextBox();
+            txtLocation = new TextBox();
+            txtLastName = new TextBox();
+            txtFirstName = new TextBox();
+            txtStudentId = new TextBox();
+            lblStudentLevel = new Label();
+            lblParent = new Label();
+            lblLocation = new Label();
+            lblDOB = new Label();
+            lblLastName = new Label();
+            lblFirstName = new Label();
+            lblStudentId = new Label();
+            pnlHeader.SuspendLayout();
+            pnlForm.SuspendLayout();
+            SuspendLayout();
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.pnlHeader.Controls.Add(this.lblTitle);
-            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(600, 70);
-            this.pnlHeader.TabIndex = 0;
-
+            pnlHeader.BackColor = Color.FromArgb(44, 62, 80);
+            pnlHeader.Controls.Add(lblTitle);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(550, 70);
+            pnlHeader.TabIndex = 0;
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(291, 37);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "🗑️ Delete Student Data";
-
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Location = new Point(20, 20);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(142, 25);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Delete Student";
             // 
             // pnlForm
             // 
-            this.pnlForm.Controls.Add(this.lblWarning);
-            this.pnlForm.Controls.Add(this.lblStatus);
-            this.pnlForm.Controls.Add(this.btnClear);
-            this.pnlForm.Controls.Add(this.btnDelete);
-            this.pnlForm.Controls.Add(this.btnSearch);
-            this.pnlForm.Controls.Add(this.dtpDob);
-            this.pnlForm.Controls.Add(this.txtParent);
-            this.pnlForm.Controls.Add(this.txtLocation);
-            this.pnlForm.Controls.Add(this.txtLastName);
-            this.pnlForm.Controls.Add(this.txtFirstName);
-            this.pnlForm.Controls.Add(this.txtStudentId);
-            this.pnlForm.Controls.Add(this.lblParent);
-            this.pnlForm.Controls.Add(this.lblLocation);
-            this.pnlForm.Controls.Add(this.lblDOB);
-            this.pnlForm.Controls.Add(this.lblLastName);
-            this.pnlForm.Controls.Add(this.lblFirstName);
-            this.pnlForm.Controls.Add(this.lblStudentId);
-            this.pnlForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlForm.Location = new System.Drawing.Point(0, 70);
-            this.pnlForm.Name = "pnlForm";
-            this.pnlForm.Padding = new System.Windows.Forms.Padding(30, 20, 30, 20);
-            this.pnlForm.Size = new System.Drawing.Size(600, 580);
-            this.pnlForm.TabIndex = 1;
-
+            pnlForm.BackColor = Color.White;
+            pnlForm.Controls.Add(lblWarning);
+            pnlForm.Controls.Add(btnClear);
+            pnlForm.Controls.Add(btnDelete);
+            pnlForm.Controls.Add(btnSearch);
+            pnlForm.Controls.Add(txtStudentLevel);
+            pnlForm.Controls.Add(dtpDob);
+            pnlForm.Controls.Add(txtParent);
+            pnlForm.Controls.Add(txtLocation);
+            pnlForm.Controls.Add(txtLastName);
+            pnlForm.Controls.Add(txtFirstName);
+            pnlForm.Controls.Add(txtStudentId);
+            pnlForm.Controls.Add(lblStudentLevel);
+            pnlForm.Controls.Add(lblParent);
+            pnlForm.Controls.Add(lblLocation);
+            pnlForm.Controls.Add(lblDOB);
+            pnlForm.Controls.Add(lblLastName);
+            pnlForm.Controls.Add(lblFirstName);
+            pnlForm.Controls.Add(lblStudentId);
+            pnlForm.Dock = DockStyle.Fill;
+            pnlForm.Location = new Point(0, 70);
+            pnlForm.Name = "pnlForm";
+            pnlForm.Padding = new Padding(30, 20, 30, 20);
+            pnlForm.Size = new Size(550, 530);
+            pnlForm.TabIndex = 1;
             // 
             // lblWarning
             // 
-            this.lblWarning.AutoSize = true;
-            this.lblWarning.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblWarning.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblWarning.Location = new System.Drawing.Point(34, 400);
-            this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(0, 20);
-            this.lblWarning.TabIndex = 17;
-            this.lblWarning.Visible = false;
-
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.lblStatus.Location = new System.Drawing.Point(34, 375);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(0, 20);
-            this.lblStatus.TabIndex = 16;
-            this.lblStatus.Visible = false;
-
+            lblWarning.AutoSize = true;
+            lblWarning.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblWarning.ForeColor = Color.FromArgb(192, 57, 43);
+            lblWarning.Location = new Point(33, 370);
+            lblWarning.Name = "lblWarning";
+            lblWarning.Size = new Size(209, 15);
+            lblWarning.TabIndex = 17;
+            lblWarning.Text = "Warning: This action cannot be undone!";
+            lblWarning.Visible = false;
             // 
             // btnClear
             // 
-            this.btnClear.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClear.Location = new System.Drawing.Point(370, 425);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(180, 35);
-            this.btnClear.TabIndex = 15;
-            this.btnClear.Text = "🗑️ Clear All";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-
+            btnClear.BackColor = Color.FromArgb(149, 165, 166);
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Segoe UI", 10F);
+            btnClear.ForeColor = Color.White;
+            btnClear.Location = new Point(370, 410);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(150, 40);
+            btnClear.TabIndex = 16;
+            btnClear.Text = "Clear All";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // btnDelete
             // 
-            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnDelete.Location = new System.Drawing.Point(34, 425);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(180, 45);
-            this.btnDelete.TabIndex = 14;
-            this.btnDelete.Text = "⚠️ Delete Student";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-
+            btnDelete.BackColor = Color.FromArgb(192, 57, 43);
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(33, 410);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(150, 40);
+            btnDelete.TabIndex = 15;
+            btnDelete.Text = "Delete Student";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnSearch
             // 
-            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnSearch.Location = new System.Drawing.Point(300, 25);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(100, 30);
-            this.btnSearch.TabIndex = 13;
-            this.btnSearch.Text = "🔍 Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-
+            btnSearch.BackColor = Color.FromArgb(44, 62, 80);
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.Font = new Font("Segoe UI", 10F);
+            btnSearch.ForeColor = Color.White;
+            btnSearch.Location = new Point(270, 25);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(90, 32);
+            btnSearch.TabIndex = 14;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += btnSearch_Click;
+            // 
+            // txtStudentLevel
+            // 
+            txtStudentLevel.BackColor = Color.FromArgb(245, 245, 245);
+            txtStudentLevel.Font = new Font("Segoe UI", 10F);
+            txtStudentLevel.Location = new Point(170, 195);
+            txtStudentLevel.Name = "txtStudentLevel";
+            txtStudentLevel.ReadOnly = true;
+            txtStudentLevel.Size = new Size(250, 25);
+            txtStudentLevel.TabIndex = 13;
             // 
             // dtpDob
             // 
-            this.dtpDob.Enabled = false;
-            this.dtpDob.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dtpDob.Location = new System.Drawing.Point(180, 165);
-            this.dtpDob.Name = "dtpDob";
-            this.dtpDob.Size = new System.Drawing.Size(190, 30);
-            this.dtpDob.TabIndex = 12;
-
+            dtpDob.Enabled = false;
+            dtpDob.Font = new Font("Segoe UI", 10F);
+            dtpDob.Format = DateTimePickerFormat.Short;
+            dtpDob.Location = new Point(170, 235);
+            dtpDob.Name = "dtpDob";
+            dtpDob.Size = new Size(250, 25);
+            dtpDob.TabIndex = 12;
             // 
             // txtParent
             // 
-            this.txtParent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtParent.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtParent.Location = new System.Drawing.Point(180, 305);
-            this.txtParent.Name = "txtParent";
-            this.txtParent.ReadOnly = true;
-            this.txtParent.Size = new System.Drawing.Size(370, 30);
-            this.txtParent.TabIndex = 11;
-
+            txtParent.BackColor = Color.FromArgb(245, 245, 245);
+            txtParent.Font = new Font("Segoe UI", 10F);
+            txtParent.Location = new Point(170, 315);
+            txtParent.Name = "txtParent";
+            txtParent.ReadOnly = true;
+            txtParent.Size = new Size(350, 25);
+            txtParent.TabIndex = 11;
             // 
             // txtLocation
             // 
-            this.txtLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtLocation.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtLocation.Location = new System.Drawing.Point(180, 265);
-            this.txtLocation.Name = "txtLocation";
-            this.txtLocation.ReadOnly = true;
-            this.txtLocation.Size = new System.Drawing.Size(370, 30);
-            this.txtLocation.TabIndex = 10;
-
+            txtLocation.BackColor = Color.FromArgb(245, 245, 245);
+            txtLocation.Font = new Font("Segoe UI", 10F);
+            txtLocation.Location = new Point(170, 275);
+            txtLocation.Name = "txtLocation";
+            txtLocation.ReadOnly = true;
+            txtLocation.Size = new Size(350, 25);
+            txtLocation.TabIndex = 10;
             // 
             // txtLastName
             // 
-            this.txtLastName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtLastName.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtLastName.Location = new System.Drawing.Point(180, 125);
-            this.txtLastName.Name = "txtLastName";
-            this.txtLastName.ReadOnly = true;
-            this.txtLastName.Size = new System.Drawing.Size(370, 30);
-            this.txtLastName.TabIndex = 9;
-
+            txtLastName.BackColor = Color.FromArgb(245, 245, 245);
+            txtLastName.Font = new Font("Segoe UI", 10F);
+            txtLastName.Location = new Point(170, 145);
+            txtLastName.Name = "txtLastName";
+            txtLastName.ReadOnly = true;
+            txtLastName.Size = new Size(350, 25);
+            txtLastName.TabIndex = 9;
             // 
             // txtFirstName
             // 
-            this.txtFirstName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtFirstName.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtFirstName.Location = new System.Drawing.Point(180, 85);
-            this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.ReadOnly = true;
-            this.txtFirstName.Size = new System.Drawing.Size(370, 30);
-            this.txtFirstName.TabIndex = 8;
-
+            txtFirstName.BackColor = Color.FromArgb(245, 245, 245);
+            txtFirstName.Font = new Font("Segoe UI", 10F);
+            txtFirstName.Location = new Point(170, 95);
+            txtFirstName.Name = "txtFirstName";
+            txtFirstName.ReadOnly = true;
+            txtFirstName.Size = new Size(350, 25);
+            txtFirstName.TabIndex = 8;
             // 
             // txtStudentId
             // 
-            this.txtStudentId.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtStudentId.Location = new System.Drawing.Point(180, 25);
-            this.txtStudentId.Name = "txtStudentId";
-            this.txtStudentId.Size = new System.Drawing.Size(110, 30);
-            this.txtStudentId.TabIndex = 7;
-            this.txtStudentId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStudentId_KeyPress);
-
+            txtStudentId.Font = new Font("Segoe UI", 10F);
+            txtStudentId.Location = new Point(170, 25);
+            txtStudentId.Name = "txtStudentId";
+            txtStudentId.Size = new Size(90, 25);
+            txtStudentId.TabIndex = 7;
+            txtStudentId.KeyPress += txtStudentId_KeyPress;
+            // 
+            // lblStudentLevel
+            // 
+            lblStudentLevel.AutoSize = true;
+            lblStudentLevel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblStudentLevel.Location = new Point(33, 200);
+            lblStudentLevel.Name = "lblStudentLevel";
+            lblStudentLevel.Size = new Size(101, 19);
+            lblStudentLevel.TabIndex = 6;
+            lblStudentLevel.Text = "Student Level:";
             // 
             // lblParent
             // 
-            this.lblParent.AutoSize = true;
-            this.lblParent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblParent.Location = new System.Drawing.Point(34, 310);
-            this.lblParent.Name = "lblParent";
-            this.lblParent.Size = new System.Drawing.Size(63, 23);
-            this.lblParent.TabIndex = 6;
-            this.lblParent.Text = "Parent:";
-
+            lblParent.AutoSize = true;
+            lblParent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblParent.Location = new Point(33, 320);
+            lblParent.Name = "lblParent";
+            lblParent.Size = new Size(53, 19);
+            lblParent.TabIndex = 5;
+            lblParent.Text = "Parent:";
             // 
             // lblLocation
             // 
-            this.lblLocation.AutoSize = true;
-            this.lblLocation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblLocation.Location = new System.Drawing.Point(34, 270);
-            this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(83, 23);
-            this.lblLocation.TabIndex = 5;
-            this.lblLocation.Text = "Location:";
-
+            lblLocation.AutoSize = true;
+            lblLocation.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblLocation.Location = new Point(33, 280);
+            lblLocation.Name = "lblLocation";
+            lblLocation.Size = new Size(67, 19);
+            lblLocation.TabIndex = 4;
+            lblLocation.Text = "Location:";
             // 
             // lblDOB
             // 
-            this.lblDOB.AutoSize = true;
-            this.lblDOB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblDOB.Location = new System.Drawing.Point(34, 170);
-            this.lblDOB.Name = "lblDOB";
-            this.lblDOB.Size = new System.Drawing.Size(116, 23);
-            this.lblDOB.TabIndex = 4;
-            this.lblDOB.Text = "Date of Birth:";
-
+            lblDOB.AutoSize = true;
+            lblDOB.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblDOB.Location = new Point(33, 240);
+            lblDOB.Name = "lblDOB";
+            lblDOB.Size = new Size(100, 19);
+            lblDOB.TabIndex = 3;
+            lblDOB.Text = "Date of Birth:";
             // 
             // lblLastName
             // 
-            this.lblLastName.AutoSize = true;
-            this.lblLastName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblLastName.Location = new System.Drawing.Point(34, 130);
-            this.lblLastName.Name = "lblLastName";
-            this.lblLastName.Size = new System.Drawing.Size(99, 23);
-            this.lblLastName.TabIndex = 3;
-            this.lblLastName.Text = "Last Name:";
-
+            lblLastName.AutoSize = true;
+            lblLastName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblLastName.Location = new Point(33, 150);
+            lblLastName.Name = "lblLastName";
+            lblLastName.Size = new Size(79, 19);
+            lblLastName.TabIndex = 2;
+            lblLastName.Text = "Last Name:";
             // 
             // lblFirstName
             // 
-            this.lblFirstName.AutoSize = true;
-            this.lblFirstName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblFirstName.Location = new System.Drawing.Point(34, 90);
-            this.lblFirstName.Name = "lblFirstName";
-            this.lblFirstName.Size = new System.Drawing.Size(101, 23);
-            this.lblFirstName.TabIndex = 2;
-            this.lblFirstName.Text = "First Name:";
-
+            lblFirstName.AutoSize = true;
+            lblFirstName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblFirstName.Location = new Point(33, 100);
+            lblFirstName.Name = "lblFirstName";
+            lblFirstName.Size = new Size(81, 19);
+            lblFirstName.TabIndex = 1;
+            lblFirstName.Text = "First Name:";
             // 
             // lblStudentId
             // 
-            this.lblStudentId.AutoSize = true;
-            this.lblStudentId.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblStudentId.Location = new System.Drawing.Point(34, 30);
-            this.lblStudentId.Name = "lblStudentId";
-            this.lblStudentId.Size = new System.Drawing.Size(92, 23);
-            this.lblStudentId.TabIndex = 1;
-            this.lblStudentId.Text = "Student ID:";
-
+            lblStudentId.AutoSize = true;
+            lblStudentId.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblStudentId.Location = new Point(33, 30);
+            lblStudentId.Name = "lblStudentId";
+            lblStudentId.Size = new Size(78, 19);
+            lblStudentId.TabIndex = 0;
+            lblStudentId.Text = "Student ID:";
             // 
             // DeleteStudentControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.pnlForm);
-            this.Controls.Add(this.pnlHeader);
-            this.Name = "DeleteStudentControl";
-            this.Size = new System.Drawing.Size(600, 650);
-            this.pnlHeader.ResumeLayout(false);
-            this.pnlHeader.PerformLayout();
-            this.pnlForm.ResumeLayout(false);
-            this.pnlForm.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            Controls.Add(pnlForm);
+            Controls.Add(pnlHeader);
+            Name = "DeleteStudentControl";
+            Size = new Size(550, 600);
+            pnlHeader.ResumeLayout(false);
+            pnlHeader.PerformLayout();
+            pnlForm.ResumeLayout(false);
+            pnlForm.PerformLayout();
+            ResumeLayout(false);
         }
     }
 }

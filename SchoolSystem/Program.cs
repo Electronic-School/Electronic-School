@@ -11,6 +11,9 @@ namespace SchoolSystem
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
+
+
+
         static void Main()
         {
 
@@ -21,6 +24,9 @@ namespace SchoolSystem
             ApplicationConfiguration.Initialize();
             //Application.Run(new StudentForm());
             //Application.Run(new Form1());
+
+
+
             Application.Run(new MDIMainFormAdministrationForm());
         }
     }
