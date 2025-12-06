@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolSystem.Models
 {
@@ -13,23 +9,22 @@ namespace SchoolSystem.Models
         [Key]
         public int CurriculumId { get; set; }
 
-        [StringLength(50)]
-        public required string Name { get; set; }
-
         [StringLength(100)]
-        public required string Description { get; set; }
+        public string Name { get; set; }
 
+        [StringLength(255)]
+        public string Description { get; set; }
+
+        // Level FK (مطلوب)
         [Required]
         public int LevelId { get; set; }
 
         [ForeignKey("LevelId")]
-        public required StudentLevel StudentLevel { get; set; }
+        public StudentLevel StudentLevel { get; set; }
 
-        [Required]
         [StringLength(20)]
-        public required string Semester { get; set; }
+        public string Semester { get; set; }
 
         public ICollection<Course> Courses { get; set; } = new List<Course>();
-
     }
 }

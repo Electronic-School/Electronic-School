@@ -42,11 +42,7 @@ namespace SchoolSystem.Controls
             StyleTextBox(txtParentPhone, true);
             StyleTextBox(txtParentEmail, true);
 
-            // إزالة الحقول المتعلقة بالكورسات
-            txtEnrollments.Visible = false;
-            lblEnrollments.Visible = false;
-            txtGrades.Visible = false;
-            lblGrades.Visible = false;
+            
 
             StyleButton(btnSearch, PrimaryColor);
             StyleButton(btnClear, Color.FromArgb(149, 165, 166));
@@ -103,7 +99,7 @@ namespace SchoolSystem.Controls
                         .Include(s => s.Parent)
                         .Include(s => s.StudentLevel)  // المستوى الدراسي فقط
                         .AsNoTracking()
-                        .FirstOrDefault(s => s.StudentsId == studentId);
+                        .FirstOrDefault(s => s.StudentId == studentId);
 
                     if (student == null)
                     {
@@ -177,9 +173,7 @@ namespace SchoolSystem.Controls
                 txtParentEmail.Text = "N/A";
             }
 
-            // إزالة جزء الكورسات والدرجات
-            txtEnrollments.Text = "Not available";
-            txtGrades.Text = "Not available";
+            
         }
 
         private void ClearResults()
@@ -195,8 +189,8 @@ namespace SchoolSystem.Controls
             txtParentName.Clear();
             txtParentPhone.Clear();
             txtParentEmail.Clear();
-            txtEnrollments.Clear();
-            txtGrades.Clear();
+           
+            
 
             pnlResults.Visible = false;
             btnExport.Enabled = false;

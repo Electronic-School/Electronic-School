@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolSystem.Models
 {
@@ -12,38 +9,40 @@ namespace SchoolSystem.Models
     {
         [Key]
         public int EmployeeId { get; set; }
-        [StringLength(50)]
-        public required string FirstName { get; set; }
 
         [StringLength(50)]
-        public required string LastName { get; set; }
+        public string FirstName { get; set; }
+
+        [StringLength(50)]
+        public string LastName { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 
-        public required int LocationId { get; set; }
+        // Location optional
+        public int? LocationId { get; set; }
 
         [ForeignKey("LocationId")]
-        public required Location LOcation { get; set; }
+        public Location Location { get; set; }
 
         [StringLength(15)]
-        public required string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [StringLength(100)]
-        public required string Email { get; set; }
+        public string Email { get; set; }
 
         [StringLength(50)]
-        public required string JobTitle { get; set; }
+        public string JobTitle { get; set; }
 
         [StringLength(50)]
-        public required string Department { get; set; }
+        public string Department { get; set; }
 
         public DateTime? HireDate { get; set; }
 
-        [Column(TypeName = "decimal(10,2")]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal? Salary { get; set; }
 
         [StringLength(50)]
-        public required string SocialStatus { get; set; }
+        public string SocialStatus { get; set; }
 
         public ICollection<Activity> ActivitiesSupervised { get; set; } = new List<Activity>();
     }

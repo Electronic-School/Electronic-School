@@ -299,5 +299,10 @@ namespace SchoolSystem.Controls
                 e.Handled = true;
             }
         }
+
+        private void lblId_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

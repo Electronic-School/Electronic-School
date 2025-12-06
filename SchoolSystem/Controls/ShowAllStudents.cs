@@ -80,7 +80,7 @@ namespace SchoolSystem.Controls
                         .Include(s => s.Parent)
                         .Select(s => new
                         {
-                            s.StudentsId,
+                            s.StudentId,
                             s.FirstName,
                             s.LastName,
                             DateOfBirth = s.DateOfBirth.HasValue ? s.DateOfBirth.Value.ToString("dd/MM/yyyy") : "",
@@ -115,7 +115,7 @@ namespace SchoolSystem.Controls
             if (dgvStudents.Columns.Count > 0)
             {
                 // إعادة تسمية الأعمدة
-                dgvStudents.Columns["StudentsId"].HeaderText = "ID";
+                dgvStudents.Columns["StudentId"].HeaderText = "ID";
                 dgvStudents.Columns["FirstName"].HeaderText = "First Name";
                 dgvStudents.Columns["LastName"].HeaderText = "Last Name";
                 dgvStudents.Columns["DateOfBirth"].HeaderText = "Date of Birth";

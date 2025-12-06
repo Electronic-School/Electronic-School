@@ -21,6 +21,7 @@ namespace SchoolSystem
         public MDIMainFormAdministrationForm()
         {
             InitializeComponent();
+            LoadUserControl(new DashboardUC());
         }
 
         private void ActivateButton(object btnSender)
@@ -63,8 +64,8 @@ namespace SchoolSystem
 
         private void btnSidebarDashboard_Click(object sender, EventArgs e)
         {
-            TeacherManagementUC teacherUC = new TeacherManagementUC();
-            LoadUserControl(teacherUC);
+            
+            LoadUserControl(new DashboardUC());
         }
 
         private void btnSidebarStudentManage_Click(object sender, EventArgs e)

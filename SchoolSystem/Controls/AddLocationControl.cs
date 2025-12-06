@@ -120,12 +120,12 @@ namespace SchoolSystem.Controls
 
                     foreach (var country in countries)
                     {
-                        // عرض اسم الدولة فقط بدون الكود
+                        
                         cmbCountry.Items.Add(new ComboBoxItem
                         {
-                            Text = country.CountryName, // فقط اسم الدولة
-                            Value = country.CountryID,
-                            Tag = country.CountryCode // تخزين الكود في الـ Tag
+                            Text = country.CountryName,
+                            Value = country.CountryId,
+                            Tag = country.CountryCode
                         });
                     }
 
@@ -229,7 +229,7 @@ namespace SchoolSystem.Controls
                 bool countryFound = false;
                 for (int i = 0; i < cmbCountry.Items.Count; i++)
                 {
-                    if (cmbCountry.Items[i] is ComboBoxItem item && item.Value == _loadedLocation.Country?.CountryID)
+                    if (cmbCountry.Items[i] is ComboBoxItem item && item.Value == _loadedLocation.Country?.CountryId)
                     {
                         cmbCountry.SelectedIndex = i;
                         countryFound = true;

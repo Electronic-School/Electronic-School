@@ -345,10 +345,10 @@ namespace SchoolSystem.Controls
                         await transaction.CommitAsync();
 
                         // عرض رسالة النجاح
-                        ShowSuccessMessage(newStudent.StudentsId);
+                        ShowSuccessMessage(newStudent.StudentId);
 
                         // إطلاق الحدث
-                        StudentCreated?.Invoke(newStudent.StudentsId);
+                        StudentCreated?.Invoke(newStudent.StudentId);
 
                         // تسجيل في Log
                         LogStudentCreation(newStudent);
@@ -533,7 +533,7 @@ namespace SchoolSystem.Controls
         private void LogStudentCreation(Student student)
         {
             string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Student created - " +
-                               $"ID: {student.StudentsId}, " +
+                               $"ID: {student.StudentId}, " +
                                $"Name: {student.FirstName} {student.LastName}, " +
                                $"LevelId: {student.LevelId}, " +
                                $"LocationId: {student.LocationId}, " +

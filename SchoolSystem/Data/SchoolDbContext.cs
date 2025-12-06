@@ -3,8 +3,6 @@ using SchoolSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolSystem.Data
 {
@@ -16,19 +14,7 @@ namespace SchoolSystem.Data
         {
         }
 
-        public SchoolDbContext(DbContextOptions<SchoolDbContext> options)
-            : base(options)
-        {
-        }
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(ConnectionString);
-            }
-        }
+        public SchoolDbContext(DbContextOptions<SchoolDbContext> options) : base(options) { }
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
@@ -41,13 +27,24 @@ namespace SchoolSystem.Data
         public DbSet<Curriculum> Curriculums { get; set; }
         public DbSet<StudentLevel> StudentLevels { get; set; }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<StudentCouseEnrollment> StudentCouseEnrollments { get; set; }
+        public DbSet<StudentCourseEnrollment> StudentCourseEnrollments { get; set; }
         public DbSet<StudentGrade> StudentGrades { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString, sqlOptions =>
+                {
+                    optionsBuilder.UseSqlServer(ConnectionString);
+                });
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // تسمية الجداول
+            // Table names (optional, for clarity)
             modelBuilder.Entity<Student>().ToTable("Students");
             modelBuilder.Entity<Teacher>().ToTable("Teachers");
             modelBuilder.Entity<Parent>().ToTable("Parents");
@@ -56,77 +53,26 @@ namespace SchoolSystem.Data
             modelBuilder.Entity<Country>().ToTable("Countries");
             modelBuilder.Entity<City>().ToTable("Cities");
             modelBuilder.Entity<Course>().ToTable("Courses");
-            modelBuilder.Entity<Curriculum>().ToTable("Curriculum");
-            modelBuilder.Entity<StudentLevel>().ToTable("StudentLevel");
+            modelBuilder.Entity<Curriculum>().ToTable("Curriculums");
+            modelBuilder.Entity<StudentLevel>().ToTable("StudentLevels");
             modelBuilder.Entity<Activity>().ToTable("Activities");
-            modelBuilder.Entity<StudentCouseEnrollment>().ToTable("StudentCouseEnrollment");
+            modelBuilder.Entity<StudentCourseEnrollment>().ToTable("StudentCourseEnrollments");
             modelBuilder.Entity<StudentGrade>().ToTable("StudentGrades");
             modelBuilder.Entity<Attendance>().ToTable("Attendances");
 
-            // StudentCouseEnrollment (composite key)
-            modelBuilder.Entity<StudentCouseEnrollment>()
+            // Composite keys
+            modelBuilder.Entity<StudentCourseEnrollment>()
                 .HasKey(sce => new { sce.StudentId, sce.CourseId });
 
-            // علاقات StudentCouseEnrollment
-            modelBuilder.Entity<StudentCouseEnrollment>()
-               .HasOne(sce => sce.Course)
-               .WithMany(c => c.StudentEnrollments)
-               .HasForeignKey(sce => sce.CourseId)
-               .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<StudentGrade>()
+                .HasKey(sg => new { sg.StudentId, sg.CourseId, sg.ExamType });
 
-            modelBuilder.Entity<StudentCouseEnrollment>()
-                .HasOne(sce => sce.Student)
-                .WithMany(s => s.StudentEnrollments)
-                .HasForeignKey(sce => sce.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+            // Relationships
             // Student - StudentLevel
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.StudentLevel)
                 .WithMany(sl => sl.Students)
                 .HasForeignKey(s => s.LevelId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // StudentGrade (composite key)
-            modelBuilder.Entity<StudentGrade>()
-                .HasKey(sg => new { sg.StudentId, sg.CourseId, sg.ExamType });
-
-            // علاقات StudentGrade
-            modelBuilder.Entity<StudentGrade>()
-                .HasOne(sg => sg.Course)
-                .WithMany(c => c.Grades)
-                .HasForeignKey(sg => sg.CourseId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<StudentGrade>()
-                .HasOne(sg => sg.Student)
-                .WithMany(s => s.Grades)
-                .HasForeignKey(sg => sg.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Attendance
-            modelBuilder.Entity<Attendance>()
-                .HasKey(a => a.AttendanceId);
-
-            // Location - Country
-            modelBuilder.Entity<Location>()
-                .HasOne(l => l.Country)
-                .WithMany(c => c.Locations)
-                .HasForeignKey(l => l.CountryId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Location - City
-            modelBuilder.Entity<Location>()
-                .HasOne(l => l.City)
-                .WithMany(c => c.Locations)
-                .HasForeignKey(l => l.CityId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Student - Location
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.Location)
-                .WithMany(l => l.Students)
-                .HasForeignKey(s => s.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Student - Parent
@@ -136,34 +82,47 @@ namespace SchoolSystem.Data
                 .HasForeignKey(s => s.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Teacher - Location
+            // Student - Location
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.Location)
+                .WithMany()
+                .HasForeignKey(s => s.LocationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Parent - Location
+            modelBuilder.Entity<Parent>()
+                .HasOne(p => p.Location)
+                .WithMany(l => l.Parents)
+                .HasForeignKey(p => p.LocationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Location - Country
+            modelBuilder.Entity<Location>()
+                .HasOne(l => l.Country)
+                .WithMany(c => c.Locations)
+                .HasForeignKey(l => l.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Teacher - Location (optional)
             modelBuilder.Entity<Teacher>()
                 .HasOne(t => t.Location)
                 .WithMany(l => l.Teachers)
                 .HasForeignKey(t => t.LocationId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Employee - Location
-            modelBuilder.Entity<Employee>()
-                .HasOne(e => e.LOcation)
-                .WithMany(l => l.Employees)
-                .HasForeignKey(e => e.LocationId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Activity - Employee (Supervisor)
-            modelBuilder.Entity<Activity>()
-                .HasOne(a => a.Supervisor)
-                .WithMany()
-                .HasForeignKey(a => a.SupervisorId)
-                .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Course - Teacher
-            modelBuilder.Entity<Course>()
-                .HasOne(c => c.Teacher)
-                .WithMany()
-                .HasForeignKey(c => c.TeacherId)
-                .OnDelete(DeleteBehavior.Restrict);
+            // Employee - Location (optional)
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Location)
+                .WithMany(l => l.Employees)
+                .HasForeignKey(e => e.LocationId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Activity - Employee (Supervisor) optional
+            modelBuilder.Entity<Activity>()
+                .HasOne(a => a.Supervisor)
+                .WithMany(e => e.ActivitiesSupervised)
+                .HasForeignKey(a => a.SupervisorId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             // Course - Curriculum
             modelBuilder.Entity<Course>()
@@ -172,29 +131,43 @@ namespace SchoolSystem.Data
                 .HasForeignKey(c => c.CurriculumId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //// Course - StudentLevel (التعديل المطلوب)
-            //modelBuilder.Entity<Course>()
-            //    .HasOne(c => c.StudentLevel)
-            //    .WithMany(sl => sl.Courses)
-            //    .HasForeignKey(c => c.LevelId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            // Course - Teacher (optional)
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Teacher)
+                .WithMany(t => t.Courses)
+                .HasForeignKey(c => c.TeacherId)
+                .OnDelete(DeleteBehavior.SetNull);
 
-            // Curriculum - StudentLevel
-            modelBuilder.Entity<Curriculum>()
-                .HasOne(c => c.StudentLevel)
-                .WithMany(sl => sl.Curriculums)
-                .HasForeignKey(c => c.LevelId)
+            // StudentCourseEnrollment relations
+            modelBuilder.Entity<StudentCourseEnrollment>()
+                .HasOne(sce => sce.Student)
+                .WithMany(s => s.StudentEnrollments)
+                .HasForeignKey(sce => sce.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // إضافة القيود والافتراضات
-            modelBuilder.Entity<Student>()
-                .Property(s => s.DateOfBirth)
-                .IsRequired(false);
+            modelBuilder.Entity<StudentCourseEnrollment>()
+                .HasOne(sce => sce.Course)
+                .WithMany(c => c.StudentEnrollments)
+                .HasForeignKey(sce => sce.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<StudentCouseEnrollment>()
+            // StudentGrade relations
+            modelBuilder.Entity<StudentGrade>()
+                .HasOne(sg => sg.Student)
+                .WithMany(s => s.Grades)
+                .HasForeignKey(sg => sg.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<StudentGrade>()
+                .HasOne(sg => sg.Course)
+                .WithMany(c => c.Grades)
+                .HasForeignKey(sg => sg.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Defaults and constraints
+            modelBuilder.Entity<StudentCourseEnrollment>()
                 .Property(sce => sce.EnrollmentDate)
-                .HasDefaultValueSql("GETDATE()")
-                .IsRequired(false);
+                .HasDefaultValueSql("GETDATE()");
 
             modelBuilder.Entity<Attendance>()
                 .Property(a => a.AttendanceDate)
@@ -204,27 +177,90 @@ namespace SchoolSystem.Data
                 .Property(c => c.StartDate)
                 .HasDefaultValueSql("GETDATE()");
 
-            //modelBuilder.Entity<Course>()
-            //    .Property(c => c.IsActive)
-            //    .HasDefaultValue(true);
-
-            // إضافة قيود CHECK للمتطلبات
+            // Check constraints
             modelBuilder.Entity<Attendance>()
-                .HasCheckConstraint("CK_Attendance_PersonType",
-                    "[PersonType] IN ('Student', 'Teacher', 'Emp')");
+                .HasCheckConstraint("CK_Attendance_PersonType", "[PersonType] IN ('Student','Teacher','Employee')");
 
             modelBuilder.Entity<Attendance>()
-                .HasCheckConstraint("CK_Attendance_AttendanceStatus",
-                    "[AttendanceStatus] IN ('Present', 'Absent', 'Late', 'Excused')");
+                .HasCheckConstraint("CK_Attendance_Status", "[AttendanceStatus] IN ('Present','Absent','Late','Excused')");
 
             modelBuilder.Entity<StudentLevel>()
-                .HasCheckConstraint("CK_StudentLevel_Stage",
-                    "[Stage] IN ('ابتدائي', 'أساسي', 'ثانوي')");
+                .HasCheckConstraint("CK_StudentLevel_Stage", "[Stage] IN (N'ابتدائي', N'أساسي', N'ثانوي')");
 
-            // إضافة قيد CHECK للتواريخ في Course
             modelBuilder.Entity<Course>()
-                .HasCheckConstraint("CK_Course_Dates",
-                    "[StartDate] <= [EndDate] OR [StartDate] IS NULL OR [EndDate] IS NULL");
+                .HasCheckConstraint("CK_Course_Dates", "[StartDate] <= [EndDate] OR [StartDate] IS NULL OR [EndDate] IS NULL");
+
+            // ---------- Seed data (countries, cities, levels, curricula, sample teacher, courses) ----------
+            modelBuilder.Entity<Country>().HasData(
+                new Country { CountryId = 1, CountryCode = "SAU", CountryName = "Saudi Arabia" },
+                new Country { CountryId = 2, CountryCode = "ARE", CountryName = "United Arab Emirates" },
+                new Country { CountryId = 3, CountryCode = "OMN", CountryName = "Oman" },
+                new Country { CountryId = 4, CountryCode = "QAT", CountryName = "Qatar" },
+                new Country { CountryId = 5, CountryCode = "BHR", CountryName = "Bahrain" },
+                new Country { CountryId = 6, CountryCode = "KWT", CountryName = "Kuwait" },
+                new Country { CountryId = 7, CountryCode = "YEM", CountryName = "Yemen" }
+            );
+
+            // Cities (CountryCode only, not FK)
+            modelBuilder.Entity<City>().HasData(
+                new City { CityId = 1, CityCode = "SA-RYD", CityName = "Riyadh", CountryCode = "SAU" },
+                new City { CityId = 2, CityCode = "SA-JED", CityName = "Jeddah", CountryCode = "SAU" },
+                new City { CityId = 3, CityCode = "AE-AUH", CityName = "Abu Dhabi", CountryCode = "ARE" },
+                new City { CityId = 4, CityCode = "AE-DXB", CityName = "Dubai", CountryCode = "ARE" },
+                new City { CityId = 5, CityCode = "OM-MSC", CityName = "Muscat", CountryCode = "OMN" },
+                new City { CityId = 6, CityCode = "QA-DOH", CityName = "Doha", CountryCode = "QAT" },
+                new City { CityId = 7, CityCode = "BH-MNL", CityName = "Manama", CountryCode = "BHR" },
+                new City { CityId = 8, CityCode = "KW-KWI", CityName = "Kuwait City", CountryCode = "KWT" },
+                new City { CityId = 9, CityCode = "YE-SAN", CityName = "Sana'a", CountryCode = "YEM" },
+                new City { CityId = 10, CityCode = "YE-ADN", CityName = "Aden", CountryCode = "YEM" }
+            );
+
+            // Student levels 1..12
+            var levels = Enumerable.Range(1, 12).Select(i => new StudentLevel
+            {
+                LevelId = i,
+                LevelName = $"Grade {i}",
+                LevelNumber = i,
+                Stage = i <= 6 ? "ابتدائي" : (i <= 9 ? "أساسي" : "ثانوي")
+            }).ToArray();
+            modelBuilder.Entity<StudentLevel>().HasData(levels);
+
+            // Seed a sample location (used for teacher seed)
+            modelBuilder.Entity<Location>().HasData(
+                new Location { LocationId = 1, CountryId = 1, CityId = 1, Street = "Default St", BuildingNo = "1" }
+            );
+
+            // Curriculums (one per level)
+            var curricula = Enumerable.Range(1, 12).Select(i => new Curriculum
+            {
+                CurriculumId = 100 + i,
+                Name = $"Yemeni Curriculum Grade {i}",
+                Description = $"Basic Yemeni curriculum for Grade {i}",
+                LevelId = i,
+                Semester = "First"
+            }).ToArray();
+            modelBuilder.Entity<Curriculum>().HasData(curricula);
+
+            // Courses per level (basic set)
+            var subjects = new[] { "Arabic", "Mathematics", "Science", "English", "Islamic", "Social Studies", "Computer", "Physical Education", "Art" };
+            var courseSeeds = new List<Course>();
+            int courseId = 1000;
+            foreach (var lvl in Enumerable.Range(1, 12))
+            {
+                foreach (var subj in subjects)
+                {
+                    courseSeeds.Add(new Course
+                    {
+                        CourseId = courseId++,
+                        Name = $"{subj} - Grade {lvl}",
+                        Description = $"{subj} for Grade {lvl}",
+                        StartDate = DateTime.Now,
+                        CurriculumId = 100 + lvl,
+                        TeacherId = 1
+                    });
+                }
+            }
+            modelBuilder.Entity<Course>().HasData(courseSeeds.ToArray());
 
             base.OnModelCreating(modelBuilder);
         }

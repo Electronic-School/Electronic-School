@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolSystem.Models
 {
@@ -16,17 +11,16 @@ namespace SchoolSystem.Models
         [Required]
         [StringLength(20)]
         [Column(TypeName = "nchar(20)")]
-        public required string CityCode { get; set; }
+        public string CityCode { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public required string CityName { get; set; }
+        [StringLength(100)]
+        public string CityName { get; set; }
 
+        // مجرد قيمة نصية تطابق Country.CountryCode — بدون FK
         [Required]
-        [StringLength(50)]
-        public required string CountryCode { get; set; }
-
-        public ICollection<Location> Locations { get; set; } = new List<Location>();
-
+        [StringLength(20)]
+        [Column(TypeName = "nchar(20)")]
+        public string CountryCode { get; set; }
     }
 }

@@ -14,7 +14,7 @@
         private Button btnDelete;
         private Label label1;
 
-         private void InitializeComponent()
+        private void InitializeComponent()
         {
             pnlHeader = new Panel();
             label1 = new Label();
@@ -69,8 +69,8 @@
             pnlSidebar.Controls.Add(btnAdd);
             pnlSidebar.Controls.Add(btnSearch);
             pnlSidebar.Controls.Add(btnShowAll);
-            pnlSidebar.Dock = DockStyle.Left;
-            pnlSidebar.Location = new Point(0, 71);
+            pnlSidebar.Dock = DockStyle.Right;
+            pnlSidebar.Location = new Point(1220, 71);
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(262, 732);
             pnlSidebar.TabIndex = 1;
@@ -129,7 +129,7 @@
             // 
             pnlMain.BackColor = Color.White;
             pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(262, 71);
+            pnlMain.Location = new Point(0, 71);
             pnlMain.Name = "pnlMain";
             pnlMain.Size = new Size(1220, 732);
             pnlMain.TabIndex = 0;

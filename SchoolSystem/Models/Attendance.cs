@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolSystem.Models
 {
@@ -12,15 +8,16 @@ namespace SchoolSystem.Models
         [Key]
         public int AttendanceId { get; set; }
 
-        public required int PersonId { get; set; }
+        [Required]
+        public int PersonId { get; set; }
 
         [StringLength(20)]
-        public required string PersonType { get; set; } // CHECK ('Student','Teacher','Emp')
+        public string PersonType { get; set; } // Student, Teacher, Employee
 
         [Required]
-        public required DateTime AttendanceDate { get; set; }
+        public DateTime AttendanceDate { get; set; }
 
         [StringLength(20)]
-        public required string AttendanceStatus { get; set; } // CHECK ('Present', 'Absent', 'Late', 'Excused')
+        public string AttendanceStatus { get; set; } // Present, Absent, Late, Excused
     }
 }

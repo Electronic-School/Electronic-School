@@ -120,7 +120,7 @@ namespace SchoolSystem.Controls
                             .ThenInclude(l => l.Country)
                         .Include(s => s.Parent)
                         .Include(s => s.StudentLevel) 
-                        .FirstOrDefault(s => s.StudentsId == studentId);
+                        .FirstOrDefault(s => s.StudentId == studentId);
 
                     if (currentStudent == null)
                     {
@@ -194,7 +194,7 @@ namespace SchoolSystem.Controls
             }
 
             string studentName = $"{currentStudent.FirstName} {currentStudent.LastName}";
-            string studentId = currentStudent.StudentsId.ToString();
+            string studentId = currentStudent.StudentId.ToString();
 
             // تأكيد الحذف
             string confirmationMessage = $"Are you sure you want to delete this student?\n\n" +
@@ -220,7 +220,7 @@ namespace SchoolSystem.Controls
                 using (var context = new SchoolDbContext())
                 {
                     // إعادة تحميل الطالب للتأكد من وجوده
-                    var studentToDelete = context.Students.Find(currentStudent.StudentsId);
+                    var studentToDelete = context.Students.Find(currentStudent.StudentId);
 
                     if (studentToDelete == null)
                     {

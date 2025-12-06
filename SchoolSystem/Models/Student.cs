@@ -2,45 +2,44 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolSystem.Models
 {
     public class Student
     {
         [Key]
-        public int StudentsId { get; set; }
+        public int StudentId { get; set; }
 
         [StringLength(50)]
-        public required string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         [StringLength(50)]
-        public required string LastName { get; set; }
+        public string LastName { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 
+        // Location required
         [Required]
         public int LocationId { get; set; }
 
         [ForeignKey("LocationId")]
-        public required Location Location { get; set; }
+        public Location Location { get; set; }
 
+        // Parent required
         [Required]
         public int ParentId { get; set; }
 
         [ForeignKey("ParentId")]
-        public required Parent Parent { get; set; }
+        public Parent Parent { get; set; }
 
+        // Level required
         [Required]
         public int LevelId { get; set; }
 
         [ForeignKey("LevelId")]
-        public required StudentLevel StudentLevel { get; set; }
+        public StudentLevel StudentLevel { get; set; }
 
         public ICollection<StudentGrade> Grades { get; set; } = new List<StudentGrade>();
-
-        public ICollection<StudentCouseEnrollment> StudentEnrollments { get; set; } = new List<StudentCouseEnrollment>();
+        public ICollection<StudentCourseEnrollment> StudentEnrollments { get; set; } = new List<StudentCourseEnrollment>();
     }
 }

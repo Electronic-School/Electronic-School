@@ -143,7 +143,7 @@
             lblBuildingNoError.AutoSize = true;
             lblBuildingNoError.Font = new Font("Segoe UI", 8F);
             lblBuildingNoError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblBuildingNoError.Location = new Point(180, 250);
+            lblBuildingNoError.Location = new Point(456, 202);
             lblBuildingNoError.Name = "lblBuildingNoError";
             lblBuildingNoError.Size = new Size(0, 19);
             lblBuildingNoError.TabIndex = 14;
@@ -153,7 +153,7 @@
             lblStreetError.AutoSize = true;
             lblStreetError.Font = new Font("Segoe UI", 8F);
             lblStreetError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblStreetError.Location = new Point(180, 175);
+            lblStreetError.Location = new Point(456, 142);
             lblStreetError.Name = "lblStreetError";
             lblStreetError.Size = new Size(0, 19);
             lblStreetError.TabIndex = 13;
@@ -163,7 +163,7 @@
             lblCityError.AutoSize = true;
             lblCityError.Font = new Font("Segoe UI", 8F);
             lblCityError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblCityError.Location = new Point(180, 120);
+            lblCityError.Location = new Point(456, 83);
             lblCityError.Name = "lblCityError";
             lblCityError.Size = new Size(0, 19);
             lblCityError.TabIndex = 12;
@@ -173,7 +173,7 @@
             lblCountryError.AutoSize = true;
             lblCountryError.Font = new Font("Segoe UI", 8F);
             lblCountryError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblCountryError.Location = new Point(180, 55);
+            lblCountryError.Location = new Point(456, 36);
             lblCountryError.Name = "lblCountryError";
             lblCountryError.Size = new Size(0, 19);
             lblCountryError.TabIndex = 11;

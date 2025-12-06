@@ -33,16 +33,10 @@
         private TextBox txtLevel;
         private Label lblStage;
         private TextBox txtStage;
-        private TextBox txtEnrollments;
-        private Label lblEnrollments;
-        private TextBox txtGrades;
-        private Label lblGrades;
         private Panel pnlPersonalInfo;
         private Panel pnlAcademicInfo;
         private Panel pnlLocationInfo;
         private Panel pnlParentInfo;
-        private Panel pnlEnrollmentsInfo;
-        private Panel pnlGradesInfo;
 
         //protected override void Dispose(bool disposing)
         //{
@@ -63,12 +57,6 @@
             lblStudentID = new Label();
             lblTitle = new Label();
             pnlResults = new Panel();
-            pnlGradesInfo = new Panel();
-            txtGrades = new TextBox();
-            lblGrades = new Label();
-            pnlEnrollmentsInfo = new Panel();
-            txtEnrollments = new TextBox();
-            lblEnrollments = new Label();
             pnlParentInfo = new Panel();
             txtParentEmail = new TextBox();
             lblParentEmail = new Label();
@@ -97,8 +85,6 @@
             lblFirstName = new Label();
             pnlHeader.SuspendLayout();
             pnlResults.SuspendLayout();
-            pnlGradesInfo.SuspendLayout();
-            pnlEnrollmentsInfo.SuspendLayout();
             pnlParentInfo.SuspendLayout();
             pnlLocationInfo.SuspendLayout();
             pnlAcademicInfo.SuspendLayout();
@@ -201,8 +187,6 @@
             // 
             pnlResults.AutoScroll = true;
             pnlResults.BackColor = Color.White;
-            pnlResults.Controls.Add(pnlGradesInfo);
-            pnlResults.Controls.Add(pnlEnrollmentsInfo);
             pnlResults.Controls.Add(pnlParentInfo);
             pnlResults.Controls.Add(pnlLocationInfo);
             pnlResults.Controls.Add(pnlAcademicInfo);
@@ -214,76 +198,6 @@
             pnlResults.Size = new Size(800, 470);
             pnlResults.TabIndex = 1;
             pnlResults.Visible = false;
-            // 
-            // pnlGradesInfo
-            // 
-            pnlGradesInfo.BackColor = Color.White;
-            pnlGradesInfo.BorderStyle = BorderStyle.FixedSingle;
-            pnlGradesInfo.Controls.Add(txtGrades);
-            pnlGradesInfo.Controls.Add(lblGrades);
-            pnlGradesInfo.Location = new Point(420, 530);
-            pnlGradesInfo.Name = "pnlGradesInfo";
-            pnlGradesInfo.Padding = new Padding(10);
-            pnlGradesInfo.Size = new Size(350, 150);
-            pnlGradesInfo.TabIndex = 6;
-            // 
-            // txtGrades
-            // 
-            txtGrades.BackColor = Color.FromArgb(245, 245, 245);
-            txtGrades.BorderStyle = BorderStyle.FixedSingle;
-            txtGrades.Font = new Font("Segoe UI", 9F);
-            txtGrades.Location = new Point(20, 50);
-            txtGrades.Multiline = true;
-            txtGrades.Name = "txtGrades";
-            txtGrades.ReadOnly = true;
-            txtGrades.ScrollBars = ScrollBars.Vertical;
-            txtGrades.Size = new Size(310, 90);
-            txtGrades.TabIndex = 1;
-            // 
-            // lblGrades
-            // 
-            lblGrades.AutoSize = true;
-            lblGrades.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblGrades.Location = new Point(20, 20);
-            lblGrades.Name = "lblGrades";
-            lblGrades.Size = new Size(70, 23);
-            lblGrades.TabIndex = 0;
-            lblGrades.Text = "Grades:";
-            // 
-            // pnlEnrollmentsInfo
-            // 
-            pnlEnrollmentsInfo.BackColor = Color.White;
-            pnlEnrollmentsInfo.BorderStyle = BorderStyle.FixedSingle;
-            pnlEnrollmentsInfo.Controls.Add(txtEnrollments);
-            pnlEnrollmentsInfo.Controls.Add(lblEnrollments);
-            pnlEnrollmentsInfo.Location = new Point(30, 530);
-            pnlEnrollmentsInfo.Name = "pnlEnrollmentsInfo";
-            pnlEnrollmentsInfo.Padding = new Padding(10);
-            pnlEnrollmentsInfo.Size = new Size(350, 150);
-            pnlEnrollmentsInfo.TabIndex = 5;
-            // 
-            // txtEnrollments
-            // 
-            txtEnrollments.BackColor = Color.FromArgb(245, 245, 245);
-            txtEnrollments.BorderStyle = BorderStyle.FixedSingle;
-            txtEnrollments.Font = new Font("Segoe UI", 9F);
-            txtEnrollments.Location = new Point(20, 50);
-            txtEnrollments.Multiline = true;
-            txtEnrollments.Name = "txtEnrollments";
-            txtEnrollments.ReadOnly = true;
-            txtEnrollments.ScrollBars = ScrollBars.Vertical;
-            txtEnrollments.Size = new Size(310, 90);
-            txtEnrollments.TabIndex = 1;
-            // 
-            // lblEnrollments
-            // 
-            lblEnrollments.AutoSize = true;
-            lblEnrollments.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblEnrollments.Location = new Point(20, 20);
-            lblEnrollments.Name = "lblEnrollments";
-            lblEnrollments.Size = new Size(110, 23);
-            lblEnrollments.TabIndex = 0;
-            lblEnrollments.Text = "Enrollments:";
             // 
             // pnlParentInfo
             // 
@@ -590,10 +504,6 @@
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlResults.ResumeLayout(false);
-            pnlGradesInfo.ResumeLayout(false);
-            pnlGradesInfo.PerformLayout();
-            pnlEnrollmentsInfo.ResumeLayout(false);
-            pnlEnrollmentsInfo.PerformLayout();
             pnlParentInfo.ResumeLayout(false);
             pnlParentInfo.PerformLayout();
             pnlLocationInfo.ResumeLayout(false);
