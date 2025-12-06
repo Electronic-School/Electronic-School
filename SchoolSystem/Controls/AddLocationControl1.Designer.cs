@@ -139,7 +139,7 @@
             this.btnAddLocation.TabIndex = 5;
             this.btnAddLocation.Text = "إضافة الموقع";
             this.btnAddLocation.UseVisualStyleBackColor = false;         
-            //this.btnAddLocation.Click += new System.EventHandler(this.btnAddLocation_Click);
+            //this.btnAddLocation.Click += new System.EventHandler(this.BtnAddLocation_Click);
             // 
             // btnClear
             // 
@@ -152,7 +152,7 @@
             this.btnClear.TabIndex = 6;
             this.btnClear.Text = "مسح الحقول";
             this.btnClear.UseVisualStyleBackColor = false;
-            //this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            //this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // AddLocationControl1
             // 

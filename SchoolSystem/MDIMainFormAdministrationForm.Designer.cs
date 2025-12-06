@@ -92,10 +92,10 @@
             btnSidebarTeacherManage.FlatAppearance.BorderSize = 0;
             btnSidebarTeacherManage.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSidebarTeacherManage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSidebarTeacherManage.Location = new Point(0, 144);
+            btnSidebarTeacherManage.Location = new Point(0, 180);
             btnSidebarTeacherManage.Name = "btnSidebarTeacherManage";
             btnSidebarTeacherManage.RightToLeft = RightToLeft.No;
-            btnSidebarTeacherManage.Size = new Size(316, 60);
+            btnSidebarTeacherManage.Size = new Size(316, 85);
             btnSidebarTeacherManage.TabIndex = 6;
             btnSidebarTeacherManage.Text = "Teacher Mangement";
             btnSidebarTeacherManage.UseVisualStyleBackColor = true;
@@ -107,10 +107,10 @@
             btnSidebarStudentManage.FlatAppearance.BorderSize = 0;
             btnSidebarStudentManage.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSidebarStudentManage.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSidebarStudentManage.Location = new Point(0, 84);
+            btnSidebarStudentManage.Location = new Point(0, 95);
             btnSidebarStudentManage.Name = "btnSidebarStudentManage";
             btnSidebarStudentManage.RightToLeft = RightToLeft.No;
-            btnSidebarStudentManage.Size = new Size(316, 60);
+            btnSidebarStudentManage.Size = new Size(316, 85);
             btnSidebarStudentManage.TabIndex = 5;
             btnSidebarStudentManage.Text = "Student Mangement";
             btnSidebarStudentManage.UseVisualStyleBackColor = true;
@@ -125,7 +125,7 @@
             btnSidebarDashboard.Location = new Point(0, 0);
             btnSidebarDashboard.Name = "btnSidebarDashboard";
             btnSidebarDashboard.RightToLeft = RightToLeft.No;
-            btnSidebarDashboard.Size = new Size(316, 84);
+            btnSidebarDashboard.Size = new Size(316, 95);
             btnSidebarDashboard.TabIndex = 0;
             btnSidebarDashboard.Text = "Dashboard";
             btnSidebarDashboard.UseVisualStyleBackColor = true;

@@ -172,12 +172,12 @@ namespace SchoolSystem.Data
                 .HasForeignKey(c => c.CurriculumId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Course - StudentLevel (التعديل المطلوب)
-            modelBuilder.Entity<Course>()
-                .HasOne(c => c.StudentLevel)
-                .WithMany(sl => sl.Courses)
-                .HasForeignKey(c => c.LevelId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //// Course - StudentLevel (التعديل المطلوب)
+            //modelBuilder.Entity<Course>()
+            //    .HasOne(c => c.StudentLevel)
+            //    .WithMany(sl => sl.Courses)
+            //    .HasForeignKey(c => c.LevelId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             // Curriculum - StudentLevel
             modelBuilder.Entity<Curriculum>()
@@ -201,12 +201,12 @@ namespace SchoolSystem.Data
                 .HasDefaultValueSql("GETDATE()");
 
             modelBuilder.Entity<Course>()
-                .Property(c => c.CreatedDate)
+                .Property(c => c.StartDate)
                 .HasDefaultValueSql("GETDATE()");
 
-            modelBuilder.Entity<Course>()
-                .Property(c => c.IsActive)
-                .HasDefaultValue(true);
+            //modelBuilder.Entity<Course>()
+            //    .Property(c => c.IsActive)
+            //    .HasDefaultValue(true);
 
             // إضافة قيود CHECK للمتطلبات
             modelBuilder.Entity<Attendance>()

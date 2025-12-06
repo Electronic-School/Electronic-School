@@ -40,7 +40,7 @@ namespace SchoolSystem.Controls
         {
             TeacherGridUC gridUC = new TeacherGridUC();
 
-            gridUC.AddNewTeacher += (s, e) => ShowTeacherDetails(null);
+            //gridUC.AddNewTeacher += (s, e) => ShowTeacherDetails(null);
             gridUC.EditClicked += (s, teacherId) => ShowTeacherDetails((int)teacherId);
             LoadContent(gridUC);
         }

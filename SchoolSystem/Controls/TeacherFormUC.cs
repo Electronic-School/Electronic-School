@@ -7,23 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SchoolSystem.Controls;
 
-namespace SchoolSystem
+namespace SchoolSystem.Controls
 {
-    public partial class TeacherForm : Form
+    public partial class TeacherFormUC : UserControl
     {
-        public TeacherForm()
+        public TeacherFormUC()
         {
             InitializeComponent();
-
             ShowUserControl(new TeacherGridUC());
         }
 
         private void ShowUserControl(UserControl usercontrol)
         {
             pnlMainContent.Controls.Clear();
-            usercontrol.Dock=DockStyle.Fill;
+            usercontrol.Dock = DockStyle.Fill;
             pnlMainContent.Controls.Add(usercontrol);
         }
 
@@ -46,12 +44,12 @@ namespace SchoolSystem
 
         private void btnEditTeacher_Click(object sender, EventArgs e)
         {
-            //ShowUserControl(new UpdateTeacherControl());
+            ShowUserControl(new UpdateTeacherControl());
         }
 
         private void btnDeleteTeacher_Click(object sender, EventArgs e)
         {
-            //ShowUserControl(new DeleteTeacherControl());
+            ShowUserControl(new DeleteTeacherControl());
         }
 
     }

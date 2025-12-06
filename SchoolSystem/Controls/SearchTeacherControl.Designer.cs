@@ -64,307 +64,372 @@
         /// </summary>
         private void InitializeComponent()
         {
-            //components = new System.ComponentModel.Container();
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
-            this.pnlHeader = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.pnlSearchBox = new System.Windows.Forms.Panel();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.lblSearchPrompt = new System.Windows.Forms.Label();
-            this.pnlResult = new System.Windows.Forms.Panel();
-            this.grpDetails = new System.Windows.Forms.GroupBox();
-
-            // تهيئة العناوين والقيم
-            this.lblTitleID = new System.Windows.Forms.Label();
-            this.lblValueID = new System.Windows.Forms.Label();
-            this.lblTitleName = new System.Windows.Forms.Label();
-            this.lblValueName = new System.Windows.Forms.Label();
-            this.lblTitleSubject = new System.Windows.Forms.Label();
-            this.lblValueSubject = new System.Windows.Forms.Label();
-            this.lblTitleDegree = new System.Windows.Forms.Label();
-            this.lblValueDegree = new System.Windows.Forms.Label();
-            this.lblTitlePhone = new System.Windows.Forms.Label();
-            this.lblValuePhone = new System.Windows.Forms.Label();
-            this.lblTitleEmail = new System.Windows.Forms.Label();
-            this.lblValueEmail = new System.Windows.Forms.Label();
-            this.lblTitleSalary = new System.Windows.Forms.Label();
-            this.lblValueSalary = new System.Windows.Forms.Label();
-            this.lblTitleDate = new System.Windows.Forms.Label();
-            this.lblValueDate = new System.Windows.Forms.Label();
-            this.lblTitleAddress = new System.Windows.Forms.Label();
-            this.lblValueAddress = new System.Windows.Forms.Label();
-
-            this.pnlHeader.SuspendLayout();
-            this.pnlSearchBox.SuspendLayout();
-            this.pnlResult.SuspendLayout();
-            this.grpDetails.SuspendLayout();
-            this.SuspendLayout();
-
+            pnlHeader = new Panel();
+            lblTitle = new Label();
+            pnlSearchBox = new Panel();
+            btnClear = new Button();
+            btnSearch = new Button();
+            txtSearch = new TextBox();
+            lblSearchPrompt = new Label();
+            pnlResult = new Panel();
+            grpDetails = new GroupBox();
+            lblValueAddress = new Label();
+            lblTitleAddress = new Label();
+            lblValueDate = new Label();
+            lblTitleDate = new Label();
+            lblValueSalary = new Label();
+            lblTitleSalary = new Label();
+            lblValueEmail = new Label();
+            lblTitleEmail = new Label();
+            lblValuePhone = new Label();
+            lblTitlePhone = new Label();
+            lblValueDegree = new Label();
+            lblTitleDegree = new Label();
+            lblValueSubject = new Label();
+            lblTitleSubject = new Label();
+            lblValueName = new Label();
+            lblTitleName = new Label();
+            lblValueID = new Label();
+            lblTitleID = new Label();
+            pnlHeader.SuspendLayout();
+            pnlSearchBox.SuspendLayout();
+            pnlResult.SuspendLayout();
+            grpDetails.SuspendLayout();
+            SuspendLayout();
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.pnlHeader.Controls.Add(this.lblTitle);
-            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 70);
-            this.pnlHeader.TabIndex = 0;
+            pnlHeader.BackColor = Color.FromArgb(41, 128, 185);
+            pnlHeader.Controls.Add(lblTitle);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(800, 70);
+            pnlHeader.TabIndex = 0;
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(209, 30);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "🔍 Search Teacher";
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Location = new Point(20, 20);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(253, 37);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "🔍 Search Teacher";
             // 
             // pnlSearchBox
             // 
-            this.pnlSearchBox.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pnlSearchBox.Controls.Add(this.btnClear);
-            this.pnlSearchBox.Controls.Add(this.btnSearch);
-            this.pnlSearchBox.Controls.Add(this.txtSearch);
-            this.pnlSearchBox.Controls.Add(this.lblSearchPrompt);
-            this.pnlSearchBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSearchBox.Location = new System.Drawing.Point(0, 70);
-            this.pnlSearchBox.Name = "pnlSearchBox";
-            this.pnlSearchBox.Size = new System.Drawing.Size(800, 100);
-            this.pnlSearchBox.TabIndex = 1;
-            // 
-            // lblSearchPrompt
-            // 
-            this.lblSearchPrompt.AutoSize = true;
-            this.lblSearchPrompt.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSearchPrompt.Location = new System.Drawing.Point(30, 25);
-            this.lblSearchPrompt.Name = "lblSearchPrompt";
-            this.lblSearchPrompt.Size = new System.Drawing.Size(183, 19);
-            this.lblSearchPrompt.TabIndex = 0;
-            this.lblSearchPrompt.Text = "Enter Teacher ID or Name:";
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtSearch.Location = new System.Drawing.Point(34, 50);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(400, 27);
-            this.txtSearch.TabIndex = 1;
-            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSearch.Location = new System.Drawing.Point(450, 48);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(120, 32);
-            this.btnSearch.TabIndex = 2;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            pnlSearchBox.BackColor = Color.WhiteSmoke;
+            pnlSearchBox.Controls.Add(btnClear);
+            pnlSearchBox.Controls.Add(btnSearch);
+            pnlSearchBox.Controls.Add(txtSearch);
+            pnlSearchBox.Controls.Add(lblSearchPrompt);
+            pnlSearchBox.Dock = DockStyle.Top;
+            pnlSearchBox.Location = new Point(0, 70);
+            pnlSearchBox.Name = "pnlSearchBox";
+            pnlSearchBox.Size = new Size(800, 100);
+            pnlSearchBox.TabIndex = 1;
             // 
             // btnClear
             // 
-            this.btnClear.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.btnClear.Location = new System.Drawing.Point(580, 48);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(80, 32);
-            this.btnClear.TabIndex = 3;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            btnClear.Font = new Font("Segoe UI", 10F);
+            btnClear.Location = new Point(580, 48);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(80, 32);
+            btnClear.TabIndex = 3;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += BtnClear_Click;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSearch.Location = new Point(450, 48);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(120, 32);
+            btnSearch.TabIndex = 2;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += BtnSearch_Click;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Font = new Font("Segoe UI", 11F);
+            txtSearch.Location = new Point(34, 50);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(400, 32);
+            txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            txtSearch.KeyDown += TxtSearch_KeyDown;
+            // 
+            // lblSearchPrompt
+            // 
+            lblSearchPrompt.AutoSize = true;
+            lblSearchPrompt.Font = new Font("Segoe UI", 10F);
+            lblSearchPrompt.Location = new Point(30, 25);
+            lblSearchPrompt.Name = "lblSearchPrompt";
+            lblSearchPrompt.Size = new Size(211, 23);
+            lblSearchPrompt.TabIndex = 0;
+            lblSearchPrompt.Text = "Enter Teacher ID or Name:";
             // 
             // pnlResult
             // 
-            this.pnlResult.AutoScroll = true;
-            this.pnlResult.BackColor = System.Drawing.Color.White;
-            this.pnlResult.Controls.Add(this.grpDetails);
-            this.pnlResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlResult.Location = new System.Drawing.Point(0, 170);
-            this.pnlResult.Name = "pnlResult";
-            this.pnlResult.Padding = new System.Windows.Forms.Padding(30);
-            this.pnlResult.Size = new System.Drawing.Size(800, 430);
-            this.pnlResult.TabIndex = 2;
+            pnlResult.AutoScroll = true;
+            pnlResult.BackColor = Color.White;
+            pnlResult.Controls.Add(grpDetails);
+            pnlResult.Dock = DockStyle.Fill;
+            pnlResult.Location = new Point(0, 170);
+            pnlResult.Name = "pnlResult";
+            pnlResult.Padding = new Padding(30);
+            pnlResult.Size = new Size(800, 430);
+            pnlResult.TabIndex = 2;
             // 
             // grpDetails
             // 
-            this.grpDetails.Controls.Add(this.lblValueAddress);
-            this.grpDetails.Controls.Add(this.lblTitleAddress);
-            this.grpDetails.Controls.Add(this.lblValueDate);
-            this.grpDetails.Controls.Add(this.lblTitleDate);
-            this.grpDetails.Controls.Add(this.lblValueSalary);
-            this.grpDetails.Controls.Add(this.lblTitleSalary);
-            this.grpDetails.Controls.Add(this.lblValueEmail);
-            this.grpDetails.Controls.Add(this.lblTitleEmail);
-            this.grpDetails.Controls.Add(this.lblValuePhone);
-            this.grpDetails.Controls.Add(this.lblTitlePhone);
-            this.grpDetails.Controls.Add(this.lblValueDegree);
-            this.grpDetails.Controls.Add(this.lblTitleDegree);
-            this.grpDetails.Controls.Add(this.lblValueSubject);
-            this.grpDetails.Controls.Add(this.lblTitleSubject);
-            this.grpDetails.Controls.Add(this.lblValueName);
-            this.grpDetails.Controls.Add(this.lblTitleName);
-            this.grpDetails.Controls.Add(this.lblValueID);
-            this.grpDetails.Controls.Add(this.lblTitleID);
-            this.grpDetails.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grpDetails.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.grpDetails.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.grpDetails.Location = new System.Drawing.Point(30, 30);
-            this.grpDetails.Name = "grpDetails";
-            this.grpDetails.Size = new System.Drawing.Size(740, 350);
-            this.grpDetails.TabIndex = 0;
-            this.grpDetails.TabStop = false;
-            this.grpDetails.Text = "Teacher Details";
+            grpDetails.Controls.Add(lblValueAddress);
+            grpDetails.Controls.Add(lblTitleAddress);
+            grpDetails.Controls.Add(lblValueDate);
+            grpDetails.Controls.Add(lblTitleDate);
+            grpDetails.Controls.Add(lblValueSalary);
+            grpDetails.Controls.Add(lblTitleSalary);
+            grpDetails.Controls.Add(lblValueEmail);
+            grpDetails.Controls.Add(lblTitleEmail);
+            grpDetails.Controls.Add(lblValuePhone);
+            grpDetails.Controls.Add(lblTitlePhone);
+            grpDetails.Controls.Add(lblValueDegree);
+            grpDetails.Controls.Add(lblTitleDegree);
+            grpDetails.Controls.Add(lblValueSubject);
+            grpDetails.Controls.Add(lblTitleSubject);
+            grpDetails.Controls.Add(lblValueName);
+            grpDetails.Controls.Add(lblTitleName);
+            grpDetails.Controls.Add(lblValueID);
+            grpDetails.Controls.Add(lblTitleID);
+            grpDetails.Dock = DockStyle.Top;
+            grpDetails.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            grpDetails.ForeColor = Color.FromArgb(41, 128, 185);
+            grpDetails.Location = new Point(30, 30);
+            grpDetails.Name = "grpDetails";
+            grpDetails.Size = new Size(740, 350);
+            grpDetails.TabIndex = 0;
+            grpDetails.TabStop = false;
+            grpDetails.Text = "Teacher Details";
             // 
-            // Helper Method to Add Labels (Simulating Designer Code)
+            // lblValueAddress
             // 
-
-            // ID
-            this.lblTitleID.AutoSize = true;
-            this.lblTitleID.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleID.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleID.Location = new System.Drawing.Point(30, 50);
-            this.lblTitleID.Name = "lblTitleID";
-            this.lblTitleID.Size = new System.Drawing.Size(27, 19);
-            this.lblTitleID.Text = "ID:";
-
-            this.lblValueID.AutoSize = true;
-            this.lblValueID.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueID.ForeColor = System.Drawing.Color.Black;
-            this.lblValueID.Location = new System.Drawing.Point(150, 50);
-            this.lblValueID.Name = "lblValueID";
-            this.lblValueID.Text = "---";
-
-            // Name
-            this.lblTitleName.AutoSize = true;
-            this.lblTitleName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleName.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleName.Location = new System.Drawing.Point(30, 80);
-            this.lblTitleName.Text = "Full Name:";
-
-            this.lblValueName.AutoSize = true;
-            this.lblValueName.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueName.ForeColor = System.Drawing.Color.Black;
-            this.lblValueName.Location = new System.Drawing.Point(150, 80);
-            this.lblValueName.Text = "---";
-
-            // Subject
-            this.lblTitleSubject.AutoSize = true;
-            this.lblTitleSubject.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleSubject.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleSubject.Location = new System.Drawing.Point(30, 110);
-            this.lblTitleSubject.Text = "Subject:";
-
-            this.lblValueSubject.AutoSize = true;
-            this.lblValueSubject.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueSubject.ForeColor = System.Drawing.Color.Black;
-            this.lblValueSubject.Location = new System.Drawing.Point(150, 110);
-            this.lblValueSubject.Text = "---";
-
-            // Degree
-            this.lblTitleDegree.AutoSize = true;
-            this.lblTitleDegree.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleDegree.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleDegree.Location = new System.Drawing.Point(30, 140);
-            this.lblTitleDegree.Text = "Degree:";
-
-            this.lblValueDegree.AutoSize = true;
-            this.lblValueDegree.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueDegree.ForeColor = System.Drawing.Color.Black;
-            this.lblValueDegree.Location = new System.Drawing.Point(150, 140);
-            this.lblValueDegree.Text = "---";
-
-            // Salary
-            this.lblTitleSalary.AutoSize = true;
-            this.lblTitleSalary.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleSalary.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleSalary.Location = new System.Drawing.Point(400, 50);
-            this.lblTitleSalary.Text = "Salary:";
-
-            this.lblValueSalary.AutoSize = true;
-            this.lblValueSalary.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueSalary.ForeColor = System.Drawing.Color.Green;
-            this.lblValueSalary.Location = new System.Drawing.Point(520, 50);
-            this.lblValueSalary.Text = "---";
-
-            // Start Date
-            this.lblTitleDate.AutoSize = true;
-            this.lblTitleDate.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleDate.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleDate.Location = new System.Drawing.Point(400, 80);
-            this.lblTitleDate.Text = "Start Date:";
-
-            this.lblValueDate.AutoSize = true;
-            this.lblValueDate.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueDate.ForeColor = System.Drawing.Color.Black;
-            this.lblValueDate.Location = new System.Drawing.Point(520, 80);
-            this.lblValueDate.Text = "---";
-
-            // Phone
-            this.lblTitlePhone.AutoSize = true;
-            this.lblTitlePhone.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitlePhone.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitlePhone.Location = new System.Drawing.Point(400, 110);
-            this.lblTitlePhone.Text = "Phone:";
-
-            this.lblValuePhone.AutoSize = true;
-            this.lblValuePhone.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValuePhone.ForeColor = System.Drawing.Color.Black;
-            this.lblValuePhone.Location = new System.Drawing.Point(520, 110);
-            this.lblValuePhone.Text = "---";
-
-            // Email
-            this.lblTitleEmail.AutoSize = true;
-            this.lblTitleEmail.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleEmail.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleEmail.Location = new System.Drawing.Point(400, 140);
-            this.lblTitleEmail.Text = "Email:";
-
-            this.lblValueEmail.AutoSize = true;
-            this.lblValueEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueEmail.ForeColor = System.Drawing.Color.Black;
-            this.lblValueEmail.Location = new System.Drawing.Point(520, 140);
-            this.lblValueEmail.Text = "---";
-
-            // Address
-            this.lblTitleAddress.AutoSize = true;
-            this.lblTitleAddress.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitleAddress.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTitleAddress.Location = new System.Drawing.Point(30, 200);
-            this.lblTitleAddress.Text = "Address:";
-
-            this.lblValueAddress.AutoSize = true;
-            this.lblValueAddress.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblValueAddress.ForeColor = System.Drawing.Color.Black;
-            this.lblValueAddress.Location = new System.Drawing.Point(150, 200);
-            this.lblValueAddress.Size = new System.Drawing.Size(500, 40);
-            this.lblValueAddress.Text = "---";
-
-
+            lblValueAddress.AutoSize = true;
+            lblValueAddress.Font = new Font("Segoe UI", 10F);
+            lblValueAddress.ForeColor = Color.Black;
+            lblValueAddress.Location = new Point(150, 200);
+            lblValueAddress.Name = "lblValueAddress";
+            lblValueAddress.Size = new Size(31, 23);
+            lblValueAddress.TabIndex = 0;
+            lblValueAddress.Text = "---";
+            // 
+            // lblTitleAddress
+            // 
+            lblTitleAddress.AutoSize = true;
+            lblTitleAddress.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleAddress.ForeColor = Color.DimGray;
+            lblTitleAddress.Location = new Point(30, 200);
+            lblTitleAddress.Name = "lblTitleAddress";
+            lblTitleAddress.Size = new Size(79, 23);
+            lblTitleAddress.TabIndex = 1;
+            lblTitleAddress.Text = "Address:";
+            // 
+            // lblValueDate
+            // 
+            lblValueDate.AutoSize = true;
+            lblValueDate.Font = new Font("Segoe UI", 10F);
+            lblValueDate.ForeColor = Color.Black;
+            lblValueDate.Location = new Point(520, 80);
+            lblValueDate.Name = "lblValueDate";
+            lblValueDate.Size = new Size(31, 23);
+            lblValueDate.TabIndex = 2;
+            lblValueDate.Text = "---";
+            // 
+            // lblTitleDate
+            // 
+            lblTitleDate.AutoSize = true;
+            lblTitleDate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleDate.ForeColor = Color.DimGray;
+            lblTitleDate.Location = new Point(400, 80);
+            lblTitleDate.Name = "lblTitleDate";
+            lblTitleDate.Size = new Size(98, 23);
+            lblTitleDate.TabIndex = 3;
+            lblTitleDate.Text = "Start Date:";
+            // 
+            // lblValueSalary
+            // 
+            lblValueSalary.AutoSize = true;
+            lblValueSalary.Font = new Font("Segoe UI", 10F);
+            lblValueSalary.ForeColor = Color.Green;
+            lblValueSalary.Location = new Point(520, 50);
+            lblValueSalary.Name = "lblValueSalary";
+            lblValueSalary.Size = new Size(31, 23);
+            lblValueSalary.TabIndex = 4;
+            lblValueSalary.Text = "---";
+            // 
+            // lblTitleSalary
+            // 
+            lblTitleSalary.AutoSize = true;
+            lblTitleSalary.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleSalary.ForeColor = Color.DimGray;
+            lblTitleSalary.Location = new Point(400, 50);
+            lblTitleSalary.Name = "lblTitleSalary";
+            lblTitleSalary.Size = new Size(65, 23);
+            lblTitleSalary.TabIndex = 5;
+            lblTitleSalary.Text = "Salary:";
+            // 
+            // lblValueEmail
+            // 
+            lblValueEmail.AutoSize = true;
+            lblValueEmail.Font = new Font("Segoe UI", 10F);
+            lblValueEmail.ForeColor = Color.Black;
+            lblValueEmail.Location = new Point(520, 140);
+            lblValueEmail.Name = "lblValueEmail";
+            lblValueEmail.Size = new Size(31, 23);
+            lblValueEmail.TabIndex = 6;
+            lblValueEmail.Text = "---";
+            // 
+            // lblTitleEmail
+            // 
+            lblTitleEmail.AutoSize = true;
+            lblTitleEmail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleEmail.ForeColor = Color.DimGray;
+            lblTitleEmail.Location = new Point(400, 140);
+            lblTitleEmail.Name = "lblTitleEmail";
+            lblTitleEmail.Size = new Size(59, 23);
+            lblTitleEmail.TabIndex = 7;
+            lblTitleEmail.Text = "Email:";
+            // 
+            // lblValuePhone
+            // 
+            lblValuePhone.AutoSize = true;
+            lblValuePhone.Font = new Font("Segoe UI", 10F);
+            lblValuePhone.ForeColor = Color.Black;
+            lblValuePhone.Location = new Point(520, 110);
+            lblValuePhone.Name = "lblValuePhone";
+            lblValuePhone.Size = new Size(31, 23);
+            lblValuePhone.TabIndex = 8;
+            lblValuePhone.Text = "---";
+            // 
+            // lblTitlePhone
+            // 
+            lblTitlePhone.AutoSize = true;
+            lblTitlePhone.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitlePhone.ForeColor = Color.DimGray;
+            lblTitlePhone.Location = new Point(400, 110);
+            lblTitlePhone.Name = "lblTitlePhone";
+            lblTitlePhone.Size = new Size(64, 23);
+            lblTitlePhone.TabIndex = 9;
+            lblTitlePhone.Text = "Phone:";
+            // 
+            // lblValueDegree
+            // 
+            lblValueDegree.AutoSize = true;
+            lblValueDegree.Font = new Font("Segoe UI", 10F);
+            lblValueDegree.ForeColor = Color.Black;
+            lblValueDegree.Location = new Point(150, 140);
+            lblValueDegree.Name = "lblValueDegree";
+            lblValueDegree.Size = new Size(31, 23);
+            lblValueDegree.TabIndex = 10;
+            lblValueDegree.Text = "---";
+            // 
+            // lblTitleDegree
+            // 
+            lblTitleDegree.AutoSize = true;
+            lblTitleDegree.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleDegree.ForeColor = Color.DimGray;
+            lblTitleDegree.Location = new Point(30, 140);
+            lblTitleDegree.Name = "lblTitleDegree";
+            lblTitleDegree.Size = new Size(73, 23);
+            lblTitleDegree.TabIndex = 11;
+            lblTitleDegree.Text = "Degree:";
+            // 
+            // lblValueSubject
+            // 
+            lblValueSubject.AutoSize = true;
+            lblValueSubject.Font = new Font("Segoe UI", 10F);
+            lblValueSubject.ForeColor = Color.Black;
+            lblValueSubject.Location = new Point(150, 110);
+            lblValueSubject.Name = "lblValueSubject";
+            lblValueSubject.Size = new Size(31, 23);
+            lblValueSubject.TabIndex = 12;
+            lblValueSubject.Text = "---";
+            // 
+            // lblTitleSubject
+            // 
+            lblTitleSubject.AutoSize = true;
+            lblTitleSubject.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleSubject.ForeColor = Color.DimGray;
+            lblTitleSubject.Location = new Point(30, 110);
+            lblTitleSubject.Name = "lblTitleSubject";
+            lblTitleSubject.Size = new Size(75, 23);
+            lblTitleSubject.TabIndex = 13;
+            lblTitleSubject.Text = "Subject:";
+            // 
+            // lblValueName
+            // 
+            lblValueName.AutoSize = true;
+            lblValueName.Font = new Font("Segoe UI", 10F);
+            lblValueName.ForeColor = Color.Black;
+            lblValueName.Location = new Point(150, 80);
+            lblValueName.Name = "lblValueName";
+            lblValueName.Size = new Size(31, 23);
+            lblValueName.TabIndex = 14;
+            lblValueName.Text = "---";
+            // 
+            // lblTitleName
+            // 
+            lblTitleName.AutoSize = true;
+            lblTitleName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleName.ForeColor = Color.DimGray;
+            lblTitleName.Location = new Point(30, 80);
+            lblTitleName.Name = "lblTitleName";
+            lblTitleName.Size = new Size(96, 23);
+            lblTitleName.TabIndex = 15;
+            lblTitleName.Text = "Full Name:";
+            // 
+            // lblValueID
+            // 
+            lblValueID.AutoSize = true;
+            lblValueID.Font = new Font("Segoe UI", 10F);
+            lblValueID.ForeColor = Color.Black;
+            lblValueID.Location = new Point(150, 50);
+            lblValueID.Name = "lblValueID";
+            lblValueID.Size = new Size(31, 23);
+            lblValueID.TabIndex = 16;
+            lblValueID.Text = "---";
+            // 
+            // lblTitleID
+            // 
+            lblTitleID.AutoSize = true;
+            lblTitleID.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTitleID.ForeColor = Color.DimGray;
+            lblTitleID.Location = new Point(30, 50);
+            lblTitleID.Name = "lblTitleID";
+            lblTitleID.Size = new Size(33, 23);
+            lblTitleID.TabIndex = 17;
+            lblTitleID.Text = "ID:";
             // 
             // SearchTeacherControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pnlResult);
-            this.Controls.Add(this.pnlSearchBox);
-            this.Controls.Add(this.pnlHeader);
-            this.Name = "SearchTeacherControl";
-            this.Size = new System.Drawing.Size(800, 600);
-
-            this.pnlHeader.ResumeLayout(false);
-            this.pnlHeader.PerformLayout();
-            this.pnlSearchBox.ResumeLayout(false);
-            this.pnlSearchBox.PerformLayout();
-            this.pnlResult.ResumeLayout(false);
-            this.grpDetails.ResumeLayout(false);
-            this.grpDetails.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(pnlResult);
+            Controls.Add(pnlSearchBox);
+            Controls.Add(pnlHeader);
+            Name = "SearchTeacherControl";
+            Size = new Size(800, 600);
+            pnlHeader.ResumeLayout(false);
+            pnlHeader.PerformLayout();
+            pnlSearchBox.ResumeLayout(false);
+            pnlSearchBox.PerformLayout();
+            pnlResult.ResumeLayout(false);
+            grpDetails.ResumeLayout(false);
+            grpDetails.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

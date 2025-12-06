@@ -1,3 +1,6 @@
+USE [SchoolManagementDB]
+GO
+
 -----------------------------------------
 -- 1) ≈÷«›… ⁄„Êœ CountryCode ·ÃœÊ· «·„œ‰
 -----------------------------------------
@@ -12,6 +15,10 @@ ALTER COLUMN CountryCode NVARCHAR(10) NOT NULL;
 
 -----------------------------------------
 -- 4) ≈÷«›… ﬁÌœ Foreign Key
+
+ALTER TABLE Cities 
+ALTER COLUMN CountryCode NCHAR(20);
+GO
 -----------------------------------------
 ALTER TABLE Cities
 ADD CONSTRAINT FK_Cities_Countries
@@ -21,6 +28,8 @@ ON DELETE CASCADE;
 GO
 
 
+
+DELETE FROM CITIES ;
 -----------------------------------------
 -- 5) ≈œŒ«· «·œÊ·
 -----------------------------------------

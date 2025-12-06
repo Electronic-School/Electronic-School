@@ -19,9 +19,9 @@ namespace SchoolSystem.Controls
             InitializeComponent();
             this.Load += TeacherGridUC_Load;
 
-            btnAdd.Click += btnAdd_Click;
-            btnEdit.Click += btnEdit_Click;
-            btnDelete.Click += btnDelete_Click;
+            //btnAdd.Click += btnAdd_Click;
+            //btnEdit.Click += btnEdit_Click;
+            //btnDelete.Click += btnDelete_Click;
         }
 
         private async void TeacherGridUC_Load(object sender, EventArgs e)

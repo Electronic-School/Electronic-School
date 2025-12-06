@@ -69,14 +69,12 @@ namespace SchoolSystem
 
         private void btnSidebarStudentManage_Click(object sender, EventArgs e)
         {
-            StudentForm frm = new StudentForm();
-            frm.ShowDialog();
+            LoadUserControl(new StudentFormUC());
         }
 
         private void btnSidebarTeacherManage_Click(object sender, EventArgs e)
         {
-            TeacherManagementUC teacherUC = new TeacherManagementUC();
-            LoadUserControl(teacherUC);
+            LoadUserControl(new TeacherFormUC());
         }
     }
 }

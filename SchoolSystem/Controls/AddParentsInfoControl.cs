@@ -99,7 +99,7 @@ namespace SchoolSystem.Controls
 
         private void InitializeDatePicker()
         {
-            dtpDateOfBirth.MinDate = new DateTime(1900, 1, 1);
+            dtpDateOfBirth.MinDate = new DateTime(1950, 1, 1);
             dtpDateOfBirth.MaxDate = DateTime.Today;
             dtpDateOfBirth.Value = DateTime.Today.AddYears(-30); // قيمة افتراضية: عمر 30 سنة
             dtpDateOfBirth.Format = DateTimePickerFormat.Short;
