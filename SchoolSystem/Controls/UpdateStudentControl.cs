@@ -144,7 +144,7 @@ namespace SchoolSystem.Controls
                         .Include(s => s.Location)
                         .Include(s => s.Parent)
                         .Include(s => s.StudentLevel)
-                        .FirstOrDefault(s => s.StudentsId == studentId);
+                        .FirstOrDefault(s => s.StudentId == studentId);
 
                     if (currentStudent == null)
                     {
@@ -212,7 +212,7 @@ namespace SchoolSystem.Controls
 
                 using (var context = new SchoolDbContext())
                 {
-                    var studentToUpdate = context.Students.Find(currentStudent.StudentsId);
+                    var studentToUpdate = context.Students.Find(currentStudent.StudentId);
 
                     if (studentToUpdate == null)
                     {

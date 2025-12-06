@@ -64,6 +64,7 @@
             pnlHeader = new Panel();
             lblTitle = new Label();
             pnlForm = new Panel();
+            cmbEducationDegree = new ComboBox();
             lblAgeHint = new Label();
             lblRequired = new Label();
             lblStatus = new Label();
@@ -90,7 +91,6 @@
             lblPhoneNumber = new Label();
             lblEmail = new Label();
             lblSocialStatus = new Label();
-            comboBox1 = new ComboBox();
             pnlHeader.SuspendLayout();
             pnlForm.SuspendLayout();
             SuspendLayout();
@@ -120,7 +120,7 @@
             // pnlForm
             // 
             pnlForm.AutoScroll = true;
-            pnlForm.Controls.Add(comboBox1);
+            pnlForm.Controls.Add(cmbEducationDegree);
             pnlForm.Controls.Add(lblAgeHint);
             pnlForm.Controls.Add(lblRequired);
             pnlForm.Controls.Add(lblStatus);
@@ -154,6 +154,16 @@
             pnlForm.Padding = new Padding(30, 25, 30, 25);
             pnlForm.Size = new Size(600, 723);
             pnlForm.TabIndex = 1;
+            // 
+            // cmbEducationDegree
+            // 
+            cmbEducationDegree.FlatStyle = FlatStyle.Flat;
+            cmbEducationDegree.FormattingEnabled = true;
+            cmbEducationDegree.Items.AddRange(new object[] { "Bachelor بكالوريوس", "            ", "Master's ماجستير", " " });
+            cmbEducationDegree.Location = new Point(190, 257);
+            cmbEducationDegree.Name = "cmbEducationDegree";
+            cmbEducationDegree.Size = new Size(370, 28);
+            cmbEducationDegree.TabIndex = 25;
             // 
             // lblAgeHint
             // 
@@ -417,16 +427,6 @@
             lblSocialStatus.TabIndex = 22;
             lblSocialStatus.Text = "Social Status:";
             // 
-            // comboBox1
-            // 
-            comboBox1.FlatStyle = FlatStyle.Flat;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Bachelor بكالوريوس", "            ", "Master's ماجستير", " " });
-            comboBox1.Location = new Point(190, 257);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(370, 28);
-            comboBox1.TabIndex = 25;
-            // 
             // AddTeacherControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -457,6 +457,6 @@
         }
         #endregion
 
-        private ComboBox comboBox1;
+        private ComboBox cmbEducationDegree;
     }
 }

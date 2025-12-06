@@ -280,6 +280,7 @@
             lblId.Size = new Size(100, 23);
             lblId.TabIndex = 16;
             lblId.Text = "Teacher ID:";
+            lblId.Click += lblId_Click;
             // 
             // lblFn
             // 

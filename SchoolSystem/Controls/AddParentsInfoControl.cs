@@ -115,7 +115,7 @@ namespace SchoolSystem.Controls
                 var parent = context.Parents
                     .Include(p => p.Location)
                     .AsNoTracking()
-                    .FirstOrDefault(p => p.ParentsID == _parentId);
+                    .FirstOrDefault(p => p.ParentId == _parentId);
 
                 if (parent != null)
                 {
@@ -224,8 +224,8 @@ namespace SchoolSystem.Controls
                     context.SaveChanges();
 
 
-                    ShowSuccessMessage(parent.ParentsID, "added");
-                    ParentCreated?.Invoke(parent.ParentsID);
+                    ShowSuccessMessage(parent.ParentId, "added");
+                    ParentCreated?.Invoke(parent.ParentId);
                 }
                 else
                 {

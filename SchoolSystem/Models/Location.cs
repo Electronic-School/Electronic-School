@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace SchoolSystem.Models
 {
@@ -16,29 +11,25 @@ namespace SchoolSystem.Models
 
         [Required]
         public int CountryId { get; set; }
+
         [ForeignKey("CountryId")]
-        public required Country Country { get; set; }
+        public Country Country { get; set; }
 
-        [Required]
         public int CityId { get; set; }
+        public City City { get; set; }
 
-        [ForeignKey("CityId")]
-        public required City City { get; set; }
-
-        [Required]
         [StringLength(50)]
         [Column(TypeName = "varchar(50)")]
-        public required string Street { get; set; }
+        public string Street { get; set; }
 
-        [Required]
         [StringLength(30)]
         [Column(TypeName = "varchar(30)")]
-        public required string BuildingNo { get; set; }
+        public string BuildingNo { get; set; }
 
-        public ICollection<Parent> Parents { get; set; } = new List<Parent>();
-        public ICollection<Student> Students { get; set; } = new List<Student>();
-        public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+        
         public ICollection<Employee> Employees { get; set; } = new List<Employee>();
-
+        public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public ICollection<Student> Students { get; set; } = new List<Student>();
+        public ICollection<Parent> Parents { get; set; } = new List<Parent>();
     }
 }

@@ -70,9 +70,9 @@ namespace SchoolSystem.Controls
             txtLastName.BorderStyle = BorderStyle.FixedSingle;
             txtLastName.Font = new Font("Segoe UI", 10);
 
-            txtEducationDegree.BackColor = Color.White;
-            txtEducationDegree.BorderStyle = BorderStyle.FixedSingle;
-            txtEducationDegree.Font = new Font("Segoe UI", 10);
+            //txtEducationDegree.BackColor = Color.White;
+            //txtEducationDegree.BorderStyle = BorderStyle.FixedSingle;
+            //txtEducationDegree.Font = new Font("Segoe UI", 10);
 
             txtTeachingSubject.BackColor = Color.White;
             txtTeachingSubject.BorderStyle = BorderStyle.FixedSingle;
@@ -120,7 +120,7 @@ namespace SchoolSystem.Controls
             toolTip.SetToolTip(txtLastName, "Enter teacher's last name");
             toolTip.SetToolTip(dtpDateOfBirth, "Select teacher's date of birth");
             toolTip.SetToolTip(btnAddLocation, "Add location details");
-            toolTip.SetToolTip(txtEducationDegree, "Enter teacher's education degree");
+            toolTip.SetToolTip(cmbEducationDegree, "Enter teacher's education degree");
             toolTip.SetToolTip(txtTeachingSubject, "Enter the subject the teacher teaches");
             toolTip.SetToolTip(txtPhoneNumber, "Enter teacher's phone number");
             toolTip.SetToolTip(txtEmail, "Enter teacher's email address");
@@ -234,7 +234,7 @@ namespace SchoolSystem.Controls
         {
 
             if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text) ||
-                string.IsNullOrWhiteSpace(txtEducationDegree.Text) || string.IsNullOrWhiteSpace(txtTeachingSubject.Text) ||
+                string.IsNullOrWhiteSpace(cmbEducationDegree.Text) || string.IsNullOrWhiteSpace(txtTeachingSubject.Text) ||
                 string.IsNullOrWhiteSpace(txtEmail.Text) || string.IsNullOrWhiteSpace(txtPhoneNumber.Text))
             {
                 ShowStatusMessage("Please fill all required text fields.", ErrorColor);
