@@ -44,7 +44,7 @@ namespace SchoolSystem.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Table names (optional, for clarity)
+            // Table names
             modelBuilder.Entity<Student>().ToTable("Students");
             modelBuilder.Entity<Teacher>().ToTable("Teachers");
             modelBuilder.Entity<Parent>().ToTable("Parents");
@@ -85,7 +85,7 @@ namespace SchoolSystem.Data
             // Student - Location
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Location)
-                .WithMany()
+                .WithMany(l => l.Students)  // مهم: ربط مع ICollection<Student> في Location
                 .HasForeignKey(s => s.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -108,6 +108,7 @@ namespace SchoolSystem.Data
                 .HasOne(t => t.Location)
                 .WithMany(l => l.Teachers)
                 .HasForeignKey(t => t.LocationId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
             // Employee - Location (optional)
@@ -115,13 +116,7 @@ namespace SchoolSystem.Data
                 .HasOne(e => e.Location)
                 .WithMany(l => l.Employees)
                 .HasForeignKey(e => e.LocationId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            // Activity - Employee (Supervisor) optional
-            modelBuilder.Entity<Activity>()
-                .HasOne(a => a.Supervisor)
-                .WithMany(e => e.ActivitiesSupervised)
-                .HasForeignKey(a => a.SupervisorId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
             // Course - Curriculum
@@ -136,6 +131,7 @@ namespace SchoolSystem.Data
                 .HasOne(c => c.Teacher)
                 .WithMany(t => t.Courses)
                 .HasForeignKey(c => c.TeacherId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
             // StudentCourseEnrollment relations
@@ -190,7 +186,7 @@ namespace SchoolSystem.Data
             modelBuilder.Entity<Course>()
                 .HasCheckConstraint("CK_Course_Dates", "[StartDate] <= [EndDate] OR [StartDate] IS NULL OR [EndDate] IS NULL");
 
-            // ---------- Seed data (countries, cities, levels, curricula, sample teacher, courses) ----------
+            // ---------- Seed data ----------
             modelBuilder.Entity<Country>().HasData(
                 new Country { CountryId = 1, CountryCode = "SAU", CountryName = "Saudi Arabia" },
                 new Country { CountryId = 2, CountryCode = "ARE", CountryName = "United Arab Emirates" },
@@ -201,7 +197,6 @@ namespace SchoolSystem.Data
                 new Country { CountryId = 7, CountryCode = "YEM", CountryName = "Yemen" }
             );
 
-            // Cities (CountryCode only, not FK)
             modelBuilder.Entity<City>().HasData(
                 new City { CityId = 1, CityCode = "SA-RYD", CityName = "Riyadh", CountryCode = "SAU" },
                 new City { CityId = 2, CityCode = "SA-JED", CityName = "Jeddah", CountryCode = "SAU" },
@@ -215,7 +210,7 @@ namespace SchoolSystem.Data
                 new City { CityId = 10, CityCode = "YE-ADN", CityName = "Aden", CountryCode = "YEM" }
             );
 
-            // Student levels 1..12
+            // Student levels
             var levels = Enumerable.Range(1, 12).Select(i => new StudentLevel
             {
                 LevelId = i,
@@ -225,12 +220,43 @@ namespace SchoolSystem.Data
             }).ToArray();
             modelBuilder.Entity<StudentLevel>().HasData(levels);
 
-            // Seed a sample location (used for teacher seed)
+            // Location seed
             modelBuilder.Entity<Location>().HasData(
                 new Location { LocationId = 1, CountryId = 1, CityId = 1, Street = "Default St", BuildingNo = "1" }
             );
 
-            // Curriculums (one per level)
+            // Parent seed (مهم للطلاب)
+            modelBuilder.Entity<Parent>().HasData(
+                new Parent
+                {
+                    ParentId = 1,
+                    FirstName = "Default",
+                    LastName = "Parent",
+                    Email = "parent@school.com",
+                    PhoneNumber = "0987654321",
+                    LocationId = 1
+                }
+            );
+
+            // Teacher seed (مهم للدورات)
+            //modelBuilder.Entity<Teacher>().HasData(
+            //    new Teacher
+            //    {
+            //        TeacherId = 1,
+            //        FirstName = "Default",
+            //        LastName = "Teacher",
+            //        Email = "teacher@school.com",
+            //        PhoneNumber = "1234567890",
+            //        EducationDegree = "Master",
+            //        TeachingSubject = "Mathematics",
+            //        StartWorkingDate = DateTime.Now.AddYears(-5),
+            //        NumberOfVacations = 15,
+            //        SocialStatus = "Married",
+            //        LocationId = 1
+            //    }
+            //);
+
+            // Curriculums
             var curricula = Enumerable.Range(1, 12).Select(i => new Curriculum
             {
                 CurriculumId = 100 + i,
@@ -241,26 +267,26 @@ namespace SchoolSystem.Data
             }).ToArray();
             modelBuilder.Entity<Curriculum>().HasData(curricula);
 
-            // Courses per level (basic set)
-            var subjects = new[] { "Arabic", "Mathematics", "Science", "English", "Islamic", "Social Studies", "Computer", "Physical Education", "Art" };
-            var courseSeeds = new List<Course>();
-            int courseId = 1000;
-            foreach (var lvl in Enumerable.Range(1, 12))
-            {
-                foreach (var subj in subjects)
-                {
-                    courseSeeds.Add(new Course
-                    {
-                        CourseId = courseId++,
-                        Name = $"{subj} - Grade {lvl}",
-                        Description = $"{subj} for Grade {lvl}",
-                        StartDate = DateTime.Now,
-                        CurriculumId = 100 + lvl,
-                        TeacherId = 1
-                    });
-                }
-            }
-            modelBuilder.Entity<Course>().HasData(courseSeeds.ToArray());
+            // Courses
+            //var subjects = new[] { "Arabic", "Mathematics", "Science", "English", "Islamic", "Social Studies", "Computer", "Physical Education", "Art" };
+            //var courseSeeds = new List<Course>();
+            //int courseId = 1000;
+            //foreach (var lvl in Enumerable.Range(1, 12))
+            //{
+            //    foreach (var subj in subjects)
+            //    {
+            //        courseSeeds.Add(new Course
+            //        {
+            //            CourseId = courseId++,
+            //            Name = $"{subj} - Grade {lvl}",
+            //            Description = $"{subj} for Grade {lvl}",
+            //            StartDate = DateTime.Now,
+            //            CurriculumId = 100 + lvl,
+            //            TeacherId = 1  // الآن TeacherId = 1 موجود
+            //        });
+            //    }
+            //}
+            //modelBuilder.Entity<Course>().HasData(courseSeeds.ToArray());
 
             base.OnModelCreating(modelBuilder);
         }
