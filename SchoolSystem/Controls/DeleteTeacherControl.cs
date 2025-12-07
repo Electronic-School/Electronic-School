@@ -36,9 +36,9 @@ namespace SchoolSystem.Controls
             StyleTextBox(txtFirstName, true);
             StyleTextBox(txtLastName, true);
             StyleTextBox(txtLocation, true);
-            StyleTextBox(txtSubject, true);      // بدلاً من Level
-            StyleTextBox(txtDegree, true);       // بدلاً من Parent
-            StyleTextBox(txtEmail, true);        // حقل إضافي
+            StyleTextBox(txtSubject, true);      
+            StyleTextBox(txtDegree, true);       
+            StyleTextBox(txtEmail, true);        
 
             // تصميم DatePicker
             dtpDob.Font = new Font("Segoe UI", 10);

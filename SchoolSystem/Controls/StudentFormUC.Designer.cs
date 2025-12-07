@@ -57,6 +57,7 @@
             pnlSidebar.Controls.Add(btnSearch);
             pnlSidebar.Controls.Add(btnShowAll);
             pnlSidebar.Dock = DockStyle.Left;
+            pnlSidebar.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             pnlSidebar.Location = new Point(0, 71);
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(262, 732);
@@ -65,9 +66,9 @@
             // btnDelete
             // 
             btnDelete.Dock = DockStyle.Top;
-            btnDelete.Location = new Point(0, 192);
+            btnDelete.Location = new Point(0, 280);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(262, 49);
+            btnDelete.Size = new Size(262, 70);
             btnDelete.TabIndex = 0;
             btnDelete.Text = "Delete Student";
             btnDelete.Click += btnDelete_Click;
@@ -75,9 +76,9 @@
             // btnEdit
             // 
             btnEdit.Dock = DockStyle.Top;
-            btnEdit.Location = new Point(0, 145);
+            btnEdit.Location = new Point(0, 210);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(262, 47);
+            btnEdit.Size = new Size(262, 70);
             btnEdit.TabIndex = 1;
             btnEdit.Text = "Edit Student";
             btnEdit.Click += btnEdit_Click;
@@ -85,9 +86,9 @@
             // btnAdd
             // 
             btnAdd.Dock = DockStyle.Top;
-            btnAdd.Location = new Point(0, 99);
+            btnAdd.Location = new Point(0, 140);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(262, 46);
+            btnAdd.Size = new Size(262, 70);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add Student";
             btnAdd.Click += btnAdd_Click;
@@ -95,9 +96,9 @@
             // btnSearch
             // 
             btnSearch.Dock = DockStyle.Top;
-            btnSearch.Location = new Point(0, 50);
+            btnSearch.Location = new Point(0, 70);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(262, 49);
+            btnSearch.Size = new Size(262, 70);
             btnSearch.TabIndex = 3;
             btnSearch.Text = "Search Student By ID";
             btnSearch.Click += btnSearch_Click;
@@ -107,7 +108,7 @@
             btnShowAll.Dock = DockStyle.Top;
             btnShowAll.Location = new Point(0, 0);
             btnShowAll.Name = "btnShowAll";
-            btnShowAll.Size = new Size(262, 50);
+            btnShowAll.Size = new Size(262, 70);
             btnShowAll.TabIndex = 4;
             btnShowAll.Text = "Show All Students";
             btnShowAll.Click += btnShowAll_Click;

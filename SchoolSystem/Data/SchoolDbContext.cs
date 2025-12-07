@@ -8,7 +8,8 @@ namespace SchoolSystem.Data
 {
     public class SchoolDbContext : DbContext
     {
-        private const string ConnectionString = "Server=.; Database=SchoolManagementDB; Trusted_Connection=True; Integrated Security=True; TrustServerCertificate=True; MultipleActiveResultSets=true;";
+
+        private const string ConnectionString = "Server=.; Database=TariqBenZiadSchoolManagementDB; Trusted_Connection=True; Integrated Security=True; TrustServerCertificate=True; MultipleActiveResultSets=true;";
 
         public SchoolDbContext()
         {
@@ -85,7 +86,7 @@ namespace SchoolSystem.Data
             // Student - Location
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Location)
-                .WithMany()
+                .WithMany(l => l.Students )
                 .HasForeignKey(s => s.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -214,6 +215,7 @@ namespace SchoolSystem.Data
                 new City { CityId = 9, CityCode = "YE-SAN", CityName = "Sana'a", CountryCode = "YEM" },
                 new City { CityId = 10, CityCode = "YE-ADN", CityName = "Aden", CountryCode = "YEM" }
             );
+            //
 
             // Student levels 1..12
             var levels = Enumerable.Range(1, 12).Select(i => new StudentLevel
@@ -225,10 +227,26 @@ namespace SchoolSystem.Data
             }).ToArray();
             modelBuilder.Entity<StudentLevel>().HasData(levels);
 
+
             // Seed a sample location (used for teacher seed)
             modelBuilder.Entity<Location>().HasData(
                 new Location { LocationId = 1, CountryId = 1, CityId = 1, Street = "Default St", BuildingNo = "1" }
             );
+
+            modelBuilder.Entity<Teacher>().HasData(
+    new Teacher
+    {
+        TeacherId = 1,
+        FirstName = "Ali",
+        LastName = "Ahmed",
+        Email = "ali.ahmed@school.com",
+        DateOfBirth = new DateTime(1985, 5, 10),
+        StartWorkingDate = new DateTime(2020, 9, 1),
+        LocationId = 1,
+        PhoneNumber = "555123456",
+        Salary = 4000.00m 
+    }
+);
 
             // Curriculums (one per level)
             var curricula = Enumerable.Range(1, 12).Select(i => new Curriculum

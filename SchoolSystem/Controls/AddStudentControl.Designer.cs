@@ -139,7 +139,7 @@
             lblLevelError.AutoSize = true;
             lblLevelError.Font = new Font("Segoe UI", 8F);
             lblLevelError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblLevelError.Location = new Point(180, 220);
+            lblLevelError.Location = new Point(180, 204);
             lblLevelError.Name = "lblLevelError";
             lblLevelError.Size = new Size(0, 19);
             lblLevelError.TabIndex = 21;
@@ -161,7 +161,7 @@
             lblLocationError.AutoSize = true;
             lblLocationError.Font = new Font("Segoe UI", 8F);
             lblLocationError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblLocationError.Location = new Point(180, 330);
+            lblLocationError.Location = new Point(180, 305);
             lblLocationError.Name = "lblLocationError";
             lblLocationError.Size = new Size(0, 19);
             lblLocationError.TabIndex = 19;
@@ -183,7 +183,7 @@
             lblLastNameError.AutoSize = true;
             lblLastNameError.Font = new Font("Segoe UI", 8F);
             lblLastNameError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblLastNameError.Location = new Point(180, 70);
+            lblLastNameError.Location = new Point(180, 64);
             lblLastNameError.Name = "lblLastNameError";
             lblLastNameError.Size = new Size(0, 19);
             lblLastNameError.TabIndex = 17;
@@ -194,7 +194,7 @@
             lblFirstNameError.AutoSize = true;
             lblFirstNameError.Font = new Font("Segoe UI", 8F);
             lblFirstNameError.ForeColor = Color.FromArgb(231, 76, 60);
-            lblFirstNameError.Location = new Point(30, 70);
+            lblFirstNameError.Location = new Point(180, 127);
             lblFirstNameError.Name = "lblFirstNameError";
             lblFirstNameError.Size = new Size(0, 19);
             lblFirstNameError.TabIndex = 16;
@@ -216,7 +216,7 @@
             lblLocationStatus.AutoSize = true;
             lblLocationStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblLocationStatus.ForeColor = Color.FromArgb(39, 174, 96);
-            lblLocationStatus.Location = new Point(370, 340);
+            lblLocationStatus.Location = new Point(200, 343);
             lblLocationStatus.Name = "lblLocationStatus";
             lblLocationStatus.Size = new Size(0, 20);
             lblLocationStatus.TabIndex = 14;

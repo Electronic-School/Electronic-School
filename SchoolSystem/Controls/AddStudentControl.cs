@@ -330,7 +330,7 @@ namespace SchoolSystem.Controls
                             LastName = txtLastName.Text.Trim(),
                             DateOfBirth = dtpDateOfBirth.Value.Date,
 
-                            
+
                             LocationId = selectedLocationId,
                             ParentId = selectedParentId,
                             LevelId = selectedLevelId,
