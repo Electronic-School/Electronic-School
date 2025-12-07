@@ -72,7 +72,7 @@ namespace SchoolSystem.Controls
         private void InitializeDatePicker()
         {
             dtpDob.Format = DateTimePickerFormat.Short;
-            dtpDob.MinDate = new DateTime(1900, 1, 1);
+            dtpDob.MinDate = new DateTime(1950, 1, 1);
             dtpDob.MaxDate = DateTime.Today;
         }
 

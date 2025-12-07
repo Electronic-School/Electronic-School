@@ -23,7 +23,7 @@ namespace SchoolSystem.Models
         // Teacher optional (nullable FK to ease seeding)
         public int? TeacherId { get; set; }
 
-        [ForeignKey("TeacherId")]
+        //[ForeignKey("TeacherId")]
         public Teacher Teacher { get; set; }
 
         // Curriculum required

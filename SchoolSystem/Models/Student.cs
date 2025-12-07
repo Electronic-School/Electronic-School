@@ -18,25 +18,21 @@ namespace SchoolSystem.Models
 
         public DateTime? DateOfBirth { get; set; }
 
-        // Location required
-        [Required]
         public int LocationId { get; set; }
 
-        [ForeignKey("LocationId")]
+        [InverseProperty("Students")]
         public Location Location { get; set; }
 
         // Parent required
-        [Required]
+        required
         public int ParentId { get; set; }
 
-        [ForeignKey("ParentId")]
         public Parent Parent { get; set; }
 
         // Level required
-        [Required]
+        required
         public int LevelId { get; set; }
 
-        [ForeignKey("LevelId")]
         public StudentLevel StudentLevel { get; set; }
 
         public ICollection<StudentGrade> Grades { get; set; } = new List<StudentGrade>();

@@ -21,7 +21,6 @@ namespace SchoolSystem.Models
         // Location optional
         public int? LocationId { get; set; }
 
-        [ForeignKey("LocationId")]
         public Location Location { get; set; }
 
         [StringLength(15)]

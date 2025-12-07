@@ -20,10 +20,10 @@ namespace SchoolSystem.Models
         [StringLength(50)]
         public string FinalGrade { get; set; }
 
-        [ForeignKey("StudentId")]
+        //[ForeignKey("StudentId")]
         public Student Student { get; set; }
 
-        [ForeignKey("CourseId")]
+        //[ForeignKey("CourseId")]
         public Course Course { get; set; }
     }
 }

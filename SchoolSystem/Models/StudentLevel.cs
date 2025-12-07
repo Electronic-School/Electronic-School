@@ -21,6 +21,5 @@ namespace SchoolSystem.Models
 
         public ICollection<Student> Students { get; set; } = new List<Student>();
         public ICollection<Curriculum> Curriculums { get; set; } = new List<Curriculum>();
-        public ICollection<Course> Courses { get; set; } = new List<Course>();
     }
 }

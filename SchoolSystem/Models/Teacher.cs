@@ -21,7 +21,6 @@ namespace SchoolSystem.Models
         // Location optional (حتى لا يكسر seeding)
         public int? LocationId { get; set; }
 
-        [ForeignKey("LocationId")]
         public Location Location { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]

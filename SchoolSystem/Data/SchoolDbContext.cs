@@ -8,7 +8,7 @@ namespace SchoolSystem.Data
 {
     public class SchoolDbContext : DbContext
     {
-        private const string ConnectionString = "Server=.; Database=SchoolManagementDB; Trusted_Connection=True; Integrated Security=True; TrustServerCertificate=True; MultipleActiveResultSets=true;";
+        private const string ConnectionString = "Server='.'; Database=SchoolManagementDB1; Trusted_Connection=True; Integrated Security=True; TrustServerCertificate=True; MultipleActiveResultSets=true;";
 
         public SchoolDbContext()
         {
@@ -103,6 +103,13 @@ namespace SchoolSystem.Data
                 .HasForeignKey(l => l.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //Location - City
+            modelBuilder.Entity<Location>()
+                .HasOne(l => l.City)
+                .WithMany()
+                .HasForeignKey(l => l.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // Teacher - Location (optional)
             modelBuilder.Entity<Teacher>()
                 .HasOne(t => t.Location)
@@ -129,6 +136,13 @@ namespace SchoolSystem.Data
                 .HasOne(c => c.Curriculum)
                 .WithMany(curr => curr.Courses)
                 .HasForeignKey(c => c.CurriculumId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Cuuriculum - StudentLevel
+            modelBuilder.Entity<Curriculum>()
+                .HasOne(curr => curr.StudentLevel)
+                .WithMany(sl => sl.Curriculums)
+                .HasForeignKey(curr => curr.LevelId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Course - Teacher (optional)

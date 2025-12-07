@@ -19,12 +19,13 @@ namespace SchoolSystem.Models
         [Required]
         public int LevelId { get; set; }
 
-        [ForeignKey("LevelId")]
+        //[ForeignKey("LevelId")]
         public StudentLevel StudentLevel { get; set; }
 
         [StringLength(20)]
         public string Semester { get; set; }
 
         public ICollection<Course> Courses { get; set; } = new List<Course>();
+        public ICollection<StudentLevel> StudentsLevel { get; set;} = new List<StudentLevel>();
     }
 }

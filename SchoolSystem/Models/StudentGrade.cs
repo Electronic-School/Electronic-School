@@ -18,10 +18,8 @@ namespace SchoolSystem.Models
         [Column(TypeName = "decimal(5, 2)")]
         public decimal? Mark { get; set; }
 
-        [ForeignKey("StudentId")]
         public Student Student { get; set; }
 
-        [ForeignKey("CourseId")]
         public Course Course { get; set; }
     }
 }

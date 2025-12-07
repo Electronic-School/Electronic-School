@@ -7,14 +7,14 @@ namespace SchoolSystem.Models
     public class Location
     {
         [Key]
-        public int LocationId { get; set; }
+        public int LocationId {get; set; }
 
         [Required]
         public int CountryId { get; set; }
 
-        [ForeignKey("CountryId")]
         public Country Country { get; set; }
-
+        
+        //required
         public int CityId { get; set; }
         public City City { get; set; }
 
