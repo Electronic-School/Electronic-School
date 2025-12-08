@@ -40,20 +40,21 @@ namespace SchoolSystem.Controls
                 {
                     var teachers = await context.Teachers
                         .Include(t => t.Location)
-                         .Select(t => new
-                         {
-                             t.TeacherId,
-                             Name = t.FirstName + " " + t.LastName,
-                             t.DateOfBirth,
-                             t.Salary,
-                             Education = t.EducationDegree,
-                             Subject = t.TeachingSubject,
-                             t.StartWorkingDate,
-                             Vacations = t.NumberOfVacations,
-                             Phone = t.PhoneNumber,
-                             Email = t.Email,
-                             Status = t.SocialStatus
-                         })
+                        .Where(t => !t.FirstName.Contains("Default") && !t.LastName.Contains("Teacher")) // هنا الشرط
+                        .Select(t => new
+                        {
+                            t.TeacherId,
+                            Name = t.FirstName + " " + t.LastName,
+                            t.DateOfBirth,
+                            t.Salary,
+                            Education = t.EducationDegree,
+                            Subject = t.TeachingSubject,
+                            t.StartWorkingDate,
+                            Vacations = t.NumberOfVacations,
+                            Phone = t.PhoneNumber,
+                            Email = t.Email,
+                            Status = t.SocialStatus
+                        })
                         .ToListAsync();
 
                     dgvTeachers.DataSource = teachers;
